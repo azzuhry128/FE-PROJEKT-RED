@@ -20,6 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 from dotenv import load_dotenv
 load_dotenv()
 
+# timedelta
+from datetime import timedelta
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +58,25 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+}
+
+SIMPLEJWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ALGORITHM': 'HS256',
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'SIGNING_KEY': str(os.getenv('JWT_SECRET_KEY')),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'USER_ID_FIELD': 'pk',
+    
+    
+}
 
 ROOT_URLCONF = 'server.urls'
 
@@ -120,6 +143,16 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+# CSRF
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
+SECURE_HSTS_SECONDS = os.getenv('SECURE_HSTS_SECONDS')
+SECURE_HSTS_INCLUDE_SUBDOMAINS = os.getenv('SECURE_HSTS_INCLUDE_SUBDOMAINS')
+SECURE_HSTS_PRELOAD = os.getenv('SECURE_HSTS_PRELOAD')
+CSRF_COOKIE_SECURE = os.getenv('CSRF_COOKIE_SECURE')
+SESSION_COOKIE_SECURE = os.getenv('SESSION_COOKIE_SECURE')
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000/']
+ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS.copy()
 
 
 # Static files (CSS, JavaScript, Images)

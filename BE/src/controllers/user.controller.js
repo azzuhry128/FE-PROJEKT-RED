@@ -1,3 +1,5 @@
+//! SIAPAPUN YANG BERANI NGUSIK INI CONTROLLER, GUA BACOK LO!!!!!
+
 const {
   getAllUser, getUserByUserId, storeUser, updateUser, destroyUser,
 } = require('../services/user.service');

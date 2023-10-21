@@ -10,3 +10,5 @@ router.use('/accounts', accountRoutes);
 router.get('/', (req, res) => { res.send('<h1>THIS IS API BLYAT!!!!</h1>'); });
 
 module.exports = router;
+
+//! SIAPAPUN YANG BERANI NGUSIK INI CODE, GUA BACOK LO!!!!!

@@ -6,13 +6,14 @@ async function getAllUser() {
     const userData = await User.findAll();
     return userData;
   } catch (error) {
-    // eslint-disable-next-line no-throw-literal
-    throw {
+    const errors = {
       success: false,
       code: 400,
       message: 'Failed to fetch user data',
       errors: error,
     };
+
+    throw errors;
   }
 }
 
@@ -26,13 +27,14 @@ async function getUserByUserId(userId) {
 
     return userData;
   } catch (error) {
-    // eslint-disable-next-line no-throw-literal
-    throw {
+    const errors = {
       success: false,
       code: 400,
       message: 'Failed to fetch user data',
       errors: error,
     };
+
+    throw errors;
   }
 }
 
@@ -41,13 +43,14 @@ async function storeUser(userData) {
     await User.create(userData);
     return null;
   } catch (error) {
-    // eslint-disable-next-line no-throw-literal
-    throw {
+    const errors = {
       success: false,
       code: 400,
       message: 'Failed to store user data',
       errors: error,
     };
+
+    throw errors;
   }
 }
 
@@ -56,13 +59,14 @@ async function updateUser(userInput, userData) {
     await userData.update(userInput);
     return null;
   } catch (error) {
-    // eslint-disable-next-line no-throw-literal
-    throw {
+    const errors = {
       success: false,
       code: 400,
       message: 'Failed to update user data',
       errors: error,
     };
+
+    throw errors;
   }
 }
 
@@ -71,13 +75,14 @@ async function destroyUser(userData) {
     await userData.destroy();
     return null;
   } catch (error) {
-    // eslint-disable-next-line no-throw-literal
-    throw {
+    const errors = {
       success: false,
       code: 400,
       message: 'Failed to delete user data',
       errors: error,
     };
+
+    throw errors;
   }
 }
 

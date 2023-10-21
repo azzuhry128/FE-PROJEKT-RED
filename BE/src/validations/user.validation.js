@@ -8,12 +8,13 @@ async function validateGetUser(data) {
 
     return data;
   } catch (error) {
-    // eslint-disable-next-line no-throw-literal
-    throw {
+    const errors = {
       success: false,
       code: error.code || 400,
       message: error.message || 'Validate User Failed',
     };
+
+    throw errors;
   }
 }
 

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "nama_database",
+    "host": "nama url, contoh: localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "nama_database",
+    "host": "nama url, contoh: localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "nama_database",
+    "host": "nama url, contoh: localhost",
+    "dialect": "mysql"
+  }
+}

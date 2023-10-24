@@ -105,9 +105,9 @@ exports.editAccount = async (req, res) => {
 
 exports.deleteAccount = async (req, res) => {
   try {
-    const { username } = req.params;
+    const { accountId } = req.params;
 
-    const accountData = await getAccountByUsername(username);
+    const accountData = await getAccountByAccountId(accountId);
 
     await validateGetAccount(accountData);
 

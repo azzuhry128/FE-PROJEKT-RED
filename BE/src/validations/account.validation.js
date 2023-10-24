@@ -31,7 +31,7 @@ async function validateAccountInfo(req) {
   }
 }
 
-async function validateGetAccount(data) {
+async function validateGetAccount(accountdata) {
   try {
   } catch (error) {
   }

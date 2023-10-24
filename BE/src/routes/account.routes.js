@@ -9,7 +9,7 @@ router.get('/', fetchAllAccount);
 router.get('/:username', fetchAccountByUsername);
 router.post('/', createAccount);
 router.put('/:accountId', editAccount);
-router.delete('/:username', deleteAccount);
+router.delete('/:accountId', deleteAccount);
 
 module.exports = router;
 

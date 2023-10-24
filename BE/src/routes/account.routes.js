@@ -8,7 +8,7 @@ const {
 router.get('/', fetchAllAccount);
 router.get('/:username', fetchAccountByUsername);
 router.post('/', createAccount);
-router.put('/:username', editAccount);
+router.put('/:accountId', editAccount);
 router.delete('/:username', deleteAccount);
 
 module.exports = router;

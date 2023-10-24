@@ -7,6 +7,12 @@ async function getAllAccount() {
   }
 }
 
+async function getAccountByAccountId(account_id) {
+  try {
+  } catch (error) {
+  }
+}
+
 async function getAccountByUsername(username) {
   try {
   } catch (error) {
@@ -33,6 +39,7 @@ async function destroyAccount(accountData) {
 
 module.exports = {
   getAllAccount,
+  getAccountByAccountId,
   getAccountByUsername,
   storeAccount,
   updateAccount,

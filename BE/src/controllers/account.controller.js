@@ -1,10 +1,19 @@
 //! SIAPAPUN YANG BERANI NGUSIK INI CONTROLLER, GUA BACOK LO!!!!!
 
 const {
-  getAllAccount, getAccountByUsername, storeAccount, updateAccount, destroyAccount,
+  getAllAccount,
+  getAccountByUsername,
+  getAccountByAccountId,
+  storeAccount,
+  updateAccount,
+  destroyAccount,
 } = require('../services/account.service');
+
 const {
-  validateGetAccount, validateCreateAccount, validateEditAccount,
+  validateAccountInfo,
+  validateGetAccount,
+  validateCreateAccount,
+  validateEditAccount,
 } = require('../validations/account.validation');
 
 exports.fetchAllAccount = async (req, res) => {
@@ -47,6 +56,8 @@ exports.createAccount = async (req, res) => {
   try {
     const accountInput = req.body;
 
+    await validateAccountInfo(req);
+
     const accountExists = await getAccountByUsername(accountInput.username);
 
     const accountData = await validateCreateAccount(accountInput, accountExists);
@@ -66,10 +77,16 @@ exports.createAccount = async (req, res) => {
 
 exports.editAccount = async (req, res) => {
   try {
-    const { username } = req.params;
+    const { accountId } = req.params;
     const accountInput = req.body;
 
-    const accountData = await getAccountByUsername(username);
+    await validateAccountInfo(req);
+
+    const accountDataById = await getAccountByAccountId(accountId);
+
+    await validateGetAccount(accountDataById);
+
+    const accountData = await getAccountByUsername(accountInput.username);
 
     await validateEditAccount(accountInput, accountData);
 
@@ -91,6 +108,8 @@ exports.deleteAccount = async (req, res) => {
     const { username } = req.params;
 
     const accountData = await getAccountByUsername(username);
+
+    await validateGetAccount(accountData);
 
     // await validateDeleteAccount(accountData);
 

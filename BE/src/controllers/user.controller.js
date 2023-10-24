@@ -4,7 +4,7 @@ const {
   getAllUser, getUserByUserId, storeUser, updateUser, destroyUser,
 } = require('../services/user.service');
 const {
-  validateGetUser, validateCreateUser, validateEditUser,
+  validateUserInfo, validateGetUser, validateCreateUser, validateEditUser,
 } = require('../validations/user.validation');
 
 exports.fetchAllUser = async (req, res) => {
@@ -47,6 +47,8 @@ exports.createUser = async (req, res) => {
   try {
     const userInput = req.body;
 
+    await validateUserInfo(req);
+
     const userExists = await getUserByUserId(userInput.user_id);
 
     const userData = await validateCreateUser(userInput, userExists);
@@ -57,7 +59,7 @@ exports.createUser = async (req, res) => {
       success: true,
       code: 200,
       message: 'User created',
-      data: userData,
+      // data: userData,
     });
   } catch (error) {
     return res.json(error);

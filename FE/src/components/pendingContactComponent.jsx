@@ -1,7 +1,7 @@
 import { AddIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { Box, Container, Flex, Icon, Text } from "@chakra-ui/react";
 
-export function PendingMessageComponent(props) {
+export function PendingContactComponent(props) {
     return (
       <>
       <Box padding="2">

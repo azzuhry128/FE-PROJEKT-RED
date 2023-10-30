@@ -54,22 +54,22 @@ async function validateCreateUser(userInput, userExists) {
   }
 }
 
-async function validateEditUser(userInput, userData) {
+async function validateEditUser(userInput, userData, userExistsByEmail) {
   try {
   } catch (error) {
   }
 }
 
-async function validateDeleteUser(userData) {
-  try {
-  } catch (error) {
-  }
-}
+// async function validateDeleteUser(userData) {
+//   try {
+//   } catch (error) {
+//   }
+// }
 
 module.exports = {
   validateUserInfo,
   validateGetUser,
   validateCreateUser,
   validateEditUser,
-  validateDeleteUser,
+  // validateDeleteUser,
 };

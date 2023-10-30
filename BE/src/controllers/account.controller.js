@@ -68,7 +68,6 @@ exports.createAccount = async (req, res) => {
       success: true,
       code: 200,
       message: 'Account created',
-      data: accountData,
     });
   } catch (error) {
     return res.json(error);
@@ -86,17 +85,16 @@ exports.editAccount = async (req, res) => {
 
     await validateGetAccount(accountDataById);
 
-    const accountData = await getAccountByUsername(accountInput.username);
+    const accountExists = await getAccountByUsername(accountInput.username);
 
-    await validateEditAccount(accountInput, accountData);
+    const editedAccount = await validateEditAccount(accountInput, accountExists);
 
-    await updateAccount(accountInput, accountData);
+    await updateAccount(editedAccount, accountExists);
 
     return res.json({
       success: true,
       code: 200,
       message: 'Account updated',
-      data: accountData,
     });
   } catch (error) {
     return res.json(error);

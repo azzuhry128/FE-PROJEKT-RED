@@ -6,7 +6,8 @@ const {
 } = require('../controllers/account.controller');
 
 router.get('/', fetchAllAccount);
-router.get('/:username', fetchAccountByUsername);
+// router.get('/:accountId', fetchAccountByAccountId);
+router.get('/username/:username', fetchAccountByUsername);
 router.post('/', createAccount);
 router.put('/:accountId', editAccount);
 router.delete('/:accountId', deleteAccount);

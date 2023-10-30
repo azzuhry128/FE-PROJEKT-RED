@@ -38,6 +38,27 @@ async function getUserByUserId(userId) {
   }
 }
 
+async function getUserByEmail(email) {
+  try {
+    const userData = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    return userData;
+  } catch (error) {
+    const errors = {
+      success: false,
+      code: 400,
+      message: 'Failed to fetch user data',
+      errors: error,
+    };
+
+    throw errors;
+  }
+}
+
 async function storeUser(userData) {
   try {
     await User.create(userData);
@@ -89,6 +110,7 @@ async function destroyUser(userData) {
 module.exports = {
   getAllUser,
   getUserByUserId,
+  getUserByEmail,
   storeUser,
   updateUser,
   destroyUser,

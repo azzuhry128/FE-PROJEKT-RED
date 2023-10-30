@@ -1,7 +1,7 @@
 //! SIAPAPUN YANG BERANI NGUSIK INI CONTROLLER, GUA BACOK LO!!!!!
 
 const {
-  getAllUser, getUserByUserId, storeUser, updateUser, destroyUser,
+  getAllUser, getUserByUserId, getUserByEmail, storeUser, updateUser, destroyUser,
 } = require('../services/user.service');
 const {
   validateUserInfo, validateGetUser, validateCreateUser, validateEditUser,
@@ -49,7 +49,7 @@ exports.createUser = async (req, res) => {
 
     await validateUserInfo(req);
 
-    const userExists = await getUserByUserId(userInput.user_id);
+    const userExists = await getUserByEmail(userInput.email);
 
     const userData = await validateCreateUser(userInput, userExists);
 
@@ -75,7 +75,9 @@ exports.editUser = async (req, res) => {
 
     await validateGetUser(userData);
 
-    userData = await validateEditUser(userInput, userData);
+    const userExistsByEmail = await getUserByEmail(userInput.email);
+
+    userData = await validateEditUser(userInput, userData, userExistsByEmail);
 
     await updateUser(userInput, userData);
 

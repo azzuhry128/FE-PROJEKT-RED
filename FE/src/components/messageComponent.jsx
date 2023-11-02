@@ -1,8 +1,9 @@
+import { Text } from "@chakra-ui/react";
+
 export function MessageComponent(props) {
   return (
     <>
-      <h1>{props.message}</h1>
-      <h1>{props.time}</h1>
+      <Text color="blue">{props.message}</Text>
     </>
   )
 }

@@ -33,13 +33,39 @@ async function validateAccountInfo(req) {
 
 async function validateGetAccount(accountdata) {
   try {
+    if (!accountdata || accountdata < 1) {
+      const error = new Error('Account Not Found');
+      error.code = 404;
+      throw error;
+    }
+
+    return accountdata;
   } catch (error) {
+    const errors = {
+      success: false,
+      code: error.code || 400,
+      message: error.message || 'Validate Account Failed',
+    };
+
+    throw errors;
   }
 }
 
 async function validateCreateAccount(accountInput, accountExist) {
   try {
+    if (accountInput == accountExist) {
+      const error = new Error('Similar Account Found, Please try Other!');
+      error.code = 404;
+      throw error;
+    }
   } catch (error) {
+    const errors = {
+      success: false,
+      code: error.code || 400,
+      message: error.message || 'Validate Account Failed',
+    };
+
+    throw errors;
   }
 }
 

@@ -1,10 +1,13 @@
+const { getUserByEmail } = require('../services/user.service');
+
+const { validateGetUser } = require('../validations/user.validation');
+
 const {
-  getAccountByUsername,
+  getAccountByUserId,
   updateAccount,
 } = require('../services/account.service');
 
 const {
-  validateAccountInfo,
   validateGetAccount,
 } = require('../validations/account.validation');
 
@@ -18,17 +21,21 @@ const {
 
 exports.signIn = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    await validateAccountInfo(req);
+    // await validateAccountInfo(req);
 
-    const accountData = await getAccountByUsername(username);
+    const { user_id: userId } = await getUserByEmail(email);
+
+    await validateGetUser(userId);
+
+    const accountData = await getAccountByUserId(userId);
 
     await validateGetAccount(accountData);
 
-    const token = await generateJwtToken(accountData.account_id);
+    const jwtData = await generateJwtToken(accountData.dataValues.account_id);
 
-    const editedAccount = await validateSignIn(password, accountData, token);
+    const editedAccount = await validateSignIn(password, accountData, jwtData.token);
 
     await updateAccount(editedAccount);
 
@@ -36,9 +43,7 @@ exports.signIn = async (req, res) => {
       success: true,
       code: 200,
       message: 'Sign In Success',
-      data: {
-        token,
-      },
+      data: jwtData,
     });
   } catch (error) {
     return res.json(error);

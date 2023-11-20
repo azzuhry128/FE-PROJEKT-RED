@@ -1,12 +1,17 @@
 const jwt = require('jsonwebtoken');
 
-async function genrateJwtToken(accountId) {
+async function generateJwtToken(accountId) {
   try {
     const token = await jwt.sign({ accountId }, process.env.JWT_SECRET, {
       algorithm: 'HS256', expiresIn: '1d',
     });
 
-    return token;
+    const data = {
+      token,
+      expiredAt: new Date(Date.now() + 86400000),
+    };
+
+    return data;
   } catch (error) {
     const errors = {
       success: false,
@@ -20,5 +25,5 @@ async function genrateJwtToken(accountId) {
 }
 
 module.exports = {
-  genrateJwtToken,
+  generateJwtToken,
 };

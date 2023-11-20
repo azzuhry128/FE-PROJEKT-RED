@@ -19,6 +19,27 @@ async function getAccountByUsername(username) {
   }
 }
 
+async function getAccountByUserId(userId) {
+  try {
+    const accountData = await Account.findOne({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    return accountData;
+  } catch (error) {
+    const errors = {
+      success: false,
+      code: 400,
+      message: 'Failed to fetch account data',
+      errors: error,
+    };
+
+    throw errors;
+  }
+}
+
 async function storeAccount(accountData) {
   try {
   } catch (error) {
@@ -41,6 +62,7 @@ module.exports = {
   getAllAccount,
   getAccountByAccountId,
   getAccountByUsername,
+  getAccountByUserId,
   storeAccount,
   updateAccount,
   destroyAccount,

@@ -37,11 +37,11 @@ async function getAccountByAccountId(accountId) {
   }
 }
 
-async function getAccountByUsername(user_name) {
+async function getAccountByUsername(userName) {
   try {
     const accountData = await Account.findOne({
       where: {
-        username: user_name,
+        username: userName,
       },
     });
 

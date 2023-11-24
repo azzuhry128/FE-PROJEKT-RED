@@ -5,6 +5,9 @@ const randomstring = require('randomstring');
 
 async function validateAccountInfo(req) {
   try {
+    const { accountId } = req;
+    const { accountIdParam } = req.params;
+
     await check('username', 'Username is required').not().isEmpty()
       .run(req);
     await check('password', 'Password Number is required').not().isEmpty()
@@ -19,6 +22,14 @@ async function validateAccountInfo(req) {
       throw error;
     }
 
+    if (req.method === 'put') {
+      if (accountIdParam !== accountId) {
+        const error = new Error('Account tidak dapat diakses');
+        error.code = 422;
+        throw error;
+      }
+    }
+
     return null;
   } catch (error) {
     const errors = {
@@ -31,15 +42,37 @@ async function validateAccountInfo(req) {
   }
 }
 
-async function validateGetAccount(accountdata) {
+async function validateGetAccount(accountData, jwtAccountId = null) {
   try {
-    if (!accountdata || accountdata < 1) {
+    if (!accountData || accountData.length < 1) {
       const error = new Error('Account Not Found');
       error.code = 404;
       throw error;
     }
 
-    return accountdata;
+    let data = accountData;
+
+    if (!Array.isArray(accountData)) {
+      if (jwtAccountId !== accountData.account_id) {
+        data = {
+          account_id: accountData.account_id,
+          username: accountData.username,
+          online: accountData.online,
+          user: accountData.user,
+        };
+      }
+    } else {
+      const datas = accountData.map((account) => ({
+        account_id: account.account_id,
+        username: account.username,
+        online: account.online,
+        user: account.user,
+      }));
+
+      data = datas;
+    }
+
+    return data;
   } catch (error) {
     const errors = {
       success: false,
@@ -53,7 +86,7 @@ async function validateGetAccount(accountdata) {
 
 async function validateCreateAccount(accountInput, accountExist) {
   try {
-    if (accountInput == accountExist) {
+    if (accountInput === accountExist) {
       const error = new Error('Similar Account Found, Please try Other!');
       error.code = 404;
       throw error;

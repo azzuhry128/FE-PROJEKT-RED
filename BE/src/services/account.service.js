@@ -3,7 +3,9 @@ const { Account } = require('../models');
 
 async function getAllAccount() {
   try {
-    const accountData = await Account.findAll();
+    const accountData = await Account.findAll({
+      include: ['user'],
+    });
     return accountData;
   } catch (error) {
     const errors = {
@@ -23,6 +25,7 @@ async function getAccountByAccountId(accountId) {
       where: {
         account_id: accountId,
       },
+      include: ['user'],
     });
     return accountData;
   } catch (error) {
@@ -43,6 +46,7 @@ async function getAccountByUsername(userName) {
       where: {
         username: userName,
       },
+      include: ['user'],
     });
 
     return accountData;

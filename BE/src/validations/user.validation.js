@@ -33,6 +33,7 @@ async function validateGetUser(data) {
     if (!data || data.length < 1) {
       const error = new Error('User Not Found');
       error.code = 404;
+
       throw error;
     }
 

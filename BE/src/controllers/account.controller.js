@@ -20,13 +20,13 @@ exports.fetchAllAccount = async (req, res) => {
   try {
     const accountData = await getAllAccount();
 
-    await validateGetAccount(accountData);
+    const fetchAccount = await validateGetAccount(accountData);
 
     return res.json({
       success: true,
       code: 200,
       message: 'Account Fetch Success',
-      data: accountData,
+      data: fetchAccount,
     });
   } catch (error) {
     return res.json(error);
@@ -36,16 +36,16 @@ exports.fetchAllAccount = async (req, res) => {
 exports.fetchAccountByUsername = async (req, res) => {
   try {
     const { username } = req.params;
-
+    const { accountId } = req;
     const accountData = await getAccountByUsername(username);
 
-    await validateGetAccount(accountData);
+    const fetchAccount = await validateGetAccount(accountData, accountId);
 
     return res.json({
       success: true,
       code: 200,
       message: 'Account Fetch Success',
-      data: accountData,
+      data: fetchAccount,
     });
   } catch (error) {
     return res.json(error);
@@ -78,7 +78,7 @@ exports.editAccount = async (req, res) => {
   try {
     const { accountId } = req.params;
     const accountInput = req.body;
-
+    req.method = 'put';
     await validateAccountInfo(req);
 
     const accountDataById = await getAccountByAccountId(accountId);

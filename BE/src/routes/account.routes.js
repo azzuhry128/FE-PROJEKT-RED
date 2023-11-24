@@ -2,7 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 const {
-  fetchAllAccount, fetchAccountByUsername, createAccount, editAccount, deleteAccount,
+  fetchAllAccount,
+  fetchAccountByUsername,
+  createAccount,
+  editAccount,
+  deleteAccount,
 } = require('../controllers/account.controller');
 
 router.get('/', fetchAllAccount);

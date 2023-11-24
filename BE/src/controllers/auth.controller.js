@@ -17,7 +17,7 @@ const {
 
 const {
   generateJwtToken,
-} = require('../services/auth.service');
+} = require('../services/jwt.service');
 
 exports.signIn = async (req, res) => {
   try {
@@ -25,19 +25,19 @@ exports.signIn = async (req, res) => {
 
     // await validateAccountInfo(req);
 
-    const { user_id: userId } = await getUserByEmail(email);
+    const user = await getUserByEmail(email);
 
-    await validateGetUser(userId);
+    await validateGetUser(user);
 
-    const accountData = await getAccountByUserId(userId);
+    const accountData = await getAccountByUserId(user.dataValues.user_id);
 
     await validateGetAccount(accountData);
 
     const jwtData = await generateJwtToken(accountData.dataValues.account_id);
 
-    const editedAccount = await validateSignIn(password, accountData, jwtData.token);
+    const editedAccount = await validateSignIn(password, accountData.dataValues, jwtData.token);
 
-    await updateAccount(editedAccount);
+    await updateAccount(editedAccount, accountData);
 
     return res.json({
       success: true,

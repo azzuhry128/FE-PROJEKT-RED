@@ -51,12 +51,25 @@ async function validateGetUser(data) {
 
 async function validateCreateUser(userInput, userExists) {
   try {
+    if (userInput === userExists){
+      const error = "Similar User Found, Please use other name!"
+      error.code = 404
+      throw error
+    }
   } catch (error) {
+    const errors = {
+      success: false,
+      code: error.code || 400,
+      message: error.message || 'Validate User Failed',
+    }
+
+    throw errors
   }
 }
 
 async function validateEditUser(userInput, userData, userExistsByEmail) {
   try {
+    
   } catch (error) {
   }
 }

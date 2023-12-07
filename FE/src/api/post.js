@@ -1,6 +1,15 @@
 import axios from "axios"
 import { fetchTokenFromStorage } from "./storage"
 
+axios.defaults.post['Authorization'] = 
+
+const postRequestFilter = (response) => {
+  const redirectEvent = new Event('redirect')
+  if(response.tokenExpired === true) {
+    window.dispatchEvent(redirectEvent)
+  }
+}
+
 const postRegistrationData = ({name, email, password}) => {
   axios.post('/', {
     headers: {
@@ -42,7 +51,7 @@ const postMessage = ({message, time, e}) => {
   e.preventDefault()
 
   const token = fetchTokenFromStorage()
-  
+
   axios.post('/', {
     headers: {
       'content-type': 'application/json',
@@ -52,6 +61,9 @@ const postMessage = ({message, time, e}) => {
     message: message,
     time: time
     }
+  })
+  .then((response) => {
+    postRequestFilter(response)
   })
   .then((response) => {
     response
@@ -72,6 +84,9 @@ const postSearch = ({nametag, token}) => {
     data: {
     name: nametag,
     }
+  })
+  .then((response) => {
+    postRequestFilter(response)
   })
   .then((response) => {
     response

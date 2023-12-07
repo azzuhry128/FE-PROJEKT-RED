@@ -2,8 +2,6 @@ import axios from "axios"
 
 const getAllUserInfo = async(url) => {
   const getEvent = new Event("GET_ALL_USER_INFO")
-  // getAllUserInfoLogger(getEvent)
-
   const result = await axios.get(url).then((response) => response)
 
   document.dispatchEvent(getEvent)

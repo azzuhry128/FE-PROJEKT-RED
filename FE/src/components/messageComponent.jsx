@@ -1,9 +1,11 @@
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 export function MessageComponent(props) {
   return (
     <>
-      <Text color="blue">{props.message}</Text>
+    <Flex justifyContent="right">
+      <Text bg="#93C5FD" width="max-content" fontSize="14" fontWeight="normal" padding="8px" borderRadius="8px" marginY="0.5rem" align="right" color="#1E293B" key={props.id_message}>{props.message}</Text>
+    </Flex>
     </>
   )
 }

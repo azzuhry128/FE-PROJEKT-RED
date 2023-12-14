@@ -4,11 +4,13 @@ const { validateGetUser } = require('../validations/user.validation');
 
 const {
   getAccountByUserId,
+  getAccountByAccountId,
   updateAccount,
 } = require('../services/account.service');
 
 const {
   validateGetAccount,
+  validateEditAccount,
 } = require('../validations/account.validation');
 
 const {
@@ -49,3 +51,24 @@ exports.signIn = async (req, res) => {
     return res.json(error);
   }
 };
+
+// exports.signOut = async (req, res) => {
+//   try {
+//     const { accountId } = req;
+
+//     const accountData = await getAccountByAccountId(accountId);
+
+//     await validateGetAccount(accountData);
+
+//     const updatedAccount = await validateEditAccount(accountData, {
+//       online,
+//     });
+//     return res.json({
+//       success: true,
+//       code: 200,
+//       message: 'Sign Out Success',
+//     });
+//   } catch (error) {
+//     return res.json(error);
+//   }
+// };

@@ -18,6 +18,38 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
+
+      Account.hasMany(models.UserChat, {
+        foreignKey: 'account_id',
+        sourceKey: 'account_id',
+        as: 'userChat',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      Account.hasMany(models.Message, {
+        foreignKey: 'account_id',
+        sourceKey: 'account_id',
+        as: 'message',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
+      // Account.hasMany(models.Notification, {
+      //   foreignKey: 'sender',
+      //   sourceKey: 'account_id',
+      //   as: 'notification_sender',
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      // });
+
+      // Account.hasMany(models.Notification, {
+      //   foreignKey: 'receiver',
+      //   sourceKey: 'account_id',
+      //   as: 'notification_receiver',
+      //   onUpdate: 'CASCADE',
+      //   onDelete: 'CASCADE',
+      // });
     }
   }
   Account.init({

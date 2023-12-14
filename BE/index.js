@@ -3,6 +3,7 @@ require('./config/database.json');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const { Server } = require('socket.io');
 
 require('dotenv').config();
 
@@ -10,6 +11,14 @@ const host = process.env.HOST || 'localhost';
 const app = express();
 const port = process.env.PORT || 3000;
 const mainRoutes = require('./src/routes/main.routes');
+const { socketController } = require('./src/controllers/socketIo.controller');
+
+// cors
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: 'Content-Type, Authorization, X-Requested-With, Accept',
+}));
 
 // morgan
 app.use(morgan('dev'));
@@ -37,3 +46,15 @@ const server = app.listen(port, host, () => {
   // eslint-disable-next-line no-console
   console.log(`Server running at http://${host}:${port}/`);
 });
+
+// Socket IO
+
+const io = new Server(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: '*',
+  },
+  connectionStateRecovery: {},
+});
+
+io.on('connection', socketController);

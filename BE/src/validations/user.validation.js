@@ -49,36 +49,66 @@ async function validateGetUser(data) {
   }
 }
 
+
 async function validateCreateUser(userInput, userExists) {
   try {
-    if (userInput === userExists) {
-      const error = 'Similar User Found, Please use other name!';
-      error.code = 404;
+    if (userExists) {
+      const error = { success: false, code: 400, message: "Email was already used" };
       throw error;
     }
-  } catch (error) {
-    const errors = {
-      success: false,
-      code: error.code || 400,
-      message: error.message || 'Validate User Failed',
+
+  
+    const new_user = {
+      user_id: uuidv4(), 
+      profile_name: userInput.profile_name,
+      email: userInput.email,
+      image: userInput.image,
+      phone: userInput.phone || null,
+      bio: userInput.bio
     };
 
+  
+    return new_user;
+  } catch (error) {
+  
+    const errors = {
+      success: false,
+      code: error.code || 500,
+      message: error.message || "validate user failed"
+    };
     throw errors;
   }
 }
 
 async function validateEditUser(userInput, userData, userExistsByEmail) {
-  try {
-
-  } catch (error) {
+try {
+  if (userExistsByEmail) {
+  if (userExistsByEmail.user_id !== userData.user_id) {
+      const error = { success: false, code: 400, message: "Email was already used" };
+      throw error;
   }
+  }
+
+  const update_user = {
+  user_id: userData.user_id,
+  profile_name: userInput.profile_name || userData.profile_name,
+  email: userInput.email || userData.email,
+  image: userInput.image || userData.image,
+  phone: userInput.phone || userData.phone || null,
+  bio: userInput.bio
+  };
+
+  return update_user;
+} catch (error) {
+  const errors = {
+  success: false,
+  code: error.code || 500,
+  message: error.message || "validate user failed"
+  };
+  throw errors;
+}
 }
 
-// async function validateDeleteUser(userData) {
-//   try {
-//   } catch (error) {
-//   }
-// }
 
 module.exports = {
   validateUserInfo,

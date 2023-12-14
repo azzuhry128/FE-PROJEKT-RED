@@ -9,24 +9,24 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-    //   Notification.belongsTo(models.Account, {
-    //     foreignKey: 'sender',
-    //     targetKey: 'account_id',
-    //     as: 'sender',
-    //     onUpdate: 'CASCADE',
-    //     onDelete: 'CASCADE',
-    //   });
+    static associate(models) {
+      // define association here
+      Notification.belongsTo(models.Account, {
+        foreignKey: 'sender',
+        targetKey: 'account_id',
+        as: 'notification_sender',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
 
-    //   Notification.belongsTo(models.Account, {
-    //     foreignKey: 'receiver',
-    //     targetKey: 'account_id',
-    //     as: 'receiver',
-    //     onUpdate: 'CASCADE',
-    //     onDelete: 'CASCADE',
-    //   });
-    // }
+      Notification.belongsTo(models.Account, {
+        foreignKey: 'receiver',
+        targetKey: 'account_id',
+        as: 'notification_receiver',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+    }
   }
   Notification.init({
     notification_id: {

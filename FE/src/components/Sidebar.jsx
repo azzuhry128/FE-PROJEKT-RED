@@ -5,8 +5,8 @@ import { useSidebarStore } from "../state/store";
 export function Sidebar() {
     let { sideBarState, setSidebarState } = useSidebarStore()
     function handleButtonClick(state) {
-        setSidebarState = state
-        console.log(`button is clicked: ${state}`)
+        setSidebarState(state)
+        console.log(`switch state to: ${setSidebarState}`)
     }
     return(
         <Flex bg="#0F172A" flexDirection="column" justifyContent="center" gap="6" padding="16px">
@@ -22,7 +22,7 @@ export function Sidebar() {
                 </Box>
             </Button>
 
-            <Button onClick={() => handleButtonClick('account')} colorScheme="teal" variant="link">
+            <Button onClick={() => handleButtonClick('profile')} colorScheme="teal" variant="link">
                 <Box padding="0.5rem">
                     <box-icon type='solid' name='user-account' color="white"></box-icon>
                 </Box>

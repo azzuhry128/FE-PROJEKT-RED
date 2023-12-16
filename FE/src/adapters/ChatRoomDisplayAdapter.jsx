@@ -1,26 +1,22 @@
-import React, {Fragment} from "react"
+import React, {Fragment, useEffect} from "react"
 import { Chat } from "../components/Chat"
-import { Profile } from "../components/Profile"
 import { Flex } from "@chakra-ui/react"
 import { useSidebarStore } from "../state/store"
+import { Extension } from "../components/Extension"
 
 const ChatRoomDisplayAdapter = () => {
     console.log("rendering chatroom...")
+    const {sidebarState, setSidebarState} = useSidebarStore()
     const chatRoom = <Chat/>
-    const activeSidebar = useSidebarStore()
     console.log("chatroom rendered...")
 return (
     <Fragment>
         <Flex direction="row">
-            {activeSidebar}
+            {Extension}
             {chatRoom}
         </Flex>
     </Fragment>
     )
-}
-
-function activeSidebar() {
-    console.log("activeSidebar is running")
 }
 
 export { ChatRoomDisplayAdapter }

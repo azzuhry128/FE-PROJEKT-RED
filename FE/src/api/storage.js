@@ -1,30 +1,41 @@
 const fetchToken = () => {
-  const token = localStorage.getItem("auth-token")
+  const token = localStorage.getItem("AUTH")
   const parsedToken = JSON.parse(token)
   return parsedToken
 }
 
 // temporary
 const fetchMessages = () => {
-  const messages = localStorage.getItem("messages")
+  const messages = localStorage.getItem("MESSAGES")
   const parsedMessages = JSON.parse(messages)
   return parsedMessages
 }
 
-const fetchCredentials = () => {
-  const credentials = localStorage.getItem("user-credentials")
+const fetchAccount = () => {
+  const messages = localStorage.getItem("ACCOUNT")
+  const parsedMessages = JSON.parse(messages)
+  return parsedMessages
+}
+
+const fetchUser = () => {
+  const credentials = localStorage.getItem("USER")
   const parsedCreds = JSON.parse(credentials)
   return parsedCreds
 }
 
 const uploadToken = (token) => {
   const parsedToken = JSON.stringify(token)
-  localStorage.setItem("auth-token", parsedToken)
+  localStorage.setItem("TOKEN", parsedToken)
 }
 
-const uploadCredentials = (user) => {
+const uploadUser = (user) => {
   const parsedCreds = JSON.stringify(user)
-  localStorage.setItem("user-credentials", parsedCreds)
+  localStorage.setItem("USER", parsedCreds)
+}
+
+const uploadAccount = (account) => {
+  const parsedCreds = JSON.stringify(account)
+  localStorage.setItem("ACCOUNT", parsedCreds)
 }
 
 const uploadMessages = (messages) => {
@@ -32,4 +43,4 @@ const uploadMessages = (messages) => {
   localStorage.setItem("messages", parsedMessages)
 }
 
-export { uploadToken, uploadCredentials, uploadMessages, fetchToken, fetchCredentials, fetchMessages }
+export { uploadToken, uploadAccount, uploadMessages, uploadUser, fetchUser, fetchToken, fetchAccount, fetchMessages }

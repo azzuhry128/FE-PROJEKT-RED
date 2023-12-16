@@ -2,16 +2,13 @@ import React, {Fragment} from "react"
 import { Chat } from "../components/Chat"
 import { Profile } from "../components/Profile"
 import { Flex } from "@chakra-ui/react"
+import { useSidebarStore } from "../state/store"
 
-
-export const ChatRoomDisplayAdapter = () => {
+const ChatRoomDisplayAdapter = () => {
     console.log("rendering chatroom...")
     const chatRoom = <Chat/>
-    const activeSidebar = <Profile/>
+    const activeSidebar = useSidebarStore()
     console.log("chatroom rendered...")
-    const chatRoomRenderedEvent = new CustomEvent("customEvent", {detail: 'chat room is rendered'}) 
-    document.dispatchEvent(chatRoomRenderedEvent)
-
 return (
     <Fragment>
         <Flex direction="row">
@@ -21,3 +18,9 @@ return (
     </Fragment>
     )
 }
+
+function activeSidebar() {
+    console.log("activeSidebar is running")
+}
+
+export { ChatRoomDisplayAdapter }

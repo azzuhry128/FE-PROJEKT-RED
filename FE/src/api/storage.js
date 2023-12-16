@@ -4,7 +4,7 @@ const fetchToken = () => {
   return parsedToken
 }
 
-// temporary
+
 const fetchMessages = () => {
   const messages = localStorage.getItem("MESSAGES")
   const parsedMessages = JSON.parse(messages)

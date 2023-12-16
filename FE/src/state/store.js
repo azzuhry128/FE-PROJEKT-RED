@@ -1,22 +1,20 @@
 import { create } from "zustand";
-import { fetchMessages } from "../api/storage";
 
-const storedMessages = fetchMessages()
-const sidebarDefault = "sidebar"
+const storedMessages = []
+const sidebarDefault = ""
 
 const useChatStore = create((set) => ({
-    messages: storedMessages,
-    addMessage: (message) => set((state) => ({
+    messageState: storedMessages,
+    setMessageState: (message) => set((state) => ({
         messages: [...state.messages, message]
-    })),
-    clearMessages: () => set({messages: []})
+    }))
 }))
 
 const useSidebarStore = create((set) => ({
-    activeSidebar: sidebarDefault,
-    changeSidebar: (sidebar) => set((state) => ({
-        activeSidebar: [...state.activeSidebar, sidebar]
-    })),
+    sidebarState: sidebarDefault,
+    setSidebarState: (state) => set({
+        sidebarState: state
+    }) 
 }))
 
 export { useChatStore, useSidebarStore }

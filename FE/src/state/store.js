@@ -12,13 +12,13 @@ const useAccountStore = create((set) => ({
 }))
 
 const useLoginState = create((set) => ({
-    emailState: '',
-    passwordState: '',
-    setEmailState: (email) => set({
-        emailState: email
+    tokenState: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiJhMzk5ODFlNy1lY2JlLTQwMzktYTI1OC0xZTA1NmFmZWM2OTIiLCJpYXQiOjE3MDI1NTg1MzUsImV4cCI6MTcwMjY0NDkzNX0.-wgsmaBPiHcqsiZwMBJSsjyg1UpyLFyepV8AnYB5CkE',
+    validState: '2023-12-15T12:55:35.332Z',
+    setTokenState: (token) => set({
+        tokenState: token
     }),
-    setEmailState: (password) => set({
-        passwordState: password
+    setValidState: (valid) => set({
+        validState: valid
     }),
 }))
 

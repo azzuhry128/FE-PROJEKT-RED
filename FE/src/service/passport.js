@@ -1,24 +1,21 @@
-const passport = (data) => {
-    const permissionStatus = grantPermission(data)
+import { useLoginState } from "../state/store"
 
-    if (permissionStatus === 'denied') {
-        console.log("warning: redirecting to login page")
+const passport = () => {
+    console.log("passport is running")
+    const { tokenState, validState } = useLoginState()
+    const currentDate = new Date()
+    
+    if (tokenState === '') {
+        console.log("token missing")
+        return false
     }
-}
-
-function grantPermission(passport) {
-    const { expired } = passport
-    const currentDate = new Date().toLocaleDateString('en-us')
-    const status = ''
-
-    if (currentDate > expired) {
-        console.log("access status: denied")
-        status = 'denied'
-        return status
+    if (currentDate.toISOString() > validState) {
+        console.log("token expired")
+        return false
     }
-    console.log("access status: granted")
-    status = 'granted'
-    return status
+
+    console.log("permission granted")
+    return true
 }
 
 export { passport }

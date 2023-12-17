@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const storedMessages = []
-const sidebarDefault = ""
+const sidebarDefault = "contacts"
 
 const useChatStore = create((set) => ({
     messageState: storedMessages,
@@ -12,9 +12,7 @@ const useChatStore = create((set) => ({
 
 const useSidebarStore = create((set) => ({
     sidebarState: sidebarDefault,
-    setSidebarState: (state) => set({
-        sidebarState: state
-    }) 
+    setSidebarState: (state) => set({sidebarState: state}) 
 }))
 
 export { useChatStore, useSidebarStore }

@@ -7,8 +7,7 @@ import { eventListener } from './service/eventListener'
 import { LandingPageComponent } from './components/landingPageComponent'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { LoginComponent } from './components/loginComponent'
-import { Chat } from './components/Chat'
-import { Main } from './components/Main'
+import { ChatRoomDisplayAdapter } from './adapters/ChatRoomDisplayAdapter'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -23,11 +22,12 @@ const router = createBrowserRouter([
   },
   {
     path:'/login',
-    element: <LoginComponent/>
+    element: <LoginComponent/>,
   },
   {
     path:'/chatroom',
-    element: <Main/>
+    element: <ChatRoomDisplayAdapter/>,
+    
   }
 ])
 

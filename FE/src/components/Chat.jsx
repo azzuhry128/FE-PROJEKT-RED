@@ -1,10 +1,9 @@
 import { Box,Text,Avatar,Button,Input } from "@chakra-ui/react"
 import { MessageAdapter } from "../adapters/messageAdapter"
-import { useChatStore } from "../state/store"
-import { fakeUser } from "../data/fakeData"
+import {useMessageStore } from "../state/store"
 
 export function Chat() {
-  let {messageState, setMessageState} = useChatStore()
+  let {messageState, setMessageState} = useMessageStore()
 
   function handleCLick(state) {
     setMessageState(state)

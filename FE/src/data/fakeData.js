@@ -68,4 +68,4 @@ const fakeContacts = [
     }
 ]
 
-export { fakeUser, fakeMessages, fakeToken }
+export { fakeUser, fakeMessages, fakeToken, fakeContacts }

@@ -1,13 +1,18 @@
 import { Contact } from "../components/Contact"
+import { useContactStore } from "../state/store"
 
 export const ContactsAdapter = (contactList) => {
-    const array = [...contactList]
+    const { contactState, setContactState } = useContactStore()
 
-    const mappedContact = array.map((contact) => {
-        <Contact name={contact.name} tag={contact.tag}/>
+    console.log(contactState)
+
+    const mappedContact = contactState.map((contact) => {
+        return <Contact name={contact.name} tag={contact.tag} key={contact.tag}/>
     })
 
     return(
-        {mappedContact}
+        <div>
+            {mappedContact}
+        </div>
     )
 }

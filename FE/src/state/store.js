@@ -1,6 +1,8 @@
 import { create } from "zustand";
+import { fakeContacts } from "../data/fakeData";
 
 const storedMessages = []
+const storedContacts = [...fakeContacts]
 const sidebarDefault = "contacts"
 
 
@@ -13,7 +15,7 @@ const useAccountStore = create((set) => ({
 
 const useLoginState = create((set) => ({
     tokenState: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiJhMzk5ODFlNy1lY2JlLTQwMzktYTI1OC0xZTA1NmFmZWM2OTIiLCJpYXQiOjE3MDI1NTg1MzUsImV4cCI6MTcwMjY0NDkzNX0.-wgsmaBPiHcqsiZwMBJSsjyg1UpyLFyepV8AnYB5CkE',
-    validState: '2023-12-15T12:55:35.332Z',
+    validState: '2023-20-15T12:55:35.332Z',
     setTokenState: (token) => set({
         tokenState: token
     }),
@@ -34,4 +36,9 @@ const useSidebarStore = create((set) => ({
     setSidebarState: (state) => set({sidebarState: state}) 
 }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore }
+const useContactStore = create((set) => ({
+    contactState: storedContacts,
+    setContactState: (state) => set({contactState: state})
+}))
+
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore }

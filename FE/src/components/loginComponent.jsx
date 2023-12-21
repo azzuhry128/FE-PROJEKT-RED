@@ -12,7 +12,7 @@ export function LoginComponent() {
 
     console.log("click detected, creating payload")
     const payload = { email, password }
-    // console.log(`payload value:`, payload)
+    console.log(`payload value:`, payload)
     console.log("calling login function")
     login(payload)
     console.log("finished")

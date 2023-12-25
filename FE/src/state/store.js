@@ -1,16 +1,25 @@
 import { create } from "zustand";
-import { fakeContacts } from "../data/fakeData";
+import { refinedAccount, refinedContact, refinedMessage, refinedUser } from "../data/fakeData";
 
 const storedMessages = []
-const storedContacts = [...fakeContacts]
+const storedContacts = refinedContact
 const sidebarDefault = "contacts"
+const storedLastMessage = ['']
+const storedRoom = ['']
+const storedAccount = refinedAccount
+const storedUser = refinedUser
 
 
 const useAccountStore = create((set) => ({
-    id: '',
-    username: '',
-    email: '',
-    bio: '',
+    id: storedAccount.account_id,
+    username: storedAccount.username,
+}))
+
+const useUserStore = create((set) => ({
+    id: storedUser.user_id,
+    username: storedUser.profile_name,
+    email: storedUser.email,
+    bio: storedUser.bio
 }))
 
 const useLoginState = create((set) => ({
@@ -27,18 +36,32 @@ const useLoginState = create((set) => ({
 const useMessageStore = create((set) => ({
     messageState: storedMessages,
     setMessageState: (message) => set((state) => ({
-        messages: [...state.messages, message]
+        messageState: [...state.messageState, message]
     }))
 }))
 
+// const useSidebarStore = create((set) => ({
+//     sidebarState: sidebarDefault,
+//     setSidebarState: (state) => set({sidebarState: state}) 
+// }))
+
 const useSidebarStore = create((set) => ({
     sidebarState: sidebarDefault,
-    setSidebarState: (state) => set({sidebarState: state}) 
+    setSidebarState: (sidebarState) => set(() => ({sidebarState: sidebarState}))
 }))
 
 const useContactStore = create((set) => ({
     contactState: storedContacts,
-    setContactState: (state) => set({contactState: state})
+    lastMessageState: storedLastMessage,
+    roomState: storedRoom,
+    setContactState: (state) => set({contactState: state}),
+    setLastMessageState: (state) => set({lastMessageState: state}),
+    setRoomState: (state) => set({roomState: state})
 }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore }
+// const useRoomStore = create((set) => ({
+//     roomState: storedRoom,
+//     setRoomState: (state) => set({roomState: state})
+// }))
+
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore }

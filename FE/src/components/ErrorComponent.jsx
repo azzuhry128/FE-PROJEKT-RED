@@ -3,12 +3,6 @@ import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 
 function ErrorComponent(props){
-    console.log("logout button is triggered")
-
-    // useEffect(() => {
-    //     const navigate = useNavigate()
-    //     navigate('/login')
-    // })
 
     return(
         <Modal isCentered isOpen={props.isOpen} onClose={props.onClose} bg="red" display="flex" flexDirection="column">

@@ -5,14 +5,18 @@ import ErrorComponent from "./ErrorComponent";
 import { useNavigate } from "react-router-dom";
 
 export function Sidebar() {
-    let { sideBarState, setSidebarState } = useSidebarStore()
+    // let { sideBarState, setSidebarState } = useSidebarStore()
+    const sidebarState = useSidebarStore((state) => state.setSidebarState)
     const {isOpen, onOpen, onClose} = useDisclosure()
     const navigate = useNavigate()
 
-    function handleButtonClick(state) {
-        setSidebarState(state)
-        console.log(`switch state to: ${setSidebarState}`)
-    }
+    // console.log(sidebarState)
+
+    // function handleButtonClick(state) {
+    //     setSidebarState(state)
+    //     console.log(`switch state to: ${setSidebarState}`)
+    //     console.log(`current state: ${sideBarState}`)
+    // }
 
     function redirector() {
         console.log("redirecting user")
@@ -23,19 +27,19 @@ export function Sidebar() {
         <>
         <Flex direction="column" justifyContent="space-between">
             <Flex bg="#0F172A" flexDirection="column" justifyContent="center" gap="6" padding="16px">
-                <Button onClick={() => handleButtonClick('contacts')} colorScheme="teal" variant="link">
+                <Button onClick={(e) => sidebarState('contacts')}  colorScheme="teal" variant="link">
                     <Box padding="0.5rem">
-                        <box-icon type="solid" name="phone" color="white"></box-icon>
+                        <box-icon type='solid' name='chat' color="white"></box-icon>
                     </Box>
                 </Button>
 
-                <Button onClick={() => handleButtonClick('notifications')} colorScheme="teal" variant="link">
+                <Button onClick={(e) => sidebarState('notifications')} colorScheme="teal" variant="link">
                     <Box padding="0.5rem">
                         <box-icon type='solid' name='bell' color="white"></box-icon>
                     </Box>
                 </Button>
 
-                <Button onClick={() => handleButtonClick('profile')} colorScheme="teal" variant="link">
+                <Button onClick={(e) => sidebarState('profile')} colorScheme="teal" variant="link">
                     <Box padding="0.5rem">
                         <box-icon type='solid' name='user-account' color="white"></box-icon>
                     </Box>

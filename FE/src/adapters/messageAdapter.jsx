@@ -1,25 +1,27 @@
-import { Box } from "@chakra-ui/react"
 import { AnotherMessageComponent } from "../components/AnotherMessageComponent"
 import { MessageComponent } from "../components/MessageComponent"
+import { useAccountStore, useContactStore } from "../state/store"
 
-export const MessageAdapter = (messageArray, sender) => {
+export const MessageAdapter = (props) => {
+  const currentUserId = useAccountStore((state) => state.id)
+  const currentRoom = useContactStore((state) => state.roomState)
   console.log("rendering messages...")
-  const array = [...messageArray]
-  console.log(array)
-  
-  const mappedMessage = messageArray.map((message) => {
-    if(message.sender !== sender.profile_name) {
-      console.log("rendering another messages")
-      return <AnotherMessageComponent message={message.content} key={message.id_message}/>
-    }
-    console.log("rendering messages")
-    return <MessageComponent message={message.content} key={message.id_message}/>
-    }
-  )
+  console.log(props.messageArray)
 
-  return (
-    <Box marginX="2rem">
-      {mappedMessage}
-    </Box>
+
+  return props.messageArray.map((message) => {
+    if(message.chat_room_id !== currentRoom) {
+      console.log(`wrong room: message room : ${message.chat_room_id} current room: ${currentRoom}`)
+      return
+    }
+
+    if(message.account_id !== currentUserId) {
+      console.log(`rendering another messages`)
+      return <AnotherMessageComponent message={message.content} key={message.message_id}/>
+    }
+
+    console.log("rendering messages")
+    return <MessageComponent message={message.content} key={message.message_id}/>
+    }
   )
 }

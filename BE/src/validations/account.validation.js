@@ -12,6 +12,7 @@ async function validateAccountInfo(req) {
       .run(req);
     await check('password', 'Password Number is required').not().isEmpty()
       .run(req);
+
     await check('user_id', 'User Id is required').not().isEmpty()
       .run(req);
 
@@ -91,6 +92,16 @@ async function validateCreateAccount(accountInput, accountExist) {
       error.code = 404;
       throw error;
     }
+
+    const newAccount = {
+      account_id: uuidv4(),
+      username: `${accountInput.username}#${randomstring.generate({ charset: 'numeric', length: 4 })}`,
+      password: AES.encrypt(accountInput.password, process.env.AES_SECRET).toString(),
+      online: false,
+      user_id: accountInput.user_id || null,
+    };
+
+    return newAccount;
   } catch (error) {
     const errors = {
       success: false,
@@ -104,7 +115,45 @@ async function validateCreateAccount(accountInput, accountExist) {
 
 async function validateEditAccount(accountInput, accountData) {
   try {
+    if (!accountData) {
+      const error = new Error('Account tidak ditemukan');
+      error.code = 404;
+      throw error;
+    }
+
+    if (accountInput.user_id !== accountData.user.user_id) {
+      const error = new Error('Username sudah digunakan');
+      error.code = 404;
+      throw error;
+    }
+
+    const usernameData = accountInput.username
+      && !accountInput.username.includes('#')
+      ? `${accountInput.username}#${randomstring.generate({ charset: 'numeric', length: 4 })}`
+      : accountData.username;
+
+    const passwordData = accountInput.password
+      ? AES.encrypt(accountInput.password, process.env.AES_SECRET).toString()
+      : accountData.password;
+
+    const updatedAccount = {
+      account_id: accountData.account_id,
+      username: usernameData,
+      password: passwordData,
+      online: accountInput.online || accountData.online,
+      user_id: accountData.user_id,
+      access_token: accountInput.access_token || accountInput.access_token,
+    };
+
+    return updatedAccount;
   } catch (error) {
+    const errors = {
+      success: false,
+      code: error.code || 400,
+      message: error.message || 'Validate Account Failed',
+    };
+
+    throw errors;
   }
 }
 

@@ -18,9 +18,13 @@ middlewareRouter.use('/message', messageRoutes);
 
 // Auth Routes
 router.use('/auth', authRoutes);
+router.use('/admin/user', userRoutes);
 
 // Useless API
-router.get('/', (req, res) => { res.send('<h1>Jangan otak atik API nya ya sayang, nanti zeta marah loh >_< '); });
+router.get('/', (req, res) => res.render('index'));
+/* router.get('/', (req, res) => {
+  res.send('<h1>Jangan otak atik API nya ya sayang, nanti zeta marah loh! >_<');
+}); */
 
 module.exports = [
   router,

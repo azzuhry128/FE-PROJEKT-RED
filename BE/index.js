@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 require('./config/database.json');
+const path = require('path');
+const ejs = require('ejs');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -12,6 +14,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mainRoutes = require('./src/routes/main.routes');
 const { socketController } = require('./src/controllers/socketIo.controller');
+
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(process.cwd(), 'src/views')));
 
 // cors
 app.use(cors({
@@ -37,6 +42,7 @@ app.use(cors({
 }));
 
 // Routes
+app.set('views', path.join(__dirname, 'src/views'));
 app.use('/api', mainRoutes);
 app.use((req, res) => {
   res.send('<h1>Resource Not Found</h1>');

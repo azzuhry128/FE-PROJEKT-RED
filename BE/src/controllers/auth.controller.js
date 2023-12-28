@@ -1,20 +1,30 @@
-const { getUserByEmail } = require('../services/user.service');
+const {
+  getUserByEmail,
+  storeUser,
+} = require('../services/user.service');
 
-const { validateGetUser } = require('../validations/user.validation');
+const {
+  validateUserInfo,
+  validateGetUser,
+  validateCreateUser,
+} = require('../validations/user.validation');
 
 const {
   getAccountByUserId,
   getAccountByAccountId,
+  storeAccount,
   updateAccount,
 } = require('../services/account.service');
 
 const {
+  validateAccountInfo,
   validateGetAccount,
-  validateEditAccount,
+  validateCreateAccount,
 } = require('../validations/account.validation');
 
 const {
   validateSignIn,
+  validateSignOut,
 } = require('../validations/auth.validation');
 
 const {
@@ -52,23 +62,54 @@ exports.signIn = async (req, res) => {
   }
 };
 
-// exports.signOut = async (req, res) => {
-//   try {
-//     const { accountId } = req;
+exports.signUp = async (req, res) => {
+  try {
+    const signUpInput = req.body;
 
-//     const accountData = await getAccountByAccountId(accountId);
+    const userExists = await getUserByEmail(signUpInput.email);
 
-//     await validateGetAccount(accountData);
+    const userData = await validateCreateUser(signUpInput, userExists);
 
-//     const updatedAccount = await validateEditAccount(accountData, {
-//       online,
-//     });
-//     return res.json({
-//       success: true,
-//       code: 200,
-//       message: 'Sign Out Success',
-//     });
-//   } catch (error) {
-//     return res.json(error);
-//   }
-// };
+    const accountData = await validateCreateAccount(signUpInput, userExists);
+
+    req.body.profile_name = accountData.username;
+    req.body.user_id = userData.user_id;
+    userData.profile_name = accountData.username;
+    accountData.user_id = userData.user_id;
+
+    await validateUserInfo(req);
+    await validateAccountInfo(req);
+
+    await storeUser(userData);
+    await storeAccount(accountData);
+
+    return res.json({
+      success: true,
+      code: 200,
+      message: 'Sign Up Success',
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+exports.signOut = async (req, res) => {
+  try {
+    const { accountId } = req;
+
+    const accountData = await getAccountByAccountId(accountId);
+
+    await validateGetAccount(accountData);
+
+    const updatedAccount = await validateSignOut(accountData.dataValues);
+
+    await updateAccount(updatedAccount, accountData);
+    return res.json({
+      success: true,
+      code: 200,
+      message: 'Sign Out Success',
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+};

@@ -59,11 +59,11 @@ async function validateCreateUser(userInput, userExists) {
 
     const newUser = {
       user_id: uuidv4(),
-      profile_name: userInput.profile_name,
+      profile_name: userInput.profile_name || null,
       email: userInput.email,
       image: userInput.image,
       phone: userInput.phone || null,
-      bio: userInput.bio,
+      bio: userInput.bio || null,
     };
 
     return newUser;

@@ -71,15 +71,15 @@ exports.editUser = async (req, res) => {
     const { userId } = req.params;
     const userInput = req.body;
 
-    let userData = await getUserByUserId(userId);
+    const userData = await getUserByUserId(userId);
 
     await validateGetUser(userData);
 
     const userExistsByEmail = await getUserByEmail(userInput.email);
 
-    userData = await validateEditUser(userInput, userData, userExistsByEmail);
+    const updatedUser = await validateEditUser(userInput, userData, userExistsByEmail);
 
-    await updateUser(userInput, userData);
+    await updateUser(updatedUser, userData);
 
     return res.json({
       success: true,

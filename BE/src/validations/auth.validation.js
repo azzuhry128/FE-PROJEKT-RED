@@ -32,6 +32,28 @@ async function validateSignIn(inputPassword, account, accessToken) {
   }
 }
 
+async function validateSignOut(account) {
+  try {
+    const updatedAccount = {
+      ...account,
+      online: false,
+      access_token: null,
+    };
+
+    return updatedAccount;
+  } catch (error) {
+    const errors = {
+      success: false,
+      code: 400,
+      message: 'Failed to validate sign out',
+      errors: error,
+    };
+
+    throw errors;
+  }
+}
+
 module.exports = {
   validateSignIn,
+  validateSignOut,
 };

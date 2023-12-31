@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zeta API</title>
+  <link rel="icon" href="../bazo.png" type="image/icon type">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <title>Zetawall</title>
   <style>
+    body {
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
     .box {
       display: flex;
       flex-direction: column;
@@ -15,13 +21,37 @@
     .box img {
       width: 80vh;
       height: fit-content;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+    }
+    .box .text {
+      text-align: center;
+      margin: 0;
+      padding-top: 30px;
+    }
+    .box .text h1 {
+      margin: 20px;
     }
   </style>
 </head>
 <body>
-  <div class="box">
+  <div
+    class="box" 
+    data-aos="fade-up"
+    data-aos-delay="1000"
+    data-aos-duration="3000"
+  >
     <img src="zeta.png" alt="zeta">
-    <h1>Jangan otak atik API nya ya sayang, nanti zeta marah loh!</h1>
+    <div class="text">
+      <h1>Hayoo Mau Ngapain???</h1>
+      <h1>Tolong jangan otak atik API nya ya. entar zeta marah loh!</h1>
+    </div>
   </div>
-</body>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
 </html>

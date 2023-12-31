@@ -43,6 +43,7 @@ app.use(cors({
 
 // Routes
 app.set('views', path.join(__dirname, 'src/views'));
+app.use('/api', express.static(path.join(process.cwd(), 'src/views')));
 app.use('/api', mainRoutes);
 app.use((req, res) => {
   res.send('<h1>Resource Not Found</h1>');

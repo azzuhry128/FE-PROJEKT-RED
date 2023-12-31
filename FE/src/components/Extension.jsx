@@ -8,7 +8,7 @@ export function Extension() {
     const { sidebarState } = useSidebarStore()
     console.log(`current sidebar state: ${sidebarState}`)
     return(
-        <Box bg="#1E293B" width="24rem" overflow="auto">
+        <Box bg="#1E293B" width="24rem" overflow="auto" borderRight="1px" borderColor="#0F172A">
             {sidebarState === 'contacts' && <ContactsAdapter/>}
             {sidebarState === 'notifications' && <Notifications/>}
             {sidebarState === 'profile' && <Profile/>}

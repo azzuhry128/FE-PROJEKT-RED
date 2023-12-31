@@ -6,9 +6,13 @@ const storedContacts = refinedContact
 const sidebarDefault = "contacts"
 const storedLastMessage = ['']
 const storedRoom = ['']
+const storedTags = ['']
 const storedAccount = refinedAccount
 const storedUser = refinedUser
-
+const storedSelectedContactTag = ['']
+const storedSelectedContactName = ['']
+const storedSelectedProfilePicture = ['']
+const storedSettingMenuState = ['']
 
 const useAccountStore = create((set) => ({
     id: storedAccount.account_id,
@@ -52,6 +56,7 @@ const useSidebarStore = create((set) => ({
 
 const useContactStore = create((set) => ({
     contactState: storedContacts,
+    tagState: storedTags,
     lastMessageState: storedLastMessage,
     roomState: storedRoom,
     setContactState: (state) => set({contactState: state}),
@@ -59,9 +64,27 @@ const useContactStore = create((set) => ({
     setRoomState: (state) => set({roomState: state})
 }))
 
+const useSelectedContactStore = create((set) => ({
+    selectedContactNameState     : storedSelectedContactName, 
+    selectedContactTagState      : storedSelectedContactTag,
+    selectedContactProfilePictureState : storedSelectedProfilePicture,
+    displayProfilePictureState : 0, 
+    displayMessageBarState: 0,
+    setSelectedContactNameState : (state) => set({selectedContactNameState: state}),
+    setSelectedContactTagState : (state) => set({selectedContactTagState: state}),
+    setSelectedContactProfilePictureState : (state) => set({selectedContactProfilePictureState: state}),
+    setDisplayProfilePictureState : (state) => set({displayProfilePictureState: state}),
+    setDisplayMessageBarState    : (state) => set({displayMessageBarState: state})
+}))
+
+const useSettingMenuStore = create((set) => ({
+    settingMenuState : storedSettingMenuState,
+    setSettingMenuState : (sidebarState) => set(() => ({settingMenuState: sidebarState}))
+}))
+
 // const useRoomStore = create((set) => ({
 //     roomState: storedRoom,
 //     setRoomState: (state) => set({roomState: state})
 // }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore }
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore }

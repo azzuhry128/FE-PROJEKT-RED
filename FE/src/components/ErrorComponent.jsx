@@ -6,7 +6,7 @@ function ErrorComponent(props){
 
     return(
         <Modal isCentered isOpen={props.isOpen} onClose={props.onClose} bg="red" display="flex" flexDirection="column">
-            <ModalOverlay bg="blackAlpha.300" backdropFilter='blur(10px) hue-rotate(90deg)'>
+            <ModalOverlay bg="blackAlpha.100" backdropFilter='blur(10px)'>
                 <ModalContent>
                     <ModalHeader>{props.title}</ModalHeader>
                     <ModalBody>
@@ -14,7 +14,7 @@ function ErrorComponent(props){
                     </ModalBody>
                     <ModalFooter display="flex" gap={4}>
                         <Button onClick={props.close} colorScheme="blue">no</Button>
-                        <Button onClick={props.onYesClick} colorScheme="red">yes</Button>
+                        <Button onClick={props.onYesClick} colorScheme='red'>yes</Button>
                     </ModalFooter>
                 </ModalContent>
             </ModalOverlay>

@@ -29,6 +29,10 @@ export function LoginComponent() {
           <Text textColor="twitter.100">Please insert your username and password</Text>
           <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />
           <Input id="password" type="password" variant="outline" placeholder="Password" color="white" />
+          <Flex alignItems="center" justifyContent='start'>
+            <Text textColor="white" fontSize='xs' fontWeight='medium'>forgot password ?</Text>
+            <Button variant="link" color="#93C5FD" fontSize='xs' fontWeight='medium'>reset !</Button>
+          </Flex>
           <Button onClick={handleClick}  bg="#93C5FD" width="full">Login</Button>
           <Flex alignItems="center" justifyContent="center">
             <Text textColor="white" >Dont have an account ?</Text>

@@ -9,7 +9,6 @@ import { useState } from "react";
 export function Sidebar() {
     // let { sideBarState, setSidebarState } = useSidebarStore()
     const sidebarState = useSidebarStore((state) => state.setSidebarState)
-    const {onOpen, onClose} = useDisclosure()
     const navigate = useNavigate()
 
     // console.log(sidebarState)

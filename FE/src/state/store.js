@@ -12,7 +12,7 @@ const storedUser = refinedUser
 const storedSelectedContactTag = ['']
 const storedSelectedContactName = ['']
 const storedSelectedProfilePicture = ['']
-const storedSettingMenuState = ['']
+const storedSettingMenuState = 'changeEmail'
 
 const useAccountStore = create((set) => ({
     id: storedAccount.account_id,

@@ -8,6 +8,9 @@ import { LandingPageComponent } from './components/landingPageComponent'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { LoginComponent } from './components/loginComponent'
 import { ChatRoomDisplayAdapter } from './adapters/ChatRoomDisplayAdapter'
+import { ConfirmEmail } from './components/ConfirmEmail'
+import { ProfilePictureSelector } from './components/ProfilePictureSelecter'
+import { ResetPassword } from './components/ResetPassword'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -28,6 +31,18 @@ const router = createBrowserRouter([
     path:'/chatroom',
     element: <ChatRoomDisplayAdapter/>,
     
+  },
+  {
+    path:'/confirmation',
+    element: <ConfirmEmail/>
+  },
+  {
+    path: '/profilepictureselector',
+    element: <ProfilePictureSelector/>
+  },
+  {
+    path: '/resetpassword',
+    element: <ResetPassword/>
   }
 ])
 

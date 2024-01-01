@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     element: <RegisterProfile/>,
   },
   {
-    path:'/chatroom',
+    path:'/chat',
     element: <ChatRoomDisplayAdapter/>,
     
   },
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     element: <ProfilePictureSelector/>
   },
   {
-    path: '/resetpassword',
+    path: '/reset',
     element: <ResetPassword/>
   }
 ])

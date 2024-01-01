@@ -4,12 +4,14 @@ import "@fontsource-variable/montserrat"
 import { login } from "../api/login";
 import { useState } from "react";
 import { InputModal } from "./InputModal";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ResetPassword() {
     const [isOpen, setIsopen] = useState(false)
     const [modalType, setModalType] = useState('')
-
     const [componentType, setComponentType] = useState(true)
+    const navigate = useNavigate()
 
     function handleClick(reference){
         // console.log('getting reset password confirmation code')
@@ -22,19 +24,27 @@ function ResetPassword() {
         setModalType('')
     }
 
-    function componentSwitcher() {
+    async function componentSwitcher() {
         const email = document.getElementById('email')
         const emailValue = email.value
         if(emailValue !== '') {
             setComponentType(false)
             email.value = ''
         }
+
+        axios.post('127.0.0.1:3000/api/auth/forget-password/get-otp/', {
+            email: emailValue
+        }).then((response) => response).catch((error) => console.log(error))
     }
+
+    function home() {
+        navigate('/')
+      }
 
     return (
     <>
     <Box display="flex" alignItems="center" justifyContent="space-between" padding={"24px"}>
-        <Button variant="link" fontSize={16} fontWeight="bold" color={"#93C5FD"}>Home</Button>
+        <Button onClick={home} variant="link" fontSize={16} fontWeight="bold" color={"#93C5FD"}>Home</Button>
     </Box>
     {componentType ? 
     

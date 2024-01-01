@@ -82,9 +82,16 @@ const useSettingMenuStore = create((set) => ({
     setSettingMenuState : (sidebarState) => set(() => ({settingMenuState: sidebarState}))
 }))
 
-// const useRoomStore = create((set) => ({
-//     roomState: storedRoom,
-//     setRoomState: (state) => set({roomState: state})
-// }))
+const registerPhaseStore = create((set) => ({
+    usernameState : '',
+    emailState : '',
+    passwordState : '',
+    imageState : '',
+    setUsernameState : (usernameState) => set(() => ({usernameState: usernameState})),
+    setEmailState : (emailState) => set(() => ({EmailState: emailState})),
+    setPasswordState : (passwordState) => set(() => ({PasswordState: passwordState})),
+    setImageState : (imageState) => set(() => ({ImageState: imageState})),
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore }
+}))
+
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore }

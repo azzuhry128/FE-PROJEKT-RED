@@ -12,6 +12,7 @@ import { ConfirmEmail } from './components/ConfirmEmail'
 import { ProfilePictureSelector } from './components/ProfilePictureSelecter'
 import { ResetPassword } from './components/ResetPassword'
 import { RegisterComponent } from './components/RegisterComponent'
+import { RegisterProfile } from './components/RegisterProfile'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path:'/register',
     element: <RegisterComponent/>,
+  },
+  {
+    path:'/register/profile',
+    element: <RegisterProfile/>,
   },
   {
     path:'/chatroom',

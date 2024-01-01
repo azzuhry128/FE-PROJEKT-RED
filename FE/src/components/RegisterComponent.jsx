@@ -4,24 +4,21 @@ import "@fontsource-variable/montserrat"
 import { login } from "../api/login";
 import { useNavigate } from "react-router-dom";
 
-export function LoginComponent() {
+export function RegisterComponent() {
   // const {emailState, passwordState, setEmailState, setPasswordState} = useLoginState()
   const navigate = useNavigate()
   
   function handleClick(){
+    const username = document.getElementById('username').value
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
 
-    console.log("click detected, creating payload")
-    const payload = { email, password }
-    console.log(`payload value:`, payload)
-    console.log("calling login function")
-    login(payload)
-    console.log("finished")
+    const payload = { username, email, password }
+    register(payload)
   }
 
   function navigator() {
-    navigate('/register')
+    navigate('/login')
   }
 
   return (
@@ -32,17 +29,14 @@ export function LoginComponent() {
 
       <AbsoluteCenter>
         <Flex direction="column" gap={4}>
-          <Text textColor="twitter.100">Please insert your username and password</Text>
+          <Text textColor="twitter.100" textAlign="center">create your new account</Text>
+          <Input id="username" type="text" variant="outline" placeholder="Username" color="white" />
           <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />
           <Input id="password" type="password" variant="outline" placeholder="Password" color="white" />
-          <Flex alignItems="center" justifyContent='start'>
-            <Text textColor="white" fontSize='xs' fontWeight='medium'>forgot password ?</Text>
-            <Button variant="link" color="#93C5FD" fontSize='xs' fontWeight='medium'>reset !</Button>
-          </Flex>
           <Button onClick={handleClick}  bg="#93C5FD" width="full">Login</Button>
           <Flex alignItems="center" justifyContent="center">
-            <Text textColor="white" >Dont have an account ?</Text>
-            <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Register !</Button>
+            <Text textColor="white" >have an account ?</Text>
+            <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Login !</Button>
           </Flex>
         </Flex>
       </AbsoluteCenter>

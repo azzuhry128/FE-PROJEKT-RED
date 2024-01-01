@@ -11,6 +11,7 @@ import { ChatRoomDisplayAdapter } from './adapters/ChatRoomDisplayAdapter'
 import { ConfirmEmail } from './components/ConfirmEmail'
 import { ProfilePictureSelector } from './components/ProfilePictureSelecter'
 import { ResetPassword } from './components/ResetPassword'
+import { RegisterComponent } from './components/RegisterComponent'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path:'/login',
     element: <LoginComponent/>,
+  },
+  {
+    path:'/register',
+    element: <RegisterComponent/>,
   },
   {
     path:'/chatroom',

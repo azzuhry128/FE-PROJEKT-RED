@@ -33,6 +33,33 @@ exports.fetchAllAccount = async (req, res) => {
   }
 };
 
+exports.fetchAccountByAccountId = async (req, res) => {
+  try {
+    const { accountId } = req;
+
+    const { accountId: accountIdParams } = req.params;
+
+    let accountData;
+
+    if (accountIdParams) {
+      accountData = await getAccountByAccountId(accountIdParams);
+    } else {
+      accountData = await getAccountByAccountId(accountId);
+    }
+
+    const fetchAccount = await validateGetAccount(accountData);
+
+    return res.json({
+      success: true,
+      code: 200,
+      message: 'Account Fetch Success',
+      data: fetchAccount,
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
 exports.fetchAccountByUsername = async (req, res) => {
   try {
     const { username } = req.params;

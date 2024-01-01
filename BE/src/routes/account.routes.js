@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {
   fetchAllAccount,
+  fetchAccountByAccountId,
   fetchAccountByUsername,
   createAccount,
   editAccount,
@@ -11,6 +12,7 @@ const {
 
 router.get('/', fetchAllAccount);
 // router.get('/:accountId', fetchAccountByAccountId);
+router.get('/my-account', fetchAccountByAccountId);
 router.get('/username/:username', fetchAccountByUsername);
 router.post('/', createAccount);
 router.put('/:accountId', editAccount);

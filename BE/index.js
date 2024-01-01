@@ -22,7 +22,7 @@ app.use(express.static(path.join(process.cwd(), 'src/views')));
 app.use(cors({
   origin: [process.env.HOST, 'http://localhost:5173'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: 'Content-Type, Authorization, X-Requested-With, Accept',
+  allowedHeaders: '*',
 }));
 
 // morgan

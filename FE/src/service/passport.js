@@ -2,14 +2,18 @@ import { useLoginState } from "../state/store"
 
 const passport = () => {
     console.log("passport is running")
-    const { tokenState, validState } = useLoginState()
+    const { loginTokenState, loginValidState } = useLoginState()
     const currentDate = new Date()
+
+    console.log(loginTokenState)
+    console.log(loginValidState)
+
     
-    if (tokenState === '') {
+    if (loginTokenState === null) {
         console.log("token missing")
         return false
     }
-    if (currentDate.toISOString() > validState) {
+    if (currentDate.toISOString() > loginValidState) {
         console.log("token expired")
         return false
     }

@@ -14,6 +14,9 @@ const storedSelectedContactName = ['']
 const storedSelectedProfilePicture = ['']
 const storedSettingMenuState = 'changeEmail'
 
+const storedToken = localStorage.getItem('token')
+const storedValidity = localStorage.getItem('validity')
+
 const useAccountStore = create((set) => ({
     id: storedAccount.account_id,
     username: storedAccount.username,
@@ -27,8 +30,19 @@ const useUserStore = create((set) => ({
 }))
 
 const useLoginState = create((set) => ({
-    tokenState: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOiJhMzk5ODFlNy1lY2JlLTQwMzktYTI1OC0xZTA1NmFmZWM2OTIiLCJpYXQiOjE3MDI1NTg1MzUsImV4cCI6MTcwMjY0NDkzNX0.-wgsmaBPiHcqsiZwMBJSsjyg1UpyLFyepV8AnYB5CkE',
-    validState: '2023-20-15T12:55:35.332Z',
+    loginTokenState: '',
+    loginValidState: '',
+    setLoginTokenState: (token) => set({
+        loginTokenState: token
+    }),
+    setLoginValidState: (valid) => set({
+        loginValidState: valid
+    }),
+}))
+
+const useTokenStore = create((set) => ({
+    tokenState: storedToken,
+    validState: storedValidity,
     setTokenState: (token) => set({
         tokenState: token
     }),
@@ -88,10 +102,10 @@ const registerPhaseStore = create((set) => ({
     passwordState : '',
     imageState : '',
     setUsernameState : (usernameState) => set(() => ({usernameState: usernameState})),
-    setEmailState : (emailState) => set(() => ({EmailState: emailState})),
-    setPasswordState : (passwordState) => set(() => ({PasswordState: passwordState})),
-    setImageState : (imageState) => set(() => ({ImageState: imageState})),
+    setEmailState : (emailState) => set(() => ({emailState: emailState})),
+    setPasswordState : (passwordState) => set(() => ({passwordState: passwordState})),
+    setImageState : (imageState) => set(() => ({imageState: imageState})),
 
 }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore }
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore, useTokenStore }

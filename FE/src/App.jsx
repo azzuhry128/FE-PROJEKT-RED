@@ -1,8 +1,12 @@
+import { LandingPageComponent } from "./components/landingPageComponent"
+
+console.log("App is called")
+
 function App() {
 
   return (
     <>
-      <h1>Hello world</h1>
+    <LandingPageComponent/>
     </>
   )
 }

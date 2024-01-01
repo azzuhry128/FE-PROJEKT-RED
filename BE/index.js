@@ -20,7 +20,7 @@ app.use(express.static(path.join(process.cwd(), 'src/views')));
 
 // cors
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: [process.env.HOST, 'http://localhost:5173'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type, Authorization, X-Requested-With, Accept',
 }));

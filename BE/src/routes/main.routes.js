@@ -5,6 +5,7 @@ const accountRoutes = require('./account.routes');
 const authRoutes = require('./auth.routes');
 const chatRoutes = require('./chat.routes');
 const messageRoutes = require('./message.routes');
+const notificationRoutes = require('./notification.routes');
 
 const router = express.Router();
 const middlewareRouter = express.Router();
@@ -15,6 +16,7 @@ middlewareRouter.use('/user', userRoutes);
 middlewareRouter.use('/accounts', accountRoutes);
 middlewareRouter.use('/chat', chatRoutes);
 middlewareRouter.use('/message', messageRoutes);
+middlewareRouter.use('/notification', notificationRoutes);
 
 // Auth Routes
 router.use('/auth', authRoutes);

@@ -3,31 +3,34 @@ import "@fontsource-variable/montserrat"
 // import { useLoginState } from "../state/store";
 import { login } from "../api/login";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function LoginComponent() {
-  // const {emailState, passwordState, setEmailState, setPasswordState} = useLoginState()
+
   const navigate = useNavigate()
   
   function handleClick(){
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
 
-    console.log("click detected, creating payload")
-    const payload = { email, password }
-    console.log(`payload value:`, payload)
-    console.log("calling login function")
-    login(payload)
-    console.log("finished")
+    axios.post('http://localhost:3000/api/auth/login/', {
+      email: email,
+      password: password
+    }).then((response) => response).catch((error) => console.log(error))
   }
 
   function navigator() {
     navigate('/register')
   }
 
+  function home() {
+    navigate('/')
+  }
+
   return (
     <>
       <Box display="flex" alignItems="center" justifyContent="space-between" padding={"24px"}>
-        <Button variant="link" fontSize={16} fontWeight="bold" color={"#93C5FD"}>Home</Button>
+        <Button onClick={home} variant="link" fontSize={16} fontWeight="bold" color={"#93C5FD"}>Home</Button>
       </Box>
 
       <AbsoluteCenter>

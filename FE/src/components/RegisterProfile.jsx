@@ -5,8 +5,7 @@ import { registerPhaseStore } from "../state/store"
 
 function RegisterProfile() {
     const [imageUrl, setImageUrl] = useState(null)
-
-    const {  imageState, setImageState } = registerPhaseStore()
+    const {  imageState, setImageState,usernameState, emailState, passwordState } = registerPhaseStore()
 
     function handleFileChange(event) {
         console.log(`file : ${event.target.files[0]}`)
@@ -14,10 +13,13 @@ function RegisterProfile() {
         setImageUrl(URL.createObjectURL(event.target.files[0]))
     }
 
-    function confirmImage() {
-        console.log("confirm image")
-        const result = verify()
-        console.log(result)
+    function confirm() {
+        axios.post('http://localhost:3000/api/auth/register/', {
+            username : usernameState,
+            email: emailState,
+            password: passwordState,
+            image : imageState
+        }).then((response) => response).catch((error) => console.log(error))
     }
 
     return(
@@ -59,7 +61,7 @@ function RegisterProfile() {
                         }}></Input>
                     </Flex>
                 </Flex>
-                <Button onClick={confirmImage} bg="#0F172A" width="full" color="white" _hover={{bg:"#0F172A"}}>confirm</Button>
+                <Button onClick={confirm} bg="#0F172A" width="full" color="white" _hover={{bg:"#0F172A"}}>confirm</Button>
             </Container>
         </AbsoluteCenter>
     )

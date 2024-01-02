@@ -41,7 +41,7 @@ exports.fetchAccountByAccountId = async (req, res) => {
 
     let accountData;
 
-    if (accountIdParams) {
+    if (accountIdParams !== null && accountIdParams !== undefined) {
       accountData = await getAccountByAccountId(accountIdParams);
     } else {
       accountData = await getAccountByAccountId(accountId);

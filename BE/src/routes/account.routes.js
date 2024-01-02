@@ -11,7 +11,7 @@ const {
 } = require('../controllers/account.controller');
 
 router.get('/', fetchAllAccount);
-router.get('/:accountId', fetchAccountByAccountId);
+router.get('/account/:accountId', fetchAccountByAccountId);
 router.get('/my-account', fetchAccountByAccountId);
 router.get('/username/:username', fetchAccountByUsername);
 router.post('/', createAccount);

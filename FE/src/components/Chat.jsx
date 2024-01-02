@@ -33,7 +33,7 @@ export function Chat() {
   
   const sendMessagesToSocket = async(data) => {
     console.log('emitting message to socket io')
-    socket.emit("message", roomState, data); // emit THEN send data so server
+    socket.emit("message", (roomState, data)); // emit THEN send data so server
   }
 
   async function handleCLick() {
@@ -51,6 +51,7 @@ export function Chat() {
     //   },
     //   content: content
     // })
+    sendMessagesToSocket('hello there')
 
     console.log(`checking content in CHAT:${content}`)
 
@@ -65,7 +66,6 @@ export function Chat() {
 
     console.log(`checking response.data @ CHAT: ${JSON.stringify(response.data)}`)
 
-    sendMessagesToSocket(response.data)
     setMessageState(response.data)
 
     // console.log("message button is clicked")

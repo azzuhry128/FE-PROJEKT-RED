@@ -146,8 +146,8 @@ export function LoginComponent() {
       <AbsoluteCenter>
         <Flex direction="column" gap={4}>
           <Center>
-            <Box boxSize='15vh' marginBottom='30px' >
-              <Image src="trashtalk.png"></Image>
+            <Box boxSize='13vh' marginBottom='30px' >
+              <Image src="trashtalk.png" bg='white' borderRadius='full'></Image>
             </Box>
           </Center>
           <Text textColor="twitter.100">Please insert your username and password</Text>

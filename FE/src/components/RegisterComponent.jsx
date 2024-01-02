@@ -64,17 +64,17 @@ export function RegisterComponent() {
       <AbsoluteCenter>
         <Flex direction="column" gap={4}>
         <Center>
-            <Box boxSize='15vh' marginBottom='30px' >
-              <Image src="trashtalk.png"></Image>
+            <Box boxSize='13vh' marginBottom='30px' >
+              <Image src="trashtalk.png" bg='white' borderRadius='full'></Image>
             </Box>
           </Center>
-          <Text textColor="twitter.100" textAlign="center">create your new account</Text>
+          <Text textColor="twitter.100" textAlign="center">Create your new account</Text>
           <Input id="username" type="text" variant="outline" placeholder="Username" color="white" />
           <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />
           <Input id="password" type="password" variant="outline" placeholder="Password" color="white" />
           <Button onClick={handleClick}  bg="#93C5FD" width="full">Register</Button>
           <Flex alignItems="center" justifyContent="center">
-            <Text textColor="white" >have an account ?</Text>
+            <Text textColor="white" >Have an account ?</Text>
             <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Login !</Button>
           </Flex>
         </Flex>

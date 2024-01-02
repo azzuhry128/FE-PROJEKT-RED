@@ -1,7 +1,7 @@
 import { useLoginState, useTokenStore } from "../state/store"
 
 const passport = () => {
-    console.log("passport is running")
+    // console.log("passport is running")
     const { loginTokenState, loginValidState } = useLoginState()
     const currentDate = new Date()
 
@@ -11,27 +11,27 @@ const passport = () => {
     const localToken = localStorage.getItem('token')
     const localValidity = localStorage.getItem('validity')
 
-    console.log(localToken)
-    console.log(localValidity)
-    console.log(currentDate.toISOString())
+    // console.log(localToken)
+    // console.log(localValidity)
+    // console.log(currentDate.toISOString())
 
 
     
     if (loginTokenState === null) {
-        console.log("token missing")
+        // console.log("token missing")
         return false
     }
     if (localToken === null) {
-        console.log("token missing")
+        // console.log("token missing")
         return false
     }
 
     if(currentDate.toISOString() === localValidity) {
-        console.log('token expired')
+        // console.log('token expired')
         return false
     }
 
-    console.log("permission granted")
+    // console.log("permission granted")
     return true
 }
 

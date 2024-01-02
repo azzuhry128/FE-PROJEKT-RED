@@ -4,7 +4,7 @@ import "@fontsource-variable/montserrat"
 import { useSidebarStore } from "../state/store";
 
 function AddNewContactComponent() {
-    const sidebarState = useSidebarStore((state) => state.setSidebarState)
+    // const sidebarState = useSidebarStore((state) => state.setSidebarState)
 
     return(
         <>

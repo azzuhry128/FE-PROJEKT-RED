@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { refinedAccount, refinedContact, refinedMessage, refinedUser } from "../data/fakeData";
 
-const storedMessages = []
+const storedMessages = ''
 const storedContacts = refinedContact
 const sidebarDefault = "contacts"
 const storedLastMessage = ['']
@@ -104,16 +104,21 @@ const useContactStore = create((set) => ({
 }))
 
 const useSelectedContactStore = create((set) => ({
+    selectedContactIDState      : '',
     selectedContactNameState     : storedSelectedContactName, 
     selectedContactTagState      : storedSelectedContactTag,
     selectedContactProfilePictureState : storedSelectedProfilePicture,
+    selectedContactRoomState : '',
     displayProfilePictureState : 0, 
     displayMessageBarState: 0,
     setSelectedContactNameState : (state) => set({selectedContactNameState: state}),
     setSelectedContactTagState : (state) => set({selectedContactTagState: state}),
     setSelectedContactProfilePictureState : (state) => set({selectedContactProfilePictureState: state}),
     setDisplayProfilePictureState : (state) => set({displayProfilePictureState: state}),
-    setDisplayMessageBarState    : (state) => set({displayMessageBarState: state})
+    setDisplayMessageBarState    : (state) => set({displayMessageBarState: state}),
+    setSelectedContactIDState    : (state) => set({selectedContactIDState: state}),
+    setSelecterContactRoomState    : (state) => set({selectedContactRoomState: state})
+
 }))
 
 const useSettingMenuStore = create((set) => ({
@@ -133,4 +138,9 @@ const registerPhaseStore = create((set) => ({
 
 }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore, useTokenStore, useNotificationStore }
+const renderMessageCommand = create((set) => ({
+    renderMessageState: false,
+    setRenderMessageState: (state) => set({renderMessageState: state})
+}))
+
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore, useTokenStore, useNotificationStore, renderMessageCommand }

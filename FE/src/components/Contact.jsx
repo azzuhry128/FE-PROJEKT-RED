@@ -1,32 +1,45 @@
 import { Avatar, Button, Center, Container, Divider, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import { useContactStore, useMessageStore, useSelectedContactStore } from "../state/store";
+import { renderMessageCommand, useContactStore, useMessageStore, useSelectedContactStore, useTokenStore } from "../state/store";
 import io from 'socket.io-client'
 import axios from 'axios'
+// import { MessageAdapter } from "../adapters/messageAdapter";
+// import { refinedUser } from "../data/fakeData";
 
 export function Contact(props) {
     const socket = io(`http://localhost:3000/`);
     let { roomState, setRoomState} = useContactStore()
-    const { setMessageState } = useMessageStore()
-    let { setSelectedContactNameState, setSelectedContactTagState, setDisplayProfilePictureState, setSelectedContactProfilePictureState, setDisplayMessageBarState } = useSelectedContactStore()
+    let { messageState, setMessageState } = useMessageStore()
+    let { setSelectedContactNameState, setSelectedContactIDState,  setSelectedContactTagState, setDisplayProfilePictureState, setSelectedContactProfilePictureState, setDisplayMessageBarState, } = useSelectedContactStore()
+    const { tokenState } = useTokenStore()
+    const { setRenderMessageState } = renderMessageCommand()
 
-    function onContactButtonClick(state) {
-        // console.log(state.tag)
-        socketing(props.room)
+    async function onContactButtonClick(state) {
+        const result = await socketing(props.room)
 
+        console.log(props.id)
+
+        setSelectedContactIDState(state.id)
         setSelectedContactNameState(state.username)
         setSelectedContactTagState(state.tag)
         setDisplayProfilePictureState('true')
         setDisplayMessageBarState('true')
         setSelectedContactProfilePictureState(state.profilePicture)
         setRoomState(state.room)
+        setRenderMessageState(result)
     }
 
     const socketing = async (room) => {
-        const messages = await axios.get(`http://localhost:3000/api/message/${room}`);
+        // console.log(tokenState)
+        // console.log(room)
+        const messages = await axios.get(`http://localhost:3000/api/message/${room}`, {
+            headers: {
+                Authorization: `Bearer ${tokenState}`
+            }
+        });
         socket.emit("join", room); // joining a chat with another user
-        setMessageState(messages.data); // fetching data from server
-        console.log(messages.data)
-     }
+        setMessageState(messages.data.data); // fetching data from server
+        return true
+    }
 
     return(
         <>

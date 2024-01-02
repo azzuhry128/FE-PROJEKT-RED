@@ -9,14 +9,14 @@ import { Extension } from "../components/Extension"
 import { Navigate } from "react-router-dom"
 
 const ChatRoomDisplayAdapter = () => {
-    console.log("checking passport")
+    // console.log("checking passport")
     const permission = passport()
-    console.log(permission)
-    console.log("rendering chatroom")
+    // console.log(permission)
+    // console.log("rendering chatroom")
     const chatRoom = <Chat/>
     const activeSidebar = Sidebar()
     const activeExtension = Extension()
-    console.log("chatroom rendered")
+    // console.log("chatroom rendered")
 return ( permission ?
     <Fragment>
         <Flex direction="row">

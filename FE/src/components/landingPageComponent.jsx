@@ -3,8 +3,8 @@ import { AbsoluteCenter, Box, Button, Center, Flex, Grid, GridItem, Text, Progre
 import "@fontsource-variable/montserrat"
 import { useNavigate } from "react-router-dom";
 import LoadingProgress from "./LoadingProgress";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
 
 export function LandingPageComponent() {
   const navigate = useNavigate()
@@ -18,11 +18,11 @@ export function LandingPageComponent() {
     }, 2000);
   }
 
-  useEffect(() => {
-    AOS.init({
-      duration: 2000,
-    });
-  }, []);
+  // useEffect(() => {
+  //   AOS.init({
+  //     duration: 2000,
+  //   });
+  // }, []);
 
   return (
     <>

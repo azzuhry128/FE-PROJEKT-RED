@@ -3,8 +3,8 @@ const { check, validationResult } = require('express-validator');
 
 async function validateNotificationInfo(req) {
   try {
-    await check('sender', 'Sender tidak boleh kosong').not().isEmpty()
-      .run(req);
+    // await check('sender', 'Sender tidak boleh kosong').not().isEmpty()
+    //   .run(req);
 
     await check('receiver', 'Receiver tidak boleh kosong').not().isEmpty()
       .run(req);

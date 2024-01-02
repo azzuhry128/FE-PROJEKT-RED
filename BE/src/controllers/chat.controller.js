@@ -173,6 +173,7 @@ exports.addFriendChat = async (req, res) => {
       success: true,
       code: 200,
       message: 'Create Chat Success',
+      chatRoomId: chatRoomData.chat_room_id,
     });
   } catch (error) {
     return res.json(error);

@@ -58,7 +58,7 @@ exports.createNotification = async (req, res) => {
     const { accountId } = req;
     const notificationInput = req.body;
 
-    await validateNotificationInfo(notificationInput);
+    await validateNotificationInfo(req);
 
     const notificationData = await validateCreateNotification(accountId, notificationInput);
 

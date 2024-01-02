@@ -8,11 +8,11 @@ async function getAllNotification(query = 'receiver', value = '') {
       },
       include: [
         {
-          association: 'sender',
+          association: 'notification_sender',
           include: ['user'],
         },
         {
-          association: 'receiver',
+          association: 'notification_receiver',
           include: ['user'],
         },
       ],

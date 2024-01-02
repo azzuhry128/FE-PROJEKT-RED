@@ -59,9 +59,8 @@ const server = app.listen(port, host, () => {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: '*',
+    origin: [process.env.HOST, 'http://localhost:5173'],
   },
-  connectionStateRecovery: {},
 });
 
 io.on('connection', socketController);

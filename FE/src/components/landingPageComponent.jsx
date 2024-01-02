@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { AbsoluteCenter, Box, Button, Center, Flex, Grid, GridItem, Text, Progress } from "@chakra-ui/react";
+import { AbsoluteCenter, Box, Button, Center, Flex, Grid, GridItem, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import "@fontsource-variable/montserrat"
 import { useNavigate } from "react-router-dom";
 import LoadingProgress from "./LoadingProgress";
-// import AOS from 'aos';
-// import 'aos/dist/aos.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export function LandingPageComponent() {
   const navigate = useNavigate()
@@ -18,11 +18,11 @@ export function LandingPageComponent() {
     }, 2000);
   }
 
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 2000,
-  //   });
-  // }, []);
+  useEffect(() => {
+    AOS.init({
+      duration: 2000,
+    });
+  }, []);
 
   return (
     <>
@@ -39,25 +39,33 @@ export function LandingPageComponent() {
       </Box>
 
       <AbsoluteCenter mx="auto" my="auto" width="960px" display="flex" flexDirection="row" justifyContent="space-between">
-        <Box display="flex" flexDirection="column">
-          <Flex direction="column">
-            <Text color="#FFFFFF" fontSize={64} fontWeight="medium" data-aos="fade-up">Fast.</Text>
-            <Text color="#FFFFFF" fontSize={64} fontWeight="medium" data-aos="fade-up">Reliable.</Text>
-            <Flex>
-              <Text color="#93C5FD" fontSize={64} fontWeight="medium" width="36" data-aos="fade-up">Free</Text>
-              <Text color="#FFFFFF" fontSize={64} fontWeight="medium" data-aos="fade-up">of charge.</Text>
+        <SimpleGrid columns={2} spacing={10}>
+          <Box display="flex" flexDirection="column">
+            <Flex direction="column">
+              <Text color="#FFFFFF" fontSize={64} fontWeight="medium" data-aos="fade-up" data-aos-delay='0'>Fast.</Text>
+              <Text color="#FFFFFF" fontSize={64} fontWeight="medium" data-aos="fade-up" data-aos-delay='1000'>Reliable.</Text>
+              <Flex>
+                <Text color="#93C5FD" fontSize={64} fontWeight="medium" width="36" data-aos="fade-up" data-aos-delay='2000'>Free</Text>
+                <Text color="#FFFFFF" fontSize={64} fontWeight="medium" data-aos="fade-up" data-aos-delay='2000'>of charge.</Text>
+              </Flex>
             </Flex>
+
+            <Box data-aos="fade-up" data-aos-delay='3000'>
+              <Text color="#FFFFFF" marginY="39px" fontWeight="medium" data-aos="fade-up">The only app you need to receive calls and send messages.</Text>
+
+              <Button onClick={handleGetStartedClick} bg="#93C5FD" width="240px" borderTopLeftRadius={0} borderTopRightRadius={100} borderBottomRightRadius={100} borderBottomLeftRadius={96}>
+                <Text color="black" fontSize={16} fontWeight="medium" >Get started !</Text>
+              </Button>
+            </Box>
+          </Box >
+          <Flex justifyContent='center' data-aos="fade-up" data-aos-delay='3000'>
+            <Box boxSize='27vh' top={0}>
+              <Image src="trashtalk.png" bg='white' borderRadius='3xl'></Image>
+            </Box>
           </Flex>
-
-          <div data-aos="fade-up">
-            <Text color="#FFFFFF" marginY="39px" fontWeight="medium">The only app you need to receive calls and send messages.</Text>
-
-            <Button onClick={handleGetStartedClick} bg="#93C5FD" width="240px" borderTopLeftRadius={0} borderTopRightRadius={100} borderBottomRightRadius={100} borderBottomLeftRadius={96}>
-              <Text color="black" fontSize={16} fontWeight="medium">Get started !</Text>
-            </Button>
-          </div>
-        </Box >
-
+          {/* <Center>
+          </Center> */}
+        </SimpleGrid>
       </AbsoluteCenter>
     </>
   )

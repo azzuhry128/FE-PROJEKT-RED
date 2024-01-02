@@ -1,12 +1,17 @@
 import { Avatar, Button, Center, Container, Divider, Flex, Grid, GridItem, Text } from "@chakra-ui/react";
-import { useContactStore, useSelectedContactStore } from "../state/store";
+import { useContactStore, useMessageStore, useSelectedContactStore } from "../state/store";
+import io from 'socket.io-client'
+import axios from 'axios'
 
 export function Contact(props) {
+    const socket = io(`127.0.0.1:3000/`);
     let { roomState, setRoomState} = useContactStore()
+    const { setMessageState } = useMessageStore()
     let { setSelectedContactNameState, setSelectedContactTagState, setDisplayProfilePictureState, setSelectedContactProfilePictureState, setDisplayMessageBarState } = useSelectedContactStore()
 
     function onContactButtonClick(state) {
         // console.log(state.tag)
+        socketing(props.room)
 
         setSelectedContactNameState(state.username)
         setSelectedContactTagState(state.tag)
@@ -15,6 +20,13 @@ export function Contact(props) {
         setSelectedContactProfilePictureState(state.profilePicture)
         setRoomState(state.room)
     }
+
+    const socketing = async (room) => {
+        const messages = await axios.get(`api/message/${room}`);
+        socket.emit("join", room); // joining a chat with another user
+        setMessageState(messages.data); // fetching data from server
+        console.log(messages.data)
+     }
 
     return(
         <>

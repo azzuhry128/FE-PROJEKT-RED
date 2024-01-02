@@ -8,11 +8,21 @@ const storedLastMessage = ['']
 const storedRoom = ['']
 const storedTags = ['']
 const storedAccount = refinedAccount
-const storedUser = refinedUser
+// const storedUser = refinedUser
 const storedSelectedContactTag = ['']
 const storedSelectedContactName = ['']
 const storedSelectedProfilePicture = ['']
 const storedSettingMenuState = 'changeEmail'
+
+const storedNotifications = ['']
+
+// const storedAccountId = localStorage.getItem('account_id')
+// const storedProfileName = localStorage.getItem('profile_name')
+// const storedUsername = localStorage.getItem('username')
+// const storedEmail = localStorage.getItem('email')
+// const storedbio = localStorage.getItem('bio')
+// const storedImage = localStorage.getItem('image')
+
 
 const storedToken = localStorage.getItem('token')
 const storedValidity = localStorage.getItem('validity')
@@ -23,10 +33,18 @@ const useAccountStore = create((set) => ({
 }))
 
 const useUserStore = create((set) => ({
-    id: storedUser.user_id,
-    username: storedUser.profile_name,
-    email: storedUser.email,
-    bio: storedUser.bio
+    username: '',
+    email: '',
+    bio: '',
+    setUserStoreUsername: (username) => set({
+        username: username
+    }),
+    setUserStoreEmail: (Email) => set({
+        email: Email
+    }),
+    setUserStoreBio: (Bio) => set({
+        bio: Bio
+    }),
 }))
 
 const useLoginState = create((set) => ({
@@ -62,6 +80,13 @@ const useMessageStore = create((set) => ({
 //     sidebarState: sidebarDefault,
 //     setSidebarState: (state) => set({sidebarState: state}) 
 // }))
+
+const useNotificationStore = create((set) => ({
+    notificationState: storedNotifications,
+    setNotificationState: (notification) => set((state) => ({
+        notificationState: [...state.notificationState, notification]
+    }))
+}))
 
 const useSidebarStore = create((set) => ({
     sidebarState: sidebarDefault,
@@ -108,4 +133,4 @@ const registerPhaseStore = create((set) => ({
 
 }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore, useTokenStore }
+export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore, useTokenStore, useNotificationStore }

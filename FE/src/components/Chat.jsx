@@ -55,10 +55,10 @@ export function Chat() {
 
 
 
-  console.log(selectedContactNameState)
-  console.log(selectedContactTagState)
-  console.log('profile picture',displayProfilePictureState)
-  console.log('message bar',displayMessageBarState)
+  // console.log(selectedContactNameState)
+  // console.log(selectedContactTagState)
+  // console.log('profile picture',displayProfilePictureState)
+  // console.log('message bar',displayMessageBarState)
 
   return (
     <Box width="full" h="$100vh" bg="#0F172A" display="flex" flexDirection="column" borderBottom="1px">

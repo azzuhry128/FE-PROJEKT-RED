@@ -141,4 +141,13 @@ const fakeContacts = [
     }
 ]
 
-export { fakeUser, fakeMessages, fakeToken, fakeContacts, refinedAccount, refinedChatRoom, refinedMessage, refinedUser, refinedContact }
+const refinedNotifications = [
+    {
+        id: '',
+        sender: '',
+        receiver: '',
+        message: ''
+    }
+]
+
+export { fakeUser, fakeMessages, fakeToken, fakeContacts, refinedAccount, refinedChatRoom, refinedMessage, refinedUser, refinedContact, refinedNotifications }

@@ -9,6 +9,8 @@ import { useLoginState } from "../state/store";
 export function LoginComponent() {
   const {setLoginTokenState, setLoginValidState} = useLoginState()
 
+
+
   const navigate = useNavigate()
   
   function handleClick(){
@@ -26,11 +28,9 @@ export function LoginComponent() {
 
     async function getAccountData(token) {
 
-      console.log(token)
-
-      const result = axios.post('http://localhost:3000/api/accounts/my-account', {
-        headers: {
-          Authorization: token
+      const result = axios.get('http://localhost:3000/api/accounts/my-account', {
+        headers : {
+          'Authorization': `Bearer ${token}`
         }
       }).then((response) => response).catch((error) => error)
 
@@ -42,28 +42,32 @@ export function LoginComponent() {
       const token = await response.data.data.token
       const expired = await response.data.data.expiredAt
 
+      
       const userData = await getAccountData(token)
-
       console.log(userData)
 
       // const {account_id, username} = await userData.data.data
-      // const account_id = await userData.data.data.account_id
-      // const username = await userData.data.data.username
+      const account_id = await userData.data.data.account_id
+      const username = await userData.data.data.username
 
       // const {user_id, profile_name, email, image, bio} = await userData.data.data.user
 
-      // const user_id = await userData.data.data.user.user_id
-      // const profile_name = await userData.data.data.user.profile_name
-      // const email = await userData.data.data.user.email
-      // const bio = await userData.data.data.user.bio
+      const user_id = await userData.data.data.user.user_id
+      const profile_name = await userData.data.data.user.profile_name
+      const email = await userData.data.data.user.email
+      const image = await userData.data.data.user.image
+      const bio = await userData.data.data.user.bio
 
-      // localStorage.setItem('username', username)
-      // localStorage.setItem('account_id', account_id)
-      // localStorage.setItem('user_id', user_id)
-      // localStorage.setItem('profile_name', profile_name)
-      // localStorage.setItem('email', email)
-      // localStorage.setItem('image', image)
-      // localStorage.setItem('bio', bio)
+      let processed_profile_name = profile_name.split('#')
+
+      localStorage.setItem('username', username)
+      localStorage.setItem('account_id', account_id)
+      localStorage.setItem('user_id', user_id)
+      localStorage.setItem('profile_name', processed_profile_name[0])
+      localStorage.setItem('tag', processed_profile_name[1])
+      localStorage.setItem('email', email)
+      localStorage.setItem('image', image)
+      localStorage.setItem('bio', bio)
 
       localStorage.setItem('token', token)
       localStorage.setItem('validity', expired)

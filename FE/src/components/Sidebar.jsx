@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import 'boxicons'
-import { useSidebarStore } from "../state/store";
+import { useSidebarStore, useUserStore } from "../state/store";
 import ErrorComponent from "./ErrorComponent";
 import { useNavigate } from "react-router-dom";
 import { SettingComponent } from "./SettingComponent";
@@ -8,16 +8,16 @@ import { useState } from "react";
 
 export function Sidebar() {
     // let { sideBarState, setSidebarState } = useSidebarStore()
+    const {setUserStoreUsername, setUserStoreEmail, setUserStoreBio } = useUserStore()
     const sidebarState = useSidebarStore((state) => state.setSidebarState)
     const navigate = useNavigate()
 
-    // console.log(sidebarState)
-
-    // function handleButtonClick(state) {
-    //     setSidebarState(state)
-    //     console.log(`switch state to: ${setSidebarState}`)
-    //     console.log(`current state: ${sideBarState}`)
-    // }
+    function onProfileClick(state) {
+        sidebarState(state)
+        setUserStoreUsername(localStorage.getItem('profile_name'))
+        setUserStoreEmail(localStorage.getItem('email'))
+        setUserStoreBio(localStorage.getItem('bio'))
+    }
 
     const [isOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState('');
@@ -48,7 +48,7 @@ export function Sidebar() {
             <Flex bg="#0F172A" flexDirection="column" justifyContent="center" gap="6">
                 <Button colorScheme="teal" variant="link">
                     <Box padding="1rem">
-                        <Avatar size="sm" onClick={(e) => sidebarState('profile')}/>
+                        <Avatar size="sm" onClick={(e) => onProfileClick('profile')}/>
                     </Box>
                 </Button>
 
@@ -58,15 +58,16 @@ export function Sidebar() {
                     </Box>
                 </Button>
 
-                <Button onClick={(e) => sidebarState('phone')}  colorScheme="teal" variant="link">
+                <Button onClick={(e) => sidebarState('notifications')}  colorScheme="teal" variant="link">
                     <Box padding="0.5rem">
-                        <box-icon type='solid' name='phone' color="white" animation="tada-hover"></box-icon>
+                        <box-icon type='solid' name='bell' color="white" animation="tada-hover"></box-icon>
                     </Box>
                 </Button>
 
             </Flex>
 
             <Flex direction="column">
+
                 <Button onClick={(e)=> settingModal()}  colorScheme="teal" variant="link">
                     <Box padding="0.5rem">
                         <box-icon type='solid' name='cog' color="white" animation='spin-hover'></box-icon>

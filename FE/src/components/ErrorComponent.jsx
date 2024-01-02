@@ -4,6 +4,11 @@ import { redirect, useNavigate } from "react-router-dom";
 
 function ErrorComponent(props){
 
+    function exit() {
+        props.onYesClick()
+        localStorage.clear()
+    }
+
     return(
         <Modal isCentered isOpen={props.isOpen} onClose={props.onClose} bg="red" display="flex" flexDirection="column">
             <ModalOverlay bg="blackAlpha.100" backdropFilter='blur(10px)'>
@@ -14,7 +19,7 @@ function ErrorComponent(props){
                     </ModalBody>
                     <ModalFooter display="flex" gap={4}>
                         <Button onClick={props.close} colorScheme="blue">no</Button>
-                        <Button onClick={props.onYesClick} colorScheme='red'>yes</Button>
+                        <Button onClick={exit} colorScheme='red'>yes</Button>
                     </ModalFooter>
                 </ModalContent>
             </ModalOverlay>

@@ -4,7 +4,7 @@ import io from 'socket.io-client'
 import axios from 'axios'
 
 export function Contact(props) {
-    const socket = io(`127.0.0.1:3000/`);
+    const socket = io(`http://localhost:3000/`);
     let { roomState, setRoomState} = useContactStore()
     const { setMessageState } = useMessageStore()
     let { setSelectedContactNameState, setSelectedContactTagState, setDisplayProfilePictureState, setSelectedContactProfilePictureState, setDisplayMessageBarState } = useSelectedContactStore()
@@ -22,7 +22,7 @@ export function Contact(props) {
     }
 
     const socketing = async (room) => {
-        const messages = await axios.get(`api/message/${room}`);
+        const messages = await axios.get(`http://localhost:3000/api/message/${room}`);
         socket.emit("join", room); // joining a chat with another user
         setMessageState(messages.data); // fetching data from server
         console.log(messages.data)
@@ -37,7 +37,7 @@ export function Contact(props) {
                         <Avatar>{props.profilePicture}</Avatar>
                     </GridItem>
                     <GridItem colSpan={2} color="white" textAlign="start">{props.username}</GridItem>
-                    <GridItem colSpan={2} color="white" textAlign="start" fontSize="xs">{props.lastMessage}</GridItem>
+                    <GridItem my="auto" colSpan={2} color="white" textAlign="start" fontSize="xs">#{props.tag}</GridItem>
                 </Grid>
             </Button>
         </Container>

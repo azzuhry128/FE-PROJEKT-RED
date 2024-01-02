@@ -2,14 +2,13 @@ import { AbsoluteCenter, Box, Button, Flex, Input, Text } from "@chakra-ui/react
 import "@fontsource-variable/montserrat"
 // import { useLoginState } from "../state/store";
 import { login } from "../api/login";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useLoginState } from "../state/store";
+import { useContactStore, useLoginState } from "../state/store";
 
 export function LoginComponent() {
   const {setLoginTokenState, setLoginValidState} = useLoginState()
-
-
+  // const { setContactState } = useContactStore()
 
   const navigate = useNavigate()
   
@@ -37,14 +36,30 @@ export function LoginComponent() {
       return result
     }
 
+    async function getAllContacts(token) {
+      const result = axios.get('http://localhost:3000/api/chat/', {
+        headers : {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then((response) => response).catch((error) => error)
+
+      return result
+    }
+
     async function upload() {
       const response = await login()
+
+      console.log(response)
       const token = await response.data.data.token
       const expired = await response.data.data.expiredAt
-
       
       const userData = await getAccountData(token)
-      console.log(userData)
+      const userContacts = await getAllContacts(token)
+      console.log(token)
+
+      const contactList = await userContacts.data.data
+      const parsedContactList = JSON.stringify(contactList)
+      console.log(parsedContactList)
 
       // const {account_id, username} = await userData.data.data
       const account_id = await userData.data.data.account_id
@@ -60,6 +75,7 @@ export function LoginComponent() {
 
       let processed_profile_name = profile_name.split('#')
 
+      localStorage.setItem('contacts', parsedContactList)
       localStorage.setItem('username', username)
       localStorage.setItem('account_id', account_id)
       localStorage.setItem('user_id', user_id)
@@ -72,6 +88,7 @@ export function LoginComponent() {
       localStorage.setItem('token', token)
       localStorage.setItem('validity', expired)
 
+      // setContactState(parsedContactList)
       setLoginTokenState(token)
       setLoginValidState(expired)
 

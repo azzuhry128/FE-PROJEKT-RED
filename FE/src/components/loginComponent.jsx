@@ -1,18 +1,29 @@
-import { AbsoluteCenter, Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { AbsoluteCenter, Box, Button, Center, Flex, Image, Input, Text } from "@chakra-ui/react";
 import "@fontsource-variable/montserrat"
 // import { useLoginState } from "../state/store";
 import { login } from "../api/login";
 import { json, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContactStore, useLoginState } from "../state/store";
+import LoadingProgress from "./LoadingProgress";
 
 export function LoginComponent() {
-  const {setLoginTokenState, setLoginValidState} = useLoginState()
+  const { setLoginTokenState, setLoginValidState } = useLoginState()
   // const { setContactState } = useContactStore()
+  const [showLoadingProgress, setShowLoadingProgress] = useState(false);
 
   const navigate = useNavigate()
-  
-  function handleClick(){
+
+  function handleLoadingRoute(url) {
+    setShowLoadingProgress((prev) => !prev);
+    setTimeout(() => {
+      navigate(url);
+    }, 2000);
+  }
+
+  function handleClick() {
+    setShowLoadingProgress((prev) => !prev);
     // const {setTokenState, setValidState} = useLoginState()
     const emailInput = document.getElementById("email").value
     const passwordInput = document.getElementById("password").value
@@ -28,7 +39,7 @@ export function LoginComponent() {
     async function getAccountData(token) {
 
       const result = axios.get('http://localhost:3000/api/accounts/my-account', {
-        headers : {
+        headers: {
           'Authorization': `Bearer ${token}`
         }
       }).then((response) => response).catch((error) => error)
@@ -38,7 +49,7 @@ export function LoginComponent() {
 
     async function getAllContacts(token) {
       const result = axios.get('http://localhost:3000/api/chat/', {
-        headers : {
+        headers: {
           'Authorization': `Bearer ${token}`
         }
       }).then((response) => response).catch((error) => error)
@@ -52,7 +63,7 @@ export function LoginComponent() {
       console.log(response)
       const token = await response.data.data.token
       const expired = await response.data.data.expiredAt
-      
+
       const userData = await getAccountData(token)
       const userContacts = await getAllContacts(token)
       console.log(token)
@@ -92,33 +103,53 @@ export function LoginComponent() {
       setLoginTokenState(token)
       setLoginValidState(expired)
 
-      navigate('/chat')
+      handleLoadingRoute('/chat')
     }
 
     upload()
 
+    setTimeout(() => {
+      setShowLoadingProgress((prev) => !prev);
+    }, 1000);
   }
 
   function navigator() {
-    navigate('/register')
+    handleLoadingRoute('/register')
   }
 
   function home() {
-    navigate('/')
+    handleLoadingRoute('/')
   }
 
   function reset() {
-    navigate('/reset')
+    handleLoadingRoute('/reset')
+  }
+
+  function navigatorToHome() {
+    handleLoadingRoute('/')
   }
 
   return (
     <>
+      {
+        showLoadingProgress ?
+          (
+            <LoadingProgress show={showLoadingProgress} />
+          ) : (
+            <></>
+          )
+      }
       <Box display="flex" alignItems="center" justifyContent="space-between" padding={"24px"}>
-        <Button onClick={home} variant="link" fontSize={16} fontWeight="bold" color={"#93C5FD"}>Home</Button>
+        <Button variant="link" fontSize={20} fontWeight="bold" color={"#93C5FD"} onClick={navigatorToHome} _hover={{textDecoration: 'none'}}>TrashTalk.io</Button>
       </Box>
 
       <AbsoluteCenter>
         <Flex direction="column" gap={4}>
+          <Center>
+            <Box boxSize='15vh' marginBottom='30px' >
+              <Image src="trashtalk.png"></Image>
+            </Box>
+          </Center>
           <Text textColor="twitter.100">Please insert your username and password</Text>
           <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />
           <Input id="password" type="password" variant="outline" placeholder="Password" color="white" />
@@ -126,7 +157,7 @@ export function LoginComponent() {
             <Text textColor="white" fontSize='xs' fontWeight='medium'>forgot password ?</Text>
             <Button onClick={reset} variant="link" color="#93C5FD" fontSize='xs' fontWeight='medium'>reset !</Button>
           </Flex>
-          <Button onClick={handleClick}  bg="#93C5FD" width="full">Login</Button>
+          <Button onClick={handleClick} bg="#93C5FD" width="full">Login</Button>
           <Flex alignItems="center" justifyContent="center">
             <Text textColor="white" >Dont have an account ?</Text>
             <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Register !</Button>

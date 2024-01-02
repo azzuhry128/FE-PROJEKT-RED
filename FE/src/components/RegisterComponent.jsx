@@ -1,15 +1,26 @@
-import { AbsoluteCenter, Box, Button, Flex, Input, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { AbsoluteCenter, Box, Button, Center, Flex, Image, Input, Text } from "@chakra-ui/react";
 import "@fontsource-variable/montserrat"
 // import { useLoginState } from "../state/store";
 import { login } from "../api/login";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api/register";
 import { registerPhaseStore } from "../state/store";
+import LoadingProgress from "./LoadingProgress";
 
 export function RegisterComponent() {
   // const {emailState, passwordState, setEmailState, setPasswordState} = useLoginState()
 
   const {setUsernameState, setEmailState, setPasswordState} = registerPhaseStore()
+
+  const [showLoadingProgress, setShowLoadingProgress] = useState(false);
+
+  function handleLoadingRoute(url) {
+    setShowLoadingProgress((prev) => !prev);
+    setTimeout(() => {
+      navigate(url);
+    }, 2000);
+  }
 
   const navigate = useNavigate()
   
@@ -25,21 +36,38 @@ export function RegisterComponent() {
 
     // register(payload)
 
-    navigate('/register/profile')
+    handleLoadingRoute('/register/profile')
   }
 
   function navigator() {
-    navigate('/login')
+    handleLoadingRoute('/login')
+  }
+
+  function navigatorToHome() {
+    handleLoadingRoute('/')
   }
 
   return (
     <>
+    {
+            showLoadingProgress ?
+            (
+              <LoadingProgress show={showLoadingProgress} />
+            ) : (
+              <></>
+            )
+          }
       <Box display="flex" alignItems="center" justifyContent="space-between" padding={"24px"}>
-        <Button variant="link" fontSize={16} fontWeight="bold" color={"#93C5FD"}>Home</Button>
+        <Button variant="link" fontSize={20} fontWeight="bold" color={"#93C5FD"} onClick={navigatorToHome} _hover={{textDecoration: 'none'}}>TrashTalk.io</Button>
       </Box>
 
       <AbsoluteCenter>
         <Flex direction="column" gap={4}>
+        <Center>
+            <Box boxSize='15vh' marginBottom='30px' >
+              <Image src="trashtalk.png"></Image>
+            </Box>
+          </Center>
           <Text textColor="twitter.100" textAlign="center">create your new account</Text>
           <Input id="username" type="text" variant="outline" placeholder="Username" color="white" />
           <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />

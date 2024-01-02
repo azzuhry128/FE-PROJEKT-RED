@@ -14,6 +14,7 @@ import { ResetPassword } from './components/ResetPassword'
 import { RegisterComponent } from './components/RegisterComponent'
 import { RegisterProfile } from './components/RegisterProfile'
 
+
 const mainTheme = extendTheme({
   fonts: {
     montserrat: 'montserrat'

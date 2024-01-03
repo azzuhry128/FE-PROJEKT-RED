@@ -4,7 +4,6 @@ import "@fontsource-variable/montserrat"
 import { useSidebarStore } from "../state/store";
 
 export function Notifications() {
-    // const sidebarState = useSidebarStore((state) => state.setSidebarState)
     return(
         <>
         <Box display="flex" alignItems="center" justifyContent="space-between" flexDirection="row" width="" height="64px" padding="1rem" boxShadow='md' p='6'>

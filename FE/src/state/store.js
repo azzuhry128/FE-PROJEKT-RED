@@ -16,14 +16,6 @@ const storedSettingMenuState = 'changeEmail'
 
 const storedNotifications = ['']
 
-// const storedAccountId = localStorage.getItem('account_id')
-// const storedProfileName = localStorage.getItem('profile_name')
-// const storedUsername = localStorage.getItem('username')
-// const storedEmail = localStorage.getItem('email')
-// const storedbio = localStorage.getItem('bio')
-// const storedImage = localStorage.getItem('image')
-
-
 const storedToken = localStorage.getItem('token')
 const storedValidity = localStorage.getItem('validity')
 

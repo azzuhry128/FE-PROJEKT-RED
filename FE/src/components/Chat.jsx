@@ -51,6 +51,7 @@ export function Chat() {
     //   },
     //   content: content
     // })
+    
     sendMessagesToSocket('hello there')
 
     console.log(`checking content in CHAT:${content}`)
@@ -83,15 +84,15 @@ export function Chat() {
 
   }
 
-  function addMessageDetails() {
-    console.log("adding details")
-    const createdAt = new Date().toISOString()
-    const chat_room_id = roomState
-    const account_id = id
+  // function addMessageDetails() {
+  //   console.log("adding details")
+  //   const createdAt = new Date().toISOString()
+  //   const chat_room_id = roomState
+  //   const account_id = id
 
-    const object = {createdAt, chat_room_id, account_id}
-    return object
-  }
+  //   const object = {createdAt, chat_room_id, account_id}
+  //   return object
+  // }
 
   // console.log(selectedContactNameState)
   // console.log(selectedContactTagState)
@@ -109,7 +110,7 @@ export function Chat() {
         </Box>
 
         <Box id="renderMessageLocation" flex={1} overflowY="scroll">
-          {renderMessageState && <MessageAdapter messageArray={messageState} sender={refinedUser}/> }
+          {renderMessageState && <MessageAdapter messageArray={messageState}/> }
         </Box>
       <Box bg="#1E293B" display="flex" flexDirection="row" padding="1rem" gap="4" visibility={displayMessageBarState ? 'visible' : 'hidden'}>
         <Input id="messageInput" onKeyDown={handleEnterKey} placeholder="Write a Message...."  _placeholder={{color : "#93C5FD"}} h="42px" bg="#0F172A" borderRadius="10px" border="none" textColor="white" required></Input>

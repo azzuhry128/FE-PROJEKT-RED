@@ -2,11 +2,11 @@ import { Avatar, Button, Center, Container, Divider, Flex, Grid, GridItem, Text 
 import { renderMessageCommand, useContactStore, useMessageStore, useSelectedContactStore, useTokenStore } from "../state/store";
 import io from 'socket.io-client'
 import axios from 'axios'
-// import { MessageAdapter } from "../adapters/messageAdapter";
+import { MessageAdapter } from "../adapters/messageAdapter";
 // import { refinedUser } from "../data/fakeData";
 
 export function Contact(props) {
-    const socket = io(`http://localhost:3000/`);
+    const socket = io.connect(`http://localhost:3000/`, { transports: ['polling'], reconnect: true }, 'echo-protocol');
     let { roomState, setRoomState} = useContactStore()
     let { messageState, setMessageState } = useMessageStore()
     let { setSelectedContactNameState, setSelectedContactIDState,  setSelectedContactTagState, setDisplayProfilePictureState, setSelectedContactProfilePictureState, setDisplayMessageBarState, } = useSelectedContactStore()
@@ -36,7 +36,7 @@ export function Contact(props) {
                 Authorization: `Bearer ${tokenState}`
             }
         });
-        socket.emit("join", room); // joining a chat with another user
+        socket.emit('join', room)// joining a chat with another user
         setMessageState(messages.data.data); // fetching data from server
         return true
     }

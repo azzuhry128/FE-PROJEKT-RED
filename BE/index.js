@@ -20,8 +20,8 @@ app.use(express.static(path.join(process.cwd(), 'src/views')));
 
 // cors
 app.use(cors({
-  origin: [process.env.HOST, 'http://localhost:5173'],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: '*',
+  methods: '*',
   allowedHeaders: '*',
 }));
 
@@ -59,8 +59,18 @@ const server = app.listen(port, host, () => {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: [process.env.HOST, 'http://localhost:5173'],
+    origin: '*',
+    methods: '*',
+    allowedHeaders: '*',
   },
 });
+
+// const io = new Server(server, {
+//   cors: {
+//     origin: [process.env.HOST, 'http://localhost:5173'],
+//     // methods: '*',
+//     // allowedHeaders: '*',
+//   },
+// });
 
 io.on('connection', socketController);

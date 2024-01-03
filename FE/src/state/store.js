@@ -82,7 +82,7 @@ const useNotificationStore = create((set) => ({
 
 const useSidebarStore = create((set) => ({
     sidebarState: sidebarDefault,
-    setSidebarState: (sidebarState) => set(() => ({sidebarState: sidebarState}))
+    setSidebarState: (sidebarState) => set(() => ({ sidebarState: sidebarState }))
 }))
 
 const useContactStore = create((set) => ({
@@ -90,49 +90,68 @@ const useContactStore = create((set) => ({
     tagState: storedTags,
     lastMessageState: storedLastMessage,
     roomState: storedRoom,
-    setContactState: (state) => set({contactState: state}),
-    setLastMessageState: (state) => set({lastMessageState: state}),
-    setRoomState: (state) => set({roomState: state})
+    setContactState: (state) => set({ contactState: state }),
+    setLastMessageState: (state) => set({ lastMessageState: state }),
+    setRoomState: (state) => set({ roomState: state })
 }))
 
 const useSelectedContactStore = create((set) => ({
-    selectedContactIDState      : '',
-    selectedContactNameState     : storedSelectedContactName, 
-    selectedContactTagState      : storedSelectedContactTag,
-    selectedContactProfilePictureState : storedSelectedProfilePicture,
-    selectedContactRoomState : '',
-    displayProfilePictureState : 0, 
+    selectedContactIDState: '',
+    selectedContactNameState: storedSelectedContactName,
+    selectedContactTagState: storedSelectedContactTag,
+    selectedContactProfilePictureState: storedSelectedProfilePicture,
+    selectedContactRoomState: '',
+    displayProfilePictureState: 0,
     displayMessageBarState: 0,
-    setSelectedContactNameState : (state) => set({selectedContactNameState: state}),
-    setSelectedContactTagState : (state) => set({selectedContactTagState: state}),
-    setSelectedContactProfilePictureState : (state) => set({selectedContactProfilePictureState: state}),
-    setDisplayProfilePictureState : (state) => set({displayProfilePictureState: state}),
-    setDisplayMessageBarState    : (state) => set({displayMessageBarState: state}),
-    setSelectedContactIDState    : (state) => set({selectedContactIDState: state}),
-    setSelecterContactRoomState    : (state) => set({selectedContactRoomState: state})
+    setSelectedContactNameState: (state) => set({ selectedContactNameState: state }),
+    setSelectedContactTagState: (state) => set({ selectedContactTagState: state }),
+    setSelectedContactProfilePictureState: (state) => set({ selectedContactProfilePictureState: state }),
+    setDisplayProfilePictureState: (state) => set({ displayProfilePictureState: state }),
+    setDisplayMessageBarState: (state) => set({ displayMessageBarState: state }),
+    setSelectedContactIDState: (state) => set({ selectedContactIDState: state }),
+    setSelecterContactRoomState: (state) => set({ selectedContactRoomState: state })
 
 }))
 
 const useSettingMenuStore = create((set) => ({
-    settingMenuState : storedSettingMenuState,
-    setSettingMenuState : (sidebarState) => set(() => ({settingMenuState: sidebarState}))
+    settingMenuState: storedSettingMenuState,
+    setSettingMenuState: (sidebarState) => set(() => ({ settingMenuState: sidebarState }))
 }))
 
 const registerPhaseStore = create((set) => ({
-    usernameState : '',
-    emailState : '',
-    passwordState : '',
-    imageState : '',
-    setUsernameState : (usernameState) => set(() => ({usernameState: usernameState})),
-    setEmailState : (emailState) => set(() => ({emailState: emailState})),
-    setPasswordState : (passwordState) => set(() => ({passwordState: passwordState})),
-    setImageState : (imageState) => set(() => ({imageState: imageState})),
+    usernameState: '',
+    emailState: '',
+    passwordState: '',
+    imageState: '',
+    setUsernameState: (usernameState) => set(() => ({ usernameState: usernameState })),
+    setEmailState: (emailState) => set(() => ({ emailState: emailState })),
+    setPasswordState: (passwordState) => set(() => ({ passwordState: passwordState })),
+    setImageState: (imageState) => set(() => ({ imageState: imageState })),
 
 }))
 
 const renderMessageCommand = create((set) => ({
     renderMessageState: false,
-    setRenderMessageState: (state) => set({renderMessageState: state})
+    setRenderMessageState: (state) => set({ renderMessageState: state })
 }))
 
-export { useMessageStore, useSidebarStore, useLoginState, useAccountStore, useContactStore, useUserStore, useSelectedContactStore, useSettingMenuStore, registerPhaseStore, useTokenStore, useNotificationStore, renderMessageCommand }
+const useSocketStore = create((set) => ({
+    socketState: null,
+    setSocketState: (socket) => set({ socketState: socket })
+}))
+
+export {
+    useMessageStore,
+    useSidebarStore,
+    useLoginState,
+    useAccountStore,
+    useContactStore,
+    useUserStore,
+    useSelectedContactStore,
+    useSettingMenuStore,
+    registerPhaseStore,
+    useTokenStore,
+    useNotificationStore,
+    renderMessageCommand,
+    useSocketStore
+}

@@ -1,19 +1,21 @@
 //this is FE-experimental branch, do your witchcrafts here
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme, Flex } from '@chakra-ui/react'
 import '@fontsource-variable/montserrat'
-import { eventListener } from './service/eventListener'
-import { LandingPageComponent } from './components/landingPageComponent'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { LoginComponent } from './components/loginComponent'
-import { ChatRoomDisplayAdapter } from './adapters/ChatRoomDisplayAdapter'
-import { ConfirmEmail } from './components/ConfirmEmail'
-import { ProfilePictureSelector } from './components/ProfilePictureSelecter'
-import { ResetPassword } from './components/ResetPassword'
-import { RegisterComponent } from './components/RegisterComponent'
-import { RegisterProfile } from './components/RegisterProfile'
 
+// importing react router
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+
+// importing components
+import { Landing } from './components/Landing'
+import Register from './components/Register'
+import Login from './components/Login'
+import Chat from './components/Chat'
+import Sidebar from './components/Sidebar'
+// import SettingDrawer from './components/modal/SettingDrawer'
+// import Extension from './components/Extension'
+// import Profile from './components/sidebar/Profile'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -21,46 +23,36 @@ const mainTheme = extendTheme({
   }
 })
 
+const MainLayout = () => {
+  return (
+    <>
+    <Flex direction="row">
+      <Sidebar/>
+      {/* <Profile/> */}
+      <Chat/>
+    </Flex>
+    </>
+  )
+}
+
 const router = createBrowserRouter([
   {
     path:'/',
-    element: <LandingPageComponent/>
-  },
-  {
-    path:'/login',
-    element: <LoginComponent/>,
+    element: <Landing/>
   },
   {
     path:'/register',
-    element: <RegisterComponent/>,
+    element: <Register/>
   },
   {
-    path:'/register/profile',
-    element: <RegisterProfile/>,
+    path:'/login',
+    element: <Login/>
   },
   {
     path:'/chat',
-    element: <ChatRoomDisplayAdapter/>,
-    
+    element: <MainLayout/>
   },
-  {
-    path:'/confirmation',
-    element: <ConfirmEmail/>
-  },
-  {
-    path: '/profilepictureselector',
-    element: <ProfilePictureSelector/>
-  },
-  {
-    path: '/reset',
-    element: <ResetPassword/>
-  }
 ])
-
-//temporary event listener
-document.addEventListener("customEvent", (e) => {
-  eventListener(e)
-})
 
 ReactDOM.createRoot(
   document.getElementById('root')

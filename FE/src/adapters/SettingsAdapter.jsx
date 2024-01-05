@@ -5,3 +5,5 @@ const SettingsAdapter = () => {
         </>
     )
 }
+
+export default SettingsAdapter

@@ -1,17 +1,17 @@
-import { Box, Text } from "@chakra-ui/react";
-import { Profile } from "./Profile";
-import { useSidebarStore } from "../state/store";
-import { Notifications } from "./Notifications";
-import { ContactsAdapter } from "../adapters/ContactsAdapter";
+import { Avatar, Container, Flex, Text } from "@chakra-ui/react"
 
-export function Extension() {
-    const { sidebarState } = useSidebarStore()
-    console.log(`current sidebar state: ${sidebarState}`)
+function Extension() {
     return(
-        <Box bg="#1E293B" width="24rem" overflow="auto" borderRight="1px" borderColor="#0F172A">
-            {sidebarState === 'contacts' && <ContactsAdapter/>}
-            {sidebarState === 'notifications' && <Notifications/>}
-            {sidebarState === 'profile' && <Profile/>}
-        </Box>
+        <Flex direction="column" width='356px' bg="#1E293B">
+            <Text padding='1.5rem' color='white'>profile</Text>
+            <Container direction='column' padding='rem' gap={4}>
+                <Avatar/>
+                <Text color='white' padding='0.5rem' >tag</Text>
+                <Text color='white' padding='0.5rem'>username</Text>
+                {/* <Text color='white' padding='0.5rem'>bio</Text> */}
+            </Container>
+        </Flex>
     )
 }
+
+export default Extension

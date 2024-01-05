@@ -2,7 +2,7 @@ import { useLoginState, useTokenStore } from "../state/store"
 
 const passport = () => {
     // console.log("passport is running")
-    const { loginTokenState, loginValidState } = useLoginState()
+    const { loginTokenState } = useLoginState()
     const currentDate = new Date()
 
     // console.log(loginTokenState)
@@ -15,8 +15,6 @@ const passport = () => {
     // console.log(localValidity)
     // console.log(currentDate.toISOString())
 
-
-    
     if (loginTokenState === null) {
         // console.log("token missing")
         return false

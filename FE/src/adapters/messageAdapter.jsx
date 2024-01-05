@@ -1,46 +1,30 @@
-import { useEffect } from "react"
-import { AnotherMessageComponent } from "../components/AnotherMessageComponent"
-import { MessageComponent } from "../components/MessageComponent"
-import { useAccountStore, useContactStore, useMessageStore, useSelectedContactStore } from "../state/store"
 
-export const MessageAdapter = (props) => {
-  // const socket = io(`http://localhost:3000/`);
+// components
+import MessageComponent from "../components/message/MessageComponent"
 
-  const currentUserId = useAccountStore((state) => state.id)
-  const currentRoom = useContactStore((state) => state.roomState)
-  // const {messageState, setMessageState} = useMessageStore()
-  // const {selectedContactRoomState} = useSelectedContactStore()
-  // const { roomState } = useContactStore()
+// states
+import { useLoggedInUserStore, useContactStore} from "../state/store"
 
-  // useEffect(() => {
-  //   socket.on('message', function(){
-  //     axios.get(`http://localhost:3000/api/message/${roomState}`).then((res) => {
-  //       console.log(`checking res in messageAdapter ${JSON.stringify(res)}`)
-  //       setMessageState(res.data)
-  //     })
-  //   })
-  // }, [messageState, setMessageState])
+const MessageAdapter = (props) => {
 
-  // useEffect(() => {
-  //   console.log(`checking messageState in messageAdapter ${JSON.stringify(messageState)}`)
-  // }, [messageState])
+  const loggedInID = useLoggedInUserStore((state) => state.id)
+  const contactRoom = useContactStore((state) => state.roomState)
 
   const messageArray = []
   messageArray.push(props.messageArray[0])
-  // console.log(messageState)
 
   if (messageArray === '' || null) {
-    return
+    console.log("FROM message IN adapters: messageArray is empty")
   } else {
     return messageArray[0].map((message) => {
-      if(message.chatRoom.chat_room_id !== currentRoom) {
+      if(message.chatRoom.chat_room_id !== contactRoom) {
         console.log(`wrong room: message room : ${message.chatRoom.chat_room_id} current room: ${currentRoom}`)
         return
       }
   
-      if(message.account_id !== currentUserId) {
+      if(message.account_id !== loggedInID) {
         console.log(`rendering another messages`)
-        return <AnotherMessageComponent message={message.content} key={message.message_id}/>
+        return <MessageComponent message={message.content} key={message.message_id}/>
       }
   
       console.log("rendering messages")
@@ -48,6 +32,6 @@ export const MessageAdapter = (props) => {
       }
     )
   }
-
-
 }
+
+export default MessageAdapter

@@ -103,7 +103,7 @@ export function LoginComponent() {
       setLoginTokenState(token)
       setLoginValidState(expired)
 
-      handleLoadingRoute('/chat')
+      handleLoadingRoute('/chat/')
     }
 
     upload()

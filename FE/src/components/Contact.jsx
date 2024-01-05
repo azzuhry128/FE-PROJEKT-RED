@@ -4,9 +4,10 @@ import io from 'socket.io-client'
 import axios from 'axios'
 import { MessageAdapter } from "../adapters/messageAdapter";
 // import { refinedUser } from "../data/fakeData";
+import { Link } from "react-router-dom";
 
 export function Contact(props) {
-    const socket = io.connect(`http://localhost:3000/`, { transports: ['polling'], reconnect: true }, 'echo-protocol');
+    const socket = io.connect(`http://localhost:3000/`, { transports: [ "flashsocket","polling","websocket" ], reconnect: true }, 'echo-protocol');
     let { roomState, setRoomState} = useContactStore()
     let { messageState, setMessageState } = useMessageStore()
     let { setSelectedContactNameState, setSelectedContactIDState,  setSelectedContactTagState, setDisplayProfilePictureState, setSelectedContactProfilePictureState, setDisplayMessageBarState, } = useSelectedContactStore()
@@ -15,8 +16,6 @@ export function Contact(props) {
 
     async function onContactButtonClick(state) {
         const result = await socketing(props.room)
-
-        console.log(props.id)
 
         setSelectedContactIDState(state.id)
         setSelectedContactNameState(state.username)
@@ -44,15 +43,17 @@ export function Contact(props) {
     return(
         <>
         <Container p={2}>
-            <Button onClick={() => onContactButtonClick(props)} h="64px" display="flex" justifyContent="center" variant="ghost" _hover={{bg: "#93C5FD"}} height="64px" w="100%" p={0} m={0}>
-                <Grid w="full" templateRows='repeat(2 , 1fr)' templateColumns='repeat(3, 1fr)'>
-                    <GridItem display="flex" justifyContent="center" alignContent="center" alignItems="center" rowSpan={2} colSpan={1}>
-                        <Avatar>{props.profilePicture}</Avatar>
-                    </GridItem>
-                    <GridItem colSpan={2} color="white" textAlign="start">{props.username}</GridItem>
-                    <GridItem my="auto" colSpan={2} color="white" textAlign="start" fontSize="xs">#{props.tag}</GridItem>
-                </Grid>
-            </Button>
+            <Link to={`/chat/${props.room}`}>
+                <Button onClick={() => onContactButtonClick(props)} h="64px" display="flex" justifyContent="center" variant="ghost" _hover={{bg: "#93C5FD"}} height="64px" w="100%" p={0} m={0}>
+                    <Grid w="full" templateRows='repeat(2 , 1fr)' templateColumns='repeat(3, 1fr)'>
+                        <GridItem display="flex" justifyContent="center" alignContent="center" alignItems="center" rowSpan={2} colSpan={1}>
+                            <Avatar>{props.profilePicture}</Avatar>
+                        </GridItem>
+                        <GridItem colSpan={2} color="white" textAlign="start">{props.username}</GridItem>
+                        <GridItem my="auto" colSpan={2} color="white" textAlign="start" fontSize="xs">#{props.tag}</GridItem>
+                    </Grid>
+                </Button>
+            </Link>
         </Container>
         </>
     )

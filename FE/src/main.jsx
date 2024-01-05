@@ -14,7 +14,6 @@ import { ResetPassword } from './components/ResetPassword'
 import { RegisterComponent } from './components/RegisterComponent'
 import { RegisterProfile } from './components/RegisterProfile'
 
-
 const mainTheme = extendTheme({
   fonts: {
     montserrat: 'montserrat'
@@ -22,40 +21,43 @@ const mainTheme = extendTheme({
 })
 
 const router = createBrowserRouter([
-  {
-    path:'/',
-    element: <LandingPageComponent/>
-  },
-  {
-    path:'/login',
-    element: <LoginComponent/>,
-  },
-  {
-    path:'/register',
-    element: <RegisterComponent/>,
-  },
-  {
-    path:'/register/profile',
-    element: <RegisterProfile/>,
-  },
-  {
-    path:'/chat',
-    element: <ChatRoomDisplayAdapter/>,
-    
-  },
-  {
-    path:'/confirmation',
-    element: <ConfirmEmail/>
-  },
-  {
-    path: '/profilepictureselector',
-    element: <ProfilePictureSelector/>
-  },
-  {
-    path: '/reset',
-    element: <ResetPassword/>
-  }
-])
+   {
+      path: "/",
+      element: <LandingPageComponent />,
+   },
+   {
+      path: "/login",
+      element: <LoginComponent />,
+   },
+   {
+      path: "/register",
+      element: <RegisterComponent />,
+   },
+   {
+      path: "/register/profile",
+      element: <RegisterProfile />,
+   },
+   {
+      path: "/chat",
+      element: <ChatRoomDisplayAdapter />,
+   },
+   {
+      path: "/confirmation",
+      element: <ConfirmEmail />,
+   },
+   {
+      path: "/profilepictureselector",
+      element: <ProfilePictureSelector />,
+   },
+   {
+      path: "/reset",
+      element: <ResetPassword />,
+   },
+   {
+      path: "/chat/:room",
+      element: <ChatRoomDisplayAdapter />,
+   },
+]);
 
 //temporary event listener
 document.addEventListener("customEvent", (e) => {

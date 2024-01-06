@@ -59,8 +59,28 @@ const server = app.listen(port, host, () => {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: [process.env.HOST, 'http://localhost:5173'],
+    // origin: ['http://localhost:5173', 'https://localhost:3000', '*'],
+    origin: '*',
+    methods: '*',
+    transports: ['websocket', 'flashsocket', 'polling'],
+    allowedHeaders: ['Access', 'Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    credentials: true,
+    allowEIO3: true,
   },
 });
 
-io.on('connection', socketController);
+io.on('connection', (socket) => {
+  socket.on('join', async (room) => {
+    socket.join(room.toString());
+    console.log(socket.rooms);
+  });
+
+  socket.on('sendMessage', async (room, data) => {
+    console.log('sendMessage', room, data);
+    io.sockets.emit('message', data);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Socket client has disconnected');
+  });
+});

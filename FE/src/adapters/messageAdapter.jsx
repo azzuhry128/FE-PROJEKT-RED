@@ -1,37 +1,43 @@
+import { useEffect, useState } from "react"
+import { AnotherMessageComponent } from "../components/AnotherMessageComponent"
+import { MessageComponent } from "../components/MessageComponent"
+import {
+  useAccountStore,
+  useContactStore,
+  useMessageStore,
+  // useSelectedContactStore,
+  useTokenStore,
+  useSocketStore,
+} from "../state/store"
 
-// components
-import MessageComponent from "../components/message/MessageComponent"
+export const MessageAdapter = (props) => {
 
-// states
-import { useLoggedInUserStore, useContactStore} from "../state/store"
+  const currentUserId = useAccountStore((state) => state.id)
+  const currentRoom = useContactStore((state) => state.roomState)
 
-const MessageAdapter = (props) => {
-
-  const loggedInID = useLoggedInUserStore((state) => state.id)
-  const contactRoom = useContactStore((state) => state.roomState)
+  // let [messageArray, setMessageArray] = useState([]); // inisialisasi state messageArray
 
   const messageArray = []
   messageArray.push(props.messageArray[0])
 
+
   if (messageArray === '' || null) {
-    console.log("FROM message IN adapters: messageArray is empty")
+    return (<></>)
   } else {
-    return messageArray[0].map((message) => {
-      if(message.chatRoom.chat_room_id !== contactRoom) {
+    return messageArray.map((message) => {
+      if (message.chatRoom.chat_room_id !== currentRoom) {
         console.log(`wrong room: message room : ${message.chatRoom.chat_room_id} current room: ${currentRoom}`)
         return
       }
-  
-      if(message.account_id !== loggedInID) {
+
+      if (message.account_id !== currentUserId) {
         console.log(`rendering another messages`)
-        return <MessageComponent message={message.content} key={message.message_id}/>
+        return <AnotherMessageComponent message={message.content} key={message.message_id} />
       }
-  
+
       console.log("rendering messages")
-      return <MessageComponent message={message.content} key={message.message_id}/>
-      }
+      return <MessageComponent message={message.content} key={message.message_id} />
+    }
     )
   }
 }
-
-export default MessageAdapter

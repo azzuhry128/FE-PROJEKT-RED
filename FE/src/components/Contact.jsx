@@ -37,6 +37,7 @@ export function Contact(props) {
         });
         socket.emit('join', room)// joining a chat with another user
         setMessageState(messages.data.data); // fetching data from server
+        <MessageAdapter messageArray={messages.data.data} />
         return true
     }
 

@@ -15,6 +15,7 @@ import io from "socket.io-client";
 import axios from "axios";
 import { useEffect } from "react";
 import { AnotherMessageComponent } from "./AnotherMessageComponent";
+import { MessageAdapter } from "../adapters/messageAdapter";
 import { MessageComponent } from "./MessageComponent";
 // import { key } from "localforage"
 import { useState } from "react";
@@ -46,7 +47,7 @@ export function Chat() {
   const [randomID, setRandomID] = useState(Math.random());
   const [loading, setLoading] = useState(false);
 
-  console.log(dataMessage)
+  // console.log(dataMessage)
 
   document.addEventListener("DOMContentLoaded", () => {
     console.log("page is loaded");
@@ -59,25 +60,46 @@ export function Chat() {
   });
 
   async function getMessages() {
-    const messageData = await axios.get(
-      `http://localhost:3000/api/message/${room}`,
-      {
-        headers: { Authorization: `Bearer ${tokenState}` },
-      }
-    );
+    socket.on('message', async (msg)=> {
+      const messageData = await axios.get(
+        `http://localhost:3000/api/message/${room}`,
+        {
+          headers: { Authorization: `Bearer ${tokenState}` },
+        }
+      );
+  
+      // console.log(`checking res in messageAdapter ${JSON.stringify(messageData)}`)
+      setDataMessage(messageData.data.data);
+      return messageData;
+    })
+  }
 
-    // console.log(`checking res in messageAdapter ${JSON.stringify(messageData)}`)
-    setDataMessage(messageData.data.data);
-    return messageData;
+  async function fetchInitMessage() {
+      const messageData = await axios.get(
+        `http://localhost:3000/api/message/${room}`,
+        {
+          headers: { Authorization: `Bearer ${tokenState}` },
+        }
+      );
+  
+      // console.log(`checking res in messageAdapter ${JSON.stringify(messageData)}`)
+      setDataMessage(messageData.data.data);
+      return messageData;
   }
 
   useEffect(() => {
-    getMessages();
-  }, [dataMessage]);
+      getMessages();
+  });
+
+  useEffect(() => {
+    fetchInitMessage();
+    // console.log(dataMessage)
+  }, [])
 
   const sendMessagesToSocket = async (data) => {
+    socket.emit('join', room)
     console.log("emitting message to socket io");
-    socket.emit("sendMessage", (room, data)); // emit THEN send data so server
+    socket.emit("sendMessage", room, data); // emit THEN send data so server
     console.log("message emitted");
   };
 
@@ -107,6 +129,8 @@ export function Chat() {
 
     element.value = "";
     socket.emit("join", room);
+
+    getMessages();
     // const message = await getMessages();
     // setDataMessage(message.data.data);
     setRandomID(Math.random());
@@ -179,6 +203,7 @@ export function Chat() {
               );
             }
           })}
+          
       </Box>
       <Box
         bg="#1E293B"

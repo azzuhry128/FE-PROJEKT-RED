@@ -67,8 +67,11 @@ document.addEventListener("customEvent", (e) => {
 ReactDOM.createRoot(
   document.getElementById('root')
   ).render(
+   // init react strict
+   <React.StrictMode>
     <ChakraProvider theme={mainTheme}>
         <RouterProvider router={router}>
         </RouterProvider>
     </ChakraProvider>
+   </React.StrictMode>
   )

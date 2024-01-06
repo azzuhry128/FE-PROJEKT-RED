@@ -15,17 +15,16 @@ export const MessageAdapter = (props) => {
   const currentUserId = useAccountStore((state) => state.id)
   const currentRoom = useContactStore((state) => state.roomState)
 
-  const [messageArray, setMessageArray] = useState([]); // inisialisasi state messageArray
+  // let [messageArray, setMessageArray] = useState([]); // inisialisasi state messageArray
 
-  useEffect(() => {
-    setMessageArray(props.messageArray[0]);
-    
-  })
+  const messageArray = []
+  messageArray.push(props.messageArray[0])
+
 
   if (messageArray === '' || null) {
     return (<></>)
   } else {
-    return messageArray[0].map((message) => {
+    return messageArray.map((message) => {
       if (message.chatRoom.chat_room_id !== currentRoom) {
         console.log(`wrong room: message room : ${message.chatRoom.chat_room_id} current room: ${currentRoom}`)
         return

@@ -8,8 +8,7 @@ exports.socketController = async (socket) => {
   });
 
   socket.on('sendMessage', async (room, data) => {
-    console.log('sendMessage', room, data);
-    socket.to(room).emit('message', data);
+    socket.emit('message', data);
   });
 
   socket.on('disconnect', () => {

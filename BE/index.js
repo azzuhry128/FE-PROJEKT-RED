@@ -20,7 +20,8 @@ app.use(express.static(path.join(process.cwd(), 'src/views')));
 
 // cors
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://localhost:3000'],
+  // origin: ['http://localhost:5173', 'https://localhost:3000', '*'],
+  origin: '*',
   methods: '*',
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
 }));
@@ -52,7 +53,8 @@ const server = app.listen(port, host, () => {
 const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
-    origin: ['http://localhost:5173', 'https://localhost:3000'],
+    // origin: ['http://localhost:5173', 'https://localhost:3000', '*'],
+    origin: '*',
     methods: '*',
     transports: ['websocket', 'flashsocket', 'polling'],
     allowedHeaders: ['Access', 'Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
@@ -77,7 +79,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', async (room, data) => {
     console.log('sendMessage', room, data);
-    socket.emit('message', data);
+    io.sockets.emit('message', data);
   });
 
   socket.on('disconnect', () => {

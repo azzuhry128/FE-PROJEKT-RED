@@ -1,7 +1,39 @@
 import { Box, Button, Center, Divider, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
+import axios from "axios";
 
 function SettingModal({isOpen, onClose}){
     const toast = useToast()
+
+    async function getReceiverID(username, token) {
+        console.log('getting receivers id')
+        const result = async() =>  await axios(`http://localhost:3000/api/accounts/username/${username}`, {
+            method: 'GET',
+            headers: {'Authorization': `Bearer ${token}`},
+        })
+    
+        return result
+    }
+    
+    async function sendNotification(receiverID, message) {
+        console.log('sending notification')
+        const result = async() =>  await axios(`http://localhost:3000/api/notification/`, {
+            method: 'POST',
+            headers: {'Authorization': `Bearer ${token}`},
+            data: {'receiver': receiverID, 'message': message}
+        })
+
+        return result
+    }
+    
+    async function sendFriend() {
+        const username = document.getElementById('receiverName').value
+        const message = 'hello there !'
+        const token = localStorage.getItem('loggedInToken')
+    
+        const receiverID = await getReceiverID(username, token)
+        sendNotification(receiverID, message)
+        addFriendToast
+    }
 
     function addFriendForm() {
         console.log('FROM SettingModal : running addFriend')
@@ -39,9 +71,8 @@ function SettingModal({isOpen, onClose}){
                                 </Center>
                             <Flex direction='column' gap={4} flex='1'>
                                 <Flex direction='column' gap={4}>
-                                    <Input id="receiverName" placeholder='username'/>
-                                    <Input id='receiverTag' placeholder='tag'/>
-                                    <Button onClick={addFriendToast} colorScheme='facebook'> add friend</Button>
+                                    <Input id="receiverName" placeholder='username'/>   
+                                    <Button onClick={sendFriend} colorScheme='facebook'> add friend</Button>
                                 </Flex>
                                 {/* <Button w='full' variant='link' colorScheme='blue'>add friend</Button>
                                 <Button w='full' variant='link' colorScheme='blue'>change email</Button> */}

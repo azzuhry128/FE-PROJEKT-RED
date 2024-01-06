@@ -13,9 +13,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 import Chat from './components/Chat'
 import Sidebar from './components/Sidebar'
-// import SettingDrawer from './components/modal/SettingDrawer'
-// import Extension from './components/Extension'
-// import Profile from './components/sidebar/Profile'
+import Contact from './components/Contact'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -28,7 +26,7 @@ const MainLayout = () => {
     <>
     <Flex direction="row">
       <Sidebar/>
-      {/* <Profile/> */}
+      <Contact/>
       <Chat/>
     </Flex>
     </>

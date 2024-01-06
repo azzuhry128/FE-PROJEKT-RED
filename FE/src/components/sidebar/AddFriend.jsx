@@ -11,36 +11,10 @@ function AddFriend() {
     const [modalType, setModalType] = useState('');
     const {tokenState} = useTokenStore();
 
-    async function handleButtonCLick(reference) {
-        const username = document.getElementById('username').value
-        setModalType(reference)
-        setIsOpen(true)
-
-        const userIDResult = async() => await axios(`http://localhost:3000/api/accounts/username/${username}`, {
-            method: 'POST',
-            headers: {'Authorization': `Bearer ${tokenState}`},
-        })
-
-        const userId = await userIDResult()
-        const template = "hello there !"
-
-        const sendFriendrequest = (id, template)=> {
-            const result = axios('http://localhost:3000/api/notification/', {
-                method: 'POST',
-                headers: {'Authorization': `Bearer ${tokenState}`},
-                data: {receiver: id, message: template}
-            }).then((response) => console.log(response)).catch((error) => console.log(error))
-            return result
-        }
-
-        const friendRequestResult = sendFriendrequest(userId, template)
-        console.log(friendRequestResult)
-    }
-
-    function closeModal() {
-        setIsOpen(false)
-        setModalType('')
-    }
+    // function closeModal() {
+    //     setIsOpen(false)
+    //     setModalType('')
+    // }
 
     return(
         <Flex direction="column" gap={4}>

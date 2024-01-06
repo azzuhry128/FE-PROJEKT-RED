@@ -90,8 +90,6 @@ function Sidebar() {
         <NotificationDrawer isOpen={isRequestOpen} onClose={onRequestClose}/>
         <SettingModal isOpen={isSettingOpen} onClose={onSettingClose}/>
         <LogoutModal isOpen={isLogoutOpen} onClose={onLogoutClose}/>
-        <ContactsAdapter/>
-
 
         {/* {modalType === 'logout' && <ErrorComponent isOpen={isOpen} close={closeModal} onYesClick={redirector} title="warning" message="are you sure you want to log out"/>}
         {modalType === 'setting' && <SettingComponent isOpen={isOpen} onClose={closeModal} title="setting" message="welcome to message"/>} */}

@@ -23,9 +23,10 @@ function Chat() {
   }
 
   async function messageAdapter() {
+    
   }
 
-  async function chat() {
+  async function sendMessasge() {
     let element = document.getElementById('messageInput')
     const content = element.value
 
@@ -33,15 +34,13 @@ function Chat() {
 
     const response = await axios({
       method:'POST',
-      url: `http://localhost:3000/api/message/${roomState}`,
-      headers : {'Authorization': `Bearer ${tokenState}`},
+      url: `http://localhost:3000/api/message/${receiverRoomID}`,
+      headers : {'Authorization': `Bearer ${loggedInUserToken}`},
       data: {content: content},
     }).then((response) => response)
 
     console.log(`checking response.data @ CHAT: ${JSON.stringify(response.data)}`)
-
     setMessageState(response.data)
-
     element.value = ''
   }
 
@@ -55,8 +54,7 @@ function Chat() {
           </Box>
         </Box>
 
-        <Box id="renderMessageLocation" flex={1} overflowY="scroll">
-          {/* {renderMessageState && <MessageAdapter messageArray={messageState}/> } */}
+        <Box id="renderMessageLocation" flex={1} overflowY="scroll">  
         </Box>
       <Box bg="#1E293B" display="flex" flexDirection="row" padding="1rem" gap="4" visibility='hidden'>
         <Input id="messageInput" onKeyDown={handleEnterKey} placeholder="Write a Message...."  _placeholder={{color : "#93C5FD"}} h="42px" bg="#0F172A" borderRadius="10px" border="none" textColor="white" required></Input>

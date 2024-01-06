@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
-import Contact from "../components/sidebar/Contact"
+import Contact from "../components/sidebar/Contact2"
 
 const ContactsAdapter = () => {
     const array = []

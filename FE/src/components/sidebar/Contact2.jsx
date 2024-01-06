@@ -5,7 +5,7 @@ import axios from 'axios'
 // import { MessageAdapter } from "../adapters/messageAdapter";
 // import { refinedUser } from "../data/fakeData";
 
-function Contact(props) {
+function Contact2(props) {
     const socket = io(`http://localhost:3000/`);
     let { messageState, setMessageState } = useMessageStore()
 
@@ -49,4 +49,4 @@ function Contact(props) {
     )
 }
 
-export default Contact
+export default Contact2

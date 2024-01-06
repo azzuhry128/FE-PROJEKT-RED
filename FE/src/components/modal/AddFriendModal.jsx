@@ -1,4 +1,5 @@
 import { Button, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
+import axios from "axios"
 
 const AddFriendModal = (props) => {
     return (

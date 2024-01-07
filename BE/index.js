@@ -63,14 +63,6 @@ const io = new Server(server, {
   },
 });
 
-// const io = new Server(server, {
-//   cors: {
-//     origin: [process.env.HOST, 'http://localhost:5173'],
-//     // methods: '*',
-//     // allowedHeaders: '*',
-//   },
-// });
-
 io.on('connection', (socket) => {
   socket.on('join', async (room) => {
     socket.join(room.toString());

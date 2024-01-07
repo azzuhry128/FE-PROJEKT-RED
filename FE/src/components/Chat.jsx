@@ -63,8 +63,7 @@ function Chat() {
         </Button>
       </Box>
     </Box>
-
-  )
+  );
 }
 
 export default Chat

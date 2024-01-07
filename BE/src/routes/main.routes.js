@@ -21,6 +21,7 @@ middlewareRouter.use('/notification', notificationRoutes);
 // Auth Routes
 router.use('/auth', authRoutes);
 router.use('/admin/user', userRoutes);
+router.use('/debug/chats', (req, res) => res.render('message'));
 
 // Useless API
 router.get('/', (req, res) => res.render('index'));

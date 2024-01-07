@@ -32,19 +32,7 @@ function Register() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const fileInputRef = useRef(null); // variable untuk popupnya
-
-  // biar kalau tombol di klick keluar pop up
-  const openFileUploader = () => {
-  fileInputRef.current.click();
-};
-  // setelah di klick trs di apain?
-  const handleFileSelect = (event) => {
-    event.preventDefault();
-
-    const selectedFile = event.currentTarget.files[0];
-    console.log('File selected:', selectedFile ? selectedFile.name : 'No file selected');
-
-  };
+  const selectedImage = []
 
   function handleLoadingRoute(url) {
     setShowLoadingProgress((prev) => !prev);
@@ -52,6 +40,22 @@ function Register() {
       navigate(url);
     }, 2000);
   }
+
+  // biar kalau tombol di klick keluar pop up
+  const openFileUploader = () => {
+  fileInputRef.current.click();
+};
+
+  // setelah di klick trs di apain?
+  const handleFileSelect = async(event) => {
+    event.preventDefault();
+
+    const selectedFile = event.currentTarget.files[0];
+    console.log('File selected:', selectedFile ? selectedFile.name : 'No file selected');
+
+    selectedImage.push(selectedFile)
+  };
+
 
   async function confirmUserData(){
     console.log("confirming data...")
@@ -70,15 +74,27 @@ function Register() {
     return data
   }
 
+  async function imageRename() {
+    console.log('renaming image...')
+    
+    const newImageName = Date.now()
+    const renamedImage = new File([selectedImage[0]], newImageName, {type: selectedImage.type})
+
+    return renamedImage
+  }
+
   async function register() {
     console.log('registering...')
 
     const data = await confirmUserData()
-    const image = 'image'
+    const image = await imageRename()
+
+    console.log(data)
+    console.log(image.name)
 
     axios('http://localhost:3000/api/auth/registerasi/', {
       method:'POST',
-      data: {'username': data.username,'email': data.email, 'password': data.password, 'image': image}
+      data: {'username': data.username,'email': data.email, 'password': data.password, 'image': image.name}
     }).then((response) => response).catch((error) => console.log(error)) 
   }
 

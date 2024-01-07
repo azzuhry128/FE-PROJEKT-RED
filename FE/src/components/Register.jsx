@@ -83,6 +83,11 @@ function Register() {
     return renamedImage
   }
 
+  //TODO upload image to firebase
+  async function uploadImageToFirebase() {
+    console.log('uploading image to firebase...')
+  }
+
   async function register() {
     console.log('registering...')
 

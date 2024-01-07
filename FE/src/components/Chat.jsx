@@ -22,10 +22,12 @@ function Chat() {
     }
   }
 
+  //TODO adapt messages
   async function messageAdapter() {
     
   }
 
+  //TODO send messages via socket io
   async function sendMessasge() {
     console.log('from Chat: sending message')
     let element = document.getElementById('messageInput')

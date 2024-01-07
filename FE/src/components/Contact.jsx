@@ -7,6 +7,8 @@ function Contact(){
     const contactsArray = []
     const messagesArray = []
 
+
+    //TODO get contact info
     async function fetchContacts() {
         console.log('from Contact: fetching contacts')
         const contacts = await axios('http://localhost:3000/api/chat/', {
@@ -18,6 +20,7 @@ function Contact(){
         contactsArray.push(contacts)
     }
 
+    //TODO fetch all message related to contact
     async function fetchMessages() {
         console.log('from Contact: fetching messages')
         const messages = await axios('http://localhost:3000/api/message/', {

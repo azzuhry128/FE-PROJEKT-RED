@@ -5,8 +5,10 @@ function Contact(){
     console.log('rendering contact...')
     // const socket = io('http://localhost:3000')
     const contactsArray = []
+    const messagesArray = []
 
     async function fetchContacts() {
+        console.log('from Contact: fetching contacts')
         const contacts = await axios('http://localhost:3000/api/chat/', {
             headers: {
                 'Authorization': `Bearer`
@@ -16,7 +18,19 @@ function Contact(){
         contactsArray.push(contacts)
     }
 
+    async function fetchMessages() {
+        console.log('from Contact: fetching messages')
+        const messages = await axios('http://localhost:3000/api/message/', {
+            headers: {
+                'Authorization': 'Bearer'
+            }
+        }).then((response) => response).catch((error) => error)
+
+        messagesArray.push(messages)
+    }
+
     async function contactsAdapter(data) {
+        console.log('from contact: adapting contacts')
         contactsArray.map((contact) => {
             return (
                 <Container p={2}>
@@ -36,8 +50,8 @@ function Contact(){
 
     return(
         //redesigned contacts
-        <Box display="flex" bg="#1E293B" flexDirection="column" padding="1rem" width='356px'>
-            <Flex padding='0.5rem' color='white' fontWeight='medium' fontSize='xl'>
+        <Box display="flex" bg="#1E293B" flexDirection="column" width='356px'  borderRight='1px' borderColor='black'>
+            <Flex padding='1rem' color='white' fontWeight='medium' fontSize='xl' borderBottom='1px' borderColor='black'>
                 <Text>Contacts</Text>
             </Flex>
             <Flex>

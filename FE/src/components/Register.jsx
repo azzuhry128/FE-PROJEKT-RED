@@ -23,6 +23,7 @@ import LoadingProgress from "./miscellaneous/LoadingProgress";
 import {
 
 } from '@chakra-ui/react'
+import axios from "axios";
 
 function Register() {
   const [showLoadingProgress, setShowLoadingProgress] = useState(false);
@@ -37,11 +38,33 @@ function Register() {
     }, 2000);
   }
 
-  function register(){
-    console.log("registering...")
-    const username = document.getElementById('username').value
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
+  async function confirmUserData(){
+    console.log("confirming data...")
+    // const data = []
+    const usernameInput = document.getElementById('username').value
+    const emailInput = document.getElementById("email").value
+    const passwordInput = document.getElementById("password").value
+
+    const data = {
+      username: usernameInput,
+      email: emailInput,
+      password: passwordInput
+    }
+
+    // onOpen()
+    return data
+  }
+
+  async function register() {
+    console.log('registering...')
+
+    const data = await confirmUserData()
+    const image = 'image'
+
+    axios('http://localhost:3000/api/auth/registerasi/', {
+      method:'POST',
+      data: {'username': data.username,'email': data.email, 'password': data.password, 'image': image}
+    }).then((response) => response).catch((error) => console.log(error)) 
   }
 
   function navigator() {
@@ -70,7 +93,7 @@ function Register() {
           <Input id="username" type="text" variant="outline" placeholder="Username" color="white" />
           <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />
           <Input id="password" type="password" variant="outline" placeholder="Password" color="white" />
-          <Button onClick={onOpen}  bg="#93C5FD" width="full">Register</Button>
+          <Button onClick={onOpen}  bg="#93C5FD" width="full">Confirm</Button>
           <Flex alignItems="center" justifyContent="center">
             <Text textColor="white" >Have an account ?</Text>
             <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Login !</Button>
@@ -85,8 +108,8 @@ function Register() {
             <ModalBody>
             </ModalBody>
             <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-                Close
+            <Button colorScheme='blue' mr={3} onClick={register}>
+                confirm
             </Button>
             </ModalFooter>
         </ModalContent>

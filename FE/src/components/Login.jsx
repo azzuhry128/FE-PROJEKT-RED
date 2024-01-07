@@ -51,25 +51,27 @@ function Login() {
 
   async function myDataBundler(data) {
     console.log('bundling data...')
-    const account_id = data.account_id
-    const user_id = data.user.user_id
-    const username = data.username
-    const email = data.user.email
-    const image = data.user.image
+    // const account_id = data.account_id
+    // const user_id = data.user.user_id
+    // const username = data.username
+    // const email = data.user.email
+    // const image = data.user.image
 
-    const bundle = {account_id, user_id, username, email, image}
-    localStorage.setItem('credentials', JSON.stringify(bundle))
-    console.log("bundling data finished...")
+    // const bundle = {account_id, user_id, username, email, image}
+    localStorage.setItem('credentials', JSON.stringify(data))
+    console.log("bundling data finished")
+  }
+
+  async function myPassportBundler(data) {
+    console.log('bundling passport...')
+    localStorage.setItem('passport', JSON.stringify(data))
+    console.log('bundling passport finished')
   }
 
   async function myContactsBundler(data) {
-    const bundle = {}
-    localStorage.setItem('contacts')
-  }
-
-  async function getbundledData() {
-    const data = localStorage.getItem('credentials')
-    return data
+    console.log('bundling contacts...')
+    localStorage.setItem('contacts', JSON.stringify(data))
+    console.log("bundling contacts finished")
   }
 
   async function login() {
@@ -81,24 +83,27 @@ function Login() {
 
     const myToken = await getToken(emailInput, passwordInput)
 
-    const token = myToken.data.data.token
-    const myData = await getMyAccountData(token)
-    const myContacts = await getMyContacts(token)
+    const token = myToken.data.data
+    const myData = await getMyAccountData(token.token)
+    const myContacts = await getMyContacts(token.token)
 
-    // console.log(myData.data.data)
+    if(token != null || undefined ) {
+      myPassportBundler(token)
+    }
 
-    // const bundledMyData = {account_id, user_id, username, email}
+    if(myData.data.data != null || undefined ) {
+      myDataBundler(myData.data.data)
+    }
 
-    myDataBundler(myData.data.data)
-
-    // const data = await getbundledData()
-    // console.log(data)
-
-    // console.log(myContacts.data)
+    if(myContacts.data.data != undefined) {
+      myContactsBundler(myContacts.data.data)
+    }
 
     setTimeout(() => {
       setShowLoadingProgress((prev) => !prev);
     }, 1000);
+
+    navigate('/chat')
   }
 
   function navigator() {

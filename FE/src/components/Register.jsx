@@ -1,12 +1,12 @@
 import { useState, useRef } from "react";
-import { 
-  AbsoluteCenter, 
-  Box, 
-  Center, 
-  Flex, 
-  Image, 
-  Input, 
-  Text, 
+import {
+  AbsoluteCenter,
+  Box,
+  Center,
+  Flex,
+  Image,
+  Input,
+  Text,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -17,8 +17,6 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
-import { Icon } from '@chakra-ui/icons';
-import { FaRegImage } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import LoadingProgress from "./miscellaneous/LoadingProgress";
 
@@ -27,17 +25,20 @@ function Register() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const fileInputRef = useRef(null); // variable untuk popupnya
+  const [selectedImage, setSelectedImage] = useState(null); // State untuk menyimpan gambar yang dipilih
+
 
   // biar kalau tombol di klick keluar pop up
   const openFileUploader = () => {
-  fileInputRef.current.click();
-};
+    fileInputRef.current.click();
+  };
   // setelah di klick trs di apain?
   const handleFileSelect = (event) => {
     event.preventDefault();
 
     const selectedFile = event.currentTarget.files[0];
     console.log('File selected:', selectedFile ? selectedFile.name : 'No file selected');
+    setSelectedImage(selectedFile);
 
   };
 
@@ -90,19 +91,21 @@ function Register() {
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>select profile picture</ModalHeader>
+            <ModalHeader>Select Profile Picture</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>
-              <Box backgroundColor="#EFFFFD" borderRadius="md" boxShadow="md" width="20rem" height="20rem" marginLeft="2.5rem">
-                <Icon as={FaRegImage} boxSize="6rem" marginLeft="7rem" marginTop="3rem" />
-                <Text color="black" marginLeft="6.7rem">Drag and Drop </Text>
-                <Text color="black" marginLeft="8rem">a Picture </Text>
-                <Text color="black" marginLeft="6.7rem">━━━━━ Or ━━━━━ </Text>
-                <Button id="TombolBrowse" onClick={openFileUploader} width="7.5rem" marginLeft="6.3rem" marginTop="0.5rem" backgroundColor="black" textColor="white">
-                  Browse
-                  <Input type="file" onChange={handleFileSelect} ref={fileInputRef} style={{ display: 'none' }} />
-                </Button>
-              </Box>
+            <ModalBody >
+                <Box backgroundColor="#EFFFFD" borderRadius="md" boxShadow="md" width="20rem" height="22rem" marginLeft="2.5rem">
+                  <Center>
+                    <Image src={selectedImage ? URL.createObjectURL(selectedImage) : "BlankAvatar.jpg"} bg='white' boxSize="10rem" borderRadius='full' marginTop="1rem"></Image>
+                  </Center>
+                  <Text color="black" marginTop="1rem" marginLeft="6.7rem">Drag and Drop </Text>
+                  <Text color="black" marginLeft="8rem">a Picture </Text>
+                  <Text color="black" marginLeft="6.7rem">━━━━━ Or ━━━━━ </Text>
+                  <Button id="TombolBrowse" onClick={openFileUploader} width="7.5rem" marginLeft="6.3rem" marginTop="0.5rem" backgroundColor="black" textColor="white">
+                    Browse
+                    <Input type="file" onChange={handleFileSelect} ref={fileInputRef} style={{ display: 'none' }} />
+                  </Button>
+                </Box>
             </ModalBody>
             <ModalFooter>
               <Button colorScheme='blue' mr={3} onClick={onClose}>

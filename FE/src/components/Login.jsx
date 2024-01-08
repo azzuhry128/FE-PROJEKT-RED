@@ -19,6 +19,7 @@ function Login() {
 
   async function getMyContacts(token) {
     // console.log(`checking token for contacts in login: ${JSON.stringify(token)}`)
+    console.log('getting contacts')
     const result = axios.get('http://localhost:3000/api/chat/', {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -31,6 +32,7 @@ function Login() {
   
   async function getMyAccountData(token) {
     // console.log(`checking token for account in login: ${JSON.stringify(token)}`)
+    console.log('getting account data')
     const result = axios.get('http://localhost:3000/api/accounts/my-account', {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -40,7 +42,18 @@ function Login() {
     return result
   }
 
+  //TODO get profile image using firebase
+  async function getProfileImage() {
+    console.log('getting profile image...')
+  }
+
+  //TODO get contacts images using firebase
+  async function getContactsImages() {
+    console.log('getting contacts images...')
+  }
+
   async function getToken(emailInput, passwordInput) {
+    console.log('getting token')
     const result = axios('http://localhost:3000/api/auth/login/', {
       method:'POST',
       data: {'email': emailInput, 'password': passwordInput}
@@ -51,25 +64,20 @@ function Login() {
 
   async function myDataBundler(data) {
     console.log('bundling data...')
-    const account_id = data.account_id
-    const user_id = data.user.user_id
-    const username = data.username
-    const email = data.user.email
-    const image = data.user.image
+    localStorage.setItem('credentials', JSON.stringify(data))
+    console.log("bundling data finished")
+  }
 
-    const bundle = {account_id, user_id, username, email, image}
-    localStorage.setItem('credentials', JSON.stringify(bundle))
-    console.log("bundling data finished...")
+  async function myPassportBundler(data) {
+    console.log('bundling passport...')
+    localStorage.setItem('passport', JSON.stringify(data))
+    console.log('bundling passport finished')
   }
 
   async function myContactsBundler(data) {
-    const bundle = {}
-    localStorage.setItem('contacts')
-  }
-
-  async function getbundledData() {
-    const data = localStorage.getItem('credentials')
-    return data
+    console.log('bundling contacts...')
+    localStorage.setItem('contacts', JSON.stringify(data))
+    console.log("bundling contacts finished")
   }
 
   async function login() {
@@ -81,24 +89,27 @@ function Login() {
 
     const myToken = await getToken(emailInput, passwordInput)
 
-    const token = myToken.data.data.token
-    const myData = await getMyAccountData(token)
-    const myContacts = await getMyContacts(token)
+    const token = myToken.data.data
+    const myData = await getMyAccountData(token.token)
+    const myContacts = await getMyContacts(token.token)
 
-    // console.log(myData.data.data)
+    if(token != null || undefined ) {
+      myPassportBundler(token)
+    }
 
-    // const bundledMyData = {account_id, user_id, username, email}
+    if(myData.data.data != null || undefined ) {
+      myDataBundler(myData.data.data)
+    }
 
-    myDataBundler(myData.data.data)
-
-    // const data = await getbundledData()
-    // console.log(data)
-
-    // console.log(myContacts.data)
+    if(myContacts.data.data != undefined) {
+      myContactsBundler(myContacts.data.data)
+    }
 
     setTimeout(() => {
       setShowLoadingProgress((prev) => !prev);
     }, 1000);
+
+    navigate('/chat')
   }
 
   function navigator() {

@@ -22,11 +22,14 @@ function Chat() {
     }
   }
 
+  //TODO adapt messages
   async function messageAdapter() {
     
   }
 
+  //TODO send messages via socket io
   async function sendMessasge() {
+    console.log('from Chat: sending message')
     let element = document.getElementById('messageInput')
     const content = element.value
 
@@ -39,13 +42,11 @@ function Chat() {
       data: {content: content},
     }).then((response) => response)
 
-    console.log(`checking response.data @ CHAT: ${JSON.stringify(response.data)}`)
-    setMessageState(response.data)
     element.value = ''
   }
 
   return (
-    <Box width="full" h="$100vh" bg="#0F172A" display="flex" flexDirection="column" borderBottom="1px" >
+    <Box width="full" h="$100vh" bg="#0F172A" display="flex" flexDirection="column" borderBottom="1px" borderColor='black' >
         <Box bg="#1E293B" display="flex" flexDirection="row" padding="0.5rem" >
           <Avatar src="" width="48px" height="48px" visibility='hidden' />
           <Box gap="2" marginLeft="12px">

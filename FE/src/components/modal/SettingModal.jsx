@@ -62,16 +62,15 @@ function SettingModal({isOpen, onClose}){
                     <ModalHeader>Settings</ModalHeader>
                     <ModalBody>
                         <Flex gap={4} justifyContent='space-between' height='full'>
-                            //TODO revisi komponen
+                            {/* assignment 1 */}
                             <Flex direction='column' gap={4} flex='1'>
                                 <Button onClick={addFriendForm} w='full' colorScheme='twitter'>add friend</Button>
                                 <Button onClick={changeEmailForm} w='full' colorScheme='twitter'>change email</Button>
                             </Flex>
                                 <Center height='full'>
                                     <Divider orientation='vertical' />
-                                </Center>
-
-                            //TODO nopal revisi komponen
+                                </Center>   
+                                {/* assignment 2 */}
                             <Flex direction='column' gap={4} flex='1'>
                                 <Flex direction='column' gap={4}>
                                     <Input id="receiverName" placeholder='username'/>   

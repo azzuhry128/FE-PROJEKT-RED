@@ -48,26 +48,26 @@ function immigration() {
 }
 
 const MainLayout = () => {
-  // const navigate = useNavigate()
-  // const passport = JSON.parse(localStorage.getItem('passport'))
+  const navigate = useNavigate()
+  const passport = JSON.parse(localStorage.getItem('passport'))
 
-  // console.log(passport)
+  console.log(passport)
 
-  // // const passport = localStorage.getItem('passport')
+  // const passport = localStorage.getItem('passport')
 
-  // if(passport === null || undefined) {
-  //   console.log('unauthorized : passport is null')
-  //   useEffect(() => {
-  //     navigate('/login')
-  //   }, [navigate])
-  // }
+  if(passport === null || undefined) {
+    console.log('unauthorized : passport is null')
+    useEffect(() => {
+      navigate('/login')
+    }, [navigate])
+  }
 
-  // if(passport.expiredAt === undefined) {
-  //   console.log('unauthorized : passport is expired')
-  //   useEffect(() => {
-  //     navigate('/login')
-  //   }, [navigate])
-  // }
+  if(passport.expiredAt === undefined) {
+    console.log('unauthorized : passport is expired')
+    useEffect(() => {
+      navigate('/login')
+    }, [navigate])
+  }
 
   return (
     <>

@@ -29,7 +29,28 @@ function Login() {
     return result
   }
 
-  
+  async function getMyMessages(token, contacts) {
+    console.log('getting messages')
+
+    console.log(contacts)
+
+    const message = contacts.map(async(contact) => {
+      console.log(contact.chat_room_id)
+      const result = await axios(`http://localhost:3000/api/message/${contact.chat_room_id}`, {
+        method: 'GET',
+        headers: {'Authorization' : `Bearer ${token}`},
+      }).then((response) => response).catch((error) => error)
+
+      return result.data.data
+    })
+
+   const messages = await Promise.all(message)
+
+   console.log(messages)
+
+    return messages
+  }
+
   async function getMyAccountData(token) {
     // console.log(`checking token for account in login: ${JSON.stringify(token)}`)
     console.log('getting account data')
@@ -80,6 +101,20 @@ function Login() {
     console.log("bundling contacts finished")
   }
 
+  async function myMessagesBundler(data) {
+    console.log('bundling messages...')
+    // console.log(data)
+    data.map((item) => {
+      // console.log(item)
+      if (item === undefined || null || '') {
+        console.log('item is undefined')
+      } else {
+        localStorage.setItem(item[0].chat_room_id, JSON.stringify(item))
+      }
+    })
+    console.log('bundling messages finished')
+  }
+
   async function login() {
     console.log('FROM login : logging in...')
 
@@ -90,8 +125,10 @@ function Login() {
     const myToken = await getToken(emailInput, passwordInput)
 
     const token = myToken.data.data
+    console.log(token)
     const myData = await getMyAccountData(token.token)
     const myContacts = await getMyContacts(token.token)
+    const myMessages = await getMyMessages(token.token, myContacts.data.data)
 
     if(token != null || undefined ) {
       myPassportBundler(token)
@@ -103,6 +140,10 @@ function Login() {
 
     if(myContacts.data.data != undefined) {
       myContactsBundler(myContacts.data.data)
+    }
+
+    if(myMessages != undefined) {
+      myMessagesBundler(myMessages)
     }
 
     setTimeout(() => {

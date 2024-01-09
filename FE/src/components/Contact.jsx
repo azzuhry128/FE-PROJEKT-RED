@@ -3,7 +3,6 @@ import axios from "axios"
 
 function Contact(){
     console.log('rendering contact...')
-    // const socket = io('http://localhost:3000')
     const contactsArray = []
     const messagesArray = []
 
@@ -21,16 +20,16 @@ function Contact(){
     }
 
     //TODO fetch all message related to contact
-    async function fetchMessages() {
-        console.log('from Contact: fetching messages')
-        const messages = await axios('http://localhost:3000/api/message/', {
-            headers: {
-                'Authorization': 'Bearer'
-            }
-        }).then((response) => response).catch((error) => error)
+    // async function fetchMessages() {
+    //     console.log('from Contact: fetching messages')
+    //     const messages = await axios('http://localhost:3000/api/message/', {
+    //         headers: {
+    //             'Authorization': 'Bearer'
+    //         }
+    //     }).then((response) => response).catch((error) => error)
 
-        messagesArray.push(messages)
-    }
+    //     messagesArray.push(messages)
+    // }
 
     async function contactsAdapter(data) {
         console.log('from contact: adapting contacts')

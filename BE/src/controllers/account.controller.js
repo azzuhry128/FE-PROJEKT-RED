@@ -156,9 +156,11 @@ exports.resetPassword = async (req, res) => {
   try {
     const { accountId } = req.params;
 
+    const { newPassword } = req.body;
+
     const accountData = await getAccountByAccountId(accountId);
 
-    const updatedPassword = await validateResetPassword(accountData);
+    const updatedPassword = await validateResetPassword(newPassword, accountData);
 
     await updateAccount(updatedPassword, accountData);
 

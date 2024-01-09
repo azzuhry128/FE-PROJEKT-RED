@@ -157,11 +157,11 @@ async function validateEditAccount(accountInput, accountData) {
   }
 }
 
-async function validateResetPassword(accountData) {
+async function validateResetPassword(newPassword, accountData) {
 
 }
 
-async function validateChangeEmail(accountData) {
+async function validateChangeEmail(newEmail, accountData) {
 
 }
 

@@ -8,6 +8,8 @@ const {
   createAccount,
   editAccount,
   deleteAccount,
+  resetPassword,
+  changeEmail,
 } = require('../controllers/account.controller');
 
 router.get('/', fetchAllAccount);
@@ -17,6 +19,10 @@ router.get('/username/:username', fetchAccountByUsername);
 router.post('/', createAccount);
 router.put('/:accountId', editAccount);
 router.delete('/:accountId', deleteAccount);
+
+// miscellanous
+router.put(':accountId/password/reset', resetPassword);
+router.put(':accountId/email/change', changeEmail);
 
 module.exports = router;
 

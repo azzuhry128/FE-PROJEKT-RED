@@ -14,6 +14,8 @@ const {
   validateGetAccount,
   validateCreateAccount,
   validateEditAccount,
+  validateResetPassword,
+  validateChangeEmail,
 } = require('../validations/account.validation');
 
 exports.fetchAllAccount = async (req, res) => {
@@ -139,6 +141,46 @@ exports.deleteAccount = async (req, res) => {
     // await validateDeleteAccount(accountData);
 
     await destroyAccount(accountData);
+
+    return res.json({
+      success: true,
+      code: 200,
+      message: 'Account deleted',
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  try {
+    const { accountId } = req.params;
+
+    const accountData = await getAccountByAccountId(accountId);
+
+    const updatedPassword = await validateResetPassword(accountData);
+
+    await updateAccount(updatedPassword, accountData);
+
+    return res.json({
+      success: true,
+      code: 200,
+      message: 'Account deleted',
+    });
+  } catch (error) {
+    return res.json(error);
+  }
+};
+
+exports.changeEmail = async (req, res) => {
+  try {
+    const { accountId } = req.params;
+
+    const accountData = await getAccountByAccountId(accountId);
+
+    const updatedEmail = await validateChangeEmail(accountData);
+
+    await updateAccount(updatedEmail, accountData);
 
     return res.json({
       success: true,

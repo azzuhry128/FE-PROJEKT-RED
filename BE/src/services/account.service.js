@@ -131,6 +131,14 @@ async function destroyAccount(accountData) {
   }
 }
 
+async function resetPassword(accountData, updatedAccount) {
+
+}
+
+async function changeEmail(accountData, updatedAccount) {
+
+}
+
 module.exports = {
   getAllAccount,
   getAccountByAccountId,
@@ -139,4 +147,6 @@ module.exports = {
   storeAccount,
   updateAccount,
   destroyAccount,
+  resetPassword,
+  changeEmail,
 };

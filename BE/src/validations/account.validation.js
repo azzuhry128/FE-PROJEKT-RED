@@ -157,6 +157,14 @@ async function validateEditAccount(accountInput, accountData) {
   }
 }
 
+async function validateResetPassword(accountData) {
+
+}
+
+async function validateChangeEmail(accountData) {
+
+}
+
 // async function validateDeleteAccount(accountData) {
 //   try {
 //   } catch (error) {
@@ -168,5 +176,7 @@ module.exports = {
   validateGetAccount,
   validateCreateAccount,
   validateEditAccount,
+  validateResetPassword,
+  validateChangeEmail,
   // validateDeleteAccount,
 };

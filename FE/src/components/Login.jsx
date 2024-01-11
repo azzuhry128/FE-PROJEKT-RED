@@ -97,6 +97,15 @@ function Login() {
 
   async function myContactsBundler(data) {
     console.log('bundling contacts...')
+    
+    data.map((item) => {
+      // console.log(item.is_group_chat)
+      if(item.is_group_chat) {
+        console.log('item not eligible for push')
+      } else {
+        localStorage.setItem('contacts', JSON.stringify(item))
+      }
+    })
     localStorage.setItem('contacts', JSON.stringify(data))
     console.log("bundling contacts finished")
   }

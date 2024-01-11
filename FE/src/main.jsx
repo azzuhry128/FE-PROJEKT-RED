@@ -51,7 +51,7 @@ const MainLayout = () => {
   const navigate = useNavigate()
   const passport = JSON.parse(localStorage.getItem('passport'))
 
-  console.log(passport)
+  // console.log(passport)
 
   // const passport = localStorage.getItem('passport')
 

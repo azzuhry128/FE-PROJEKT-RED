@@ -214,4 +214,6 @@ module.exports = {
   validateCreateAccount,
   validateEditAccount,
   // validateDeleteAccount,
+  validateResetPassword,
+  validateChangeEmail,
 };

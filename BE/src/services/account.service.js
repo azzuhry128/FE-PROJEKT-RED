@@ -159,4 +159,6 @@ module.exports = {
   storeAccount,
   updateAccount,
   destroyAccount,
+  resetPassword,
+  changeEmail,
 };

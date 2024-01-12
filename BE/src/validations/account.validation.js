@@ -157,14 +157,51 @@ async function validateEditAccount(accountInput, accountData) {
   }
 }
 
-async function validateResetPassword(newPassword, accountData) {
+async function validateResetPassword(newPassword, accountData){
+  try{
+    if (!newPassword){
+      const error = new Error('Password tidak boleh kosong!');
+      error.code = 404;
+      throw error;
+    };
 
-}
+    if (newPassword.length < 4 && newPassword.length > 16){
+      const error = new Error('Password harus terdiri hanya dari 4-16 karakter!');
+      error.code = 404;
+      throw error;
+    };
+
+    if (newPassword == accountData.password){
+      const error = new Error('Password tidak boleh sama!');
+      error.code = 404;
+      throw error;
+    };
+
+    const updatedPassword = {
+      account_id: accountData.user_id,
+      username: accountData.username,
+      password: AES.encrypt(newPassword, process.env.AES_SECRET).toString(),
+      online: accountData.online,
+      user_id: accountData.user_id || null,
+      access_token: accountData.access_token,
+    };
+
+    return updatedPassword;
+
+  } catch (error) {
+    const errors = {
+      success: false,
+      code: error.code || 400,
+      message: error.message || 'Reset Password Failed',
+    };
+
+    throw errors;
+  }
+};
 
 async function validateChangeEmail(newEmail, accountData) {
 
 }
-
 // async function validateDeleteAccount(accountData) {
 //   try {
 //   } catch (error) {
@@ -176,7 +213,5 @@ module.exports = {
   validateGetAccount,
   validateCreateAccount,
   validateEditAccount,
-  validateResetPassword,
-  validateChangeEmail,
   // validateDeleteAccount,
 };

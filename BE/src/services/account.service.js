@@ -131,14 +131,26 @@ async function destroyAccount(accountData) {
   }
 }
 
-async function resetPassword(accountData, updatedAccount) {
+async function resetPassword(passwordInput, accountData){
+  try{
+    await accountData.update(passwordInput);
+    return null;
+  }
+  catch (error) {
+    const errors = {
+      success: false,
+      code: 400,
+      message: 'Failed to reset password!',
+      errors: error,
+    };
 
+    throw errors;
+  }
 }
-
+ 
 async function changeEmail(accountData, updatedAccount) {
 
 }
-
 module.exports = {
   getAllAccount,
   getAccountByAccountId,
@@ -147,6 +159,4 @@ module.exports = {
   storeAccount,
   updateAccount,
   destroyAccount,
-  resetPassword,
-  changeEmail,
 };

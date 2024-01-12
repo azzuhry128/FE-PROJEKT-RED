@@ -200,7 +200,35 @@ async function validateResetPassword(newPassword, accountData){
 };
 
 async function validateChangeEmail(newEmail, accountData) {
+  try {
+    if (!newEmail) {
+      const error = new Error('Email is required');
+      error.code = 422;
+      throw error;
+    }
 
+
+    if (!newEmail.includes('@')) {
+      const error = new Error('Please enter a valid email address');
+      error.code = 422;
+      throw error;
+    }
+
+    const updatedAccount = {
+      ...accountData,
+      email: newEmail,
+    };
+
+    return updatedAccount;
+  } catch (error) {
+    const errors = {
+      success: false,
+      code: error.code || 400,
+      message: error.message || 'Validate Change Email Failed',
+    };
+
+    throw errors;
+  }
 }
 // async function validateDeleteAccount(accountData) {
 //   try {

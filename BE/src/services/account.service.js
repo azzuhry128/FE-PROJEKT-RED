@@ -148,8 +148,21 @@ async function resetPassword(passwordInput, accountData){
   }
 }
  
-async function changeEmail(accountData, updatedAccount) {
+async function changeEmail(updatedAccount, accountData) {
+  try{
+    await accountData.update(updatedAccount);
+    return null;
+  }
+  catch (error) {
+    const errors = {
+      success: false,
+      code: 400,
+      message: 'Failed to change email!',
+      errors: error,
+    };
 
+    throw errors;
+  }
 }
 module.exports = {
   getAllAccount,

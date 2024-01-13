@@ -34,21 +34,21 @@ function Login() {
 
     console.log(contacts)
 
-    const message = contacts.map(async(contact) => {
-      console.log(contact.chat_room_id)
-      const result = await axios(`http://localhost:3000/api/message/${contact.chat_room_id}`, {
-        method: 'GET',
-        headers: {'Authorization' : `Bearer ${token}`},
-      }).then((response) => response).catch((error) => error)
-
-      return result.data.data
-    })
-
-   const messages = await Promise.all(message)
-
-   console.log(messages)
-
-    return messages
+    if (contacts === undefined) {
+      console.log('user have no contacts')
+    } else {
+      const message = contacts.map(async(contact) => {
+        console.log(contact.chat_room_id)
+        const result = await axios(`http://localhost:3000/api/message/${contact.chat_room_id}`, {
+          method: 'GET',
+          headers: {'Authorization' : `Bearer ${token}`},
+        }).then((response) => response).catch((error) => error)
+  
+        return result.data.data
+      })
+      const messages = await Promise.all(message)
+      return messages
+    }
   }
 
   async function getMyAccountData(token) {

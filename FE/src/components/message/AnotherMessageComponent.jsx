@@ -9,3 +9,5 @@ function AnotherMessageComponent(props) {
     </>
     )
 }
+
+export default AnotherMessageComponent

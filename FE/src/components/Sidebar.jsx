@@ -1,9 +1,5 @@
 import { Avatar, Box, Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import 'boxicons'
-import { useExtensionStore } from "../state/store";
-import Profile from "./sidebar/Profile";
-import { useState } from "react";
-import ContactsAdapter from "../adapters/ContactsAdapter";
 import ProfileModal from "./modal/ProfileModal";
 import NotificationDrawer from "./NotificationDrawer";
 import SettingModal from "./modal/SettingModal";

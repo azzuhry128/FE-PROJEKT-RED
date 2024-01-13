@@ -1,9 +1,17 @@
 import { Box,Text,Avatar,Button,Input, Spinner } from "@chakra-ui/react"
 import "boxicons"
 import axios from 'axios'
+import { useSelectedContactStore } from "../state/store"
+import { useEffect, useState } from "react"
+import MessageAdapter from "../adapters/messageAdapter"
 
 function Chat() {
   console.log('rendering chat...')
+
+  const {image, name} = useSelectedContactStore()
+  let [visibility] = useState('')
+
+
   document.addEventListener('DOMContentLoaded', () => {
     console.log('page is loaded')
     const button = document.getElementById('messageInput')
@@ -13,6 +21,18 @@ function Chat() {
       } 
     })
   })
+
+  // useEffect(() => {
+  //   console.log('detecting visibility')
+  // }, [image, name])
+  
+  if (name === '') {
+    // console.log('hidden')
+    visibility = false
+  } else {
+    // console.log('visible')
+    visibility = true
+  }
 
   
   function handleEnterKey(event) {
@@ -48,16 +68,18 @@ function Chat() {
   return (
     <Box width="full" h="$100vh" bg="#0F172A" display="flex" flexDirection="column" borderBottom="1px" borderColor='black' >
         <Box bg="#1E293B" display="flex" flexDirection="row" padding="0.5rem" >
-          <Avatar src="" width="48px" height="48px" visibility='hidden' />
-          <Box gap="2" marginLeft="12px">
-            <Text color="white" fontSize="16px" visibility="hidden"> name </Text>
-            <Text color="#94A3B8" fontSize="12px" visibility='hidden'>tag</Text>
+          <Box display='flex' visibility={ visibility ? 'visible' : "hidden"}>
+            <Avatar src="" width="48px" height="48px" />
+            <Box gap="2" marginLeft="12px">
+              <Text color="white" fontSize="16px" >{name}</Text>
+            </Box>
           </Box>
         </Box>
 
         <Box id="renderMessageLocation" flex={1} overflowY="scroll">  
+        {<MessageAdapter/>}
         </Box>
-      <Box bg="#1E293B" display="flex" flexDirection="row" padding="1rem" gap="4" visibility='hidden'>
+      <Box bg="#1E293B" display="flex" flexDirection="row" padding="1rem" gap="4" visibility={visibility ? 'visible' : 'hidden'}>
         <Input id="messageInput" onKeyDown={handleEnterKey} placeholder="Write a Message...."  _placeholder={{color : "#93C5FD"}} h="42px" bg="#0F172A" borderRadius="10px" border="none" textColor="white" required></Input>
           <Button id="sendMessage" w="42px" h="42px" bg="#93C5FD" color="#93C5FD" borderRadius="12px" p={0}>  
           <box-icon type='solid' name='send' size='sm'></box-icon>

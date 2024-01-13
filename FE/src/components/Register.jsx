@@ -93,13 +93,12 @@ function Register() {
     const data = await confirmUserData()
     const image = await imageRename()
 
-    console.log(data)
-    console.log(image.name)
-
-    axios('http://localhost:3000/api/auth/registerasi/', {
+    const result = await axios('http://localhost:3000/api/auth/register/', {
       method:'POST',
       data: {'username': data.username,'email': data.email, 'password': data.password, 'image': image.name}
     }).then((response) => response).catch((error) => console.log(error)) 
+
+    console.log(result)
   }
 
   function navigator() {

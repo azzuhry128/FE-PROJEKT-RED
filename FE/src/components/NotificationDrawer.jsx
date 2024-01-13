@@ -15,8 +15,10 @@ import {
     Avatar,
 } from '@chakra-ui/react'
 import React from 'react'
+import NotificationAdapter from '../adapters/NotificationAdapter'
 
 function NotificationDrawer({isOpen, onClose}) {
+    console.log('rendering notification...')
     return (
     <>
         <Drawer
@@ -30,7 +32,8 @@ function NotificationDrawer({isOpen, onClose}) {
             <DrawerHeader>Friend request</DrawerHeader>
 
             <DrawerBody>
-                <Flex justifyContent='space-between' shadow='lg' margin='0.5rem' borderRadius='md'>
+                {<NotificationAdapter/>}
+                {/* <Flex justifyContent='space-between' shadow='lg' margin='0.5rem' borderRadius='md'>
                     <Flex gap={4} p={2}>
                         <Avatar/>
                         <Flex direction='column' justifyContent='space-between'>
@@ -39,7 +42,7 @@ function NotificationDrawer({isOpen, onClose}) {
                         </Flex>
                     </Flex>
                     <Button variant='ghost' colorScheme='blue' height='' borderLeftRadius='0'>accept</Button>
-                </Flex>
+                </Flex> */}
             </DrawerBody>
             </DrawerContent>
         </Drawer>

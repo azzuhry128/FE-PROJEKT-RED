@@ -8,7 +8,12 @@ function NotificationAdapter() {
 
         const result = JSON.parse(localStorage.getItem('notifications'))
 
-        return result
+        if (result === undefined) {
+            console.log('notifications not exist')
+        } else {
+            return result
+        }
+
     }
 
     function getToken() {
@@ -20,11 +25,6 @@ function NotificationAdapter() {
 
     async function createSingleChat(token, accountID) {
         console.log(token.token)
-        // const result = await axios.post('http://localhost:3000/api/chat/single', {
-        //     'Authorization' : `Bearer ${token.token}`,
-        //     "isGroupChat" : false,
-        //     "requestUser" : accountID
-        // }).then((response) => response).catch((error) => error)
 
         const result = await axios('http://localhost:3000/api/chat/single', {
             method: 'POST',

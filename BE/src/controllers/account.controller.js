@@ -62,7 +62,7 @@ exports.fetchAccountByAccountId = async (req, res) => {
 
 exports.fetchAccountByUsername = async (req, res) => {
   try {
-    const { username } = req.params;
+    const { username } = req.body;
     const { accountId } = req;
     const accountData = await getAccountByUsername(username);
 

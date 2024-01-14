@@ -66,15 +66,15 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   socket.on('join', async (room) => {
     socket.join(room.toString());
-    console.log(socket.rooms);
+    // console.log(socket.rooms);
   });
 
   socket.on('sendMessage', async (room, data) => {
-    console.log('sendMessage', room, data);
+    // console.log('sendMessage', room, data);
     io.sockets.emit('message', data);
   });
 
   socket.on('disconnect', () => {
-    console.log('Socket client has disconnected');
+    // console.log('Socket client has disconnected');
   });
 });

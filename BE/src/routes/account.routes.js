@@ -13,7 +13,7 @@ const {
 router.get('/', fetchAllAccount);
 router.get('/account/:accountId', fetchAccountByAccountId);
 router.get('/my-account', fetchAccountByAccountId);
-router.get('/username/find', fetchAccountByUsername);
+router.post('/username/find', fetchAccountByUsername);
 router.post('/', createAccount);
 router.put('/:accountId', editAccount);
 router.delete('/:accountId', deleteAccount);

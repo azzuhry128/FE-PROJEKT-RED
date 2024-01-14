@@ -53,6 +53,12 @@ async function validateGetAccount(accountData, jwtAccountId = null) {
 
     let data = accountData;
 
+    if (!accountData || accountData === 'undefined') {
+      const error = new Error('Account Not Found');
+      error.code = 404;
+      throw error;
+    }
+
     if (!Array.isArray(accountData)) {
       if (jwtAccountId !== accountData.account_id) {
         data = {
@@ -157,26 +163,25 @@ async function validateEditAccount(accountInput, accountData) {
   }
 }
 
-async function validateResetPassword(newPassword, accountData){
-  try{
-    if (!newPassword){
+async function validateResetPassword(newPassword, accountData) {
+  try {
+    if (!newPassword) {
       const error = new Error('Password tidak boleh kosong!');
       error.code = 404;
       throw error;
-    };
+    }
 
-    if (newPassword < 4 && newPassword > 16){
+    if (newPassword < 4 && newPassword > 16) {
       const error = new Error('Password harus terdiri dari 4-16 karakter!');
       error.code = 404;
       throw error;
-    };
+    }
 
-    if (newPassword == accountData.password){
+    if (newPassword == accountData.password) {
       const error = new Error('Password tidak boleh sama!');
       error.code = 404;
       throw error;
-    };
-
+    }
   } catch (error) {
     const errors = {
       success: false,
@@ -186,7 +191,7 @@ async function validateResetPassword(newPassword, accountData){
 
     throw errors;
   }
-};
+}
 
 // async function validateDeleteAccount(accountData) {
 //   try {

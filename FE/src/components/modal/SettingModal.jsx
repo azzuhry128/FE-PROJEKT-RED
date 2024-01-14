@@ -10,18 +10,18 @@ function SettingModal({ isOpen, onClose }) {
     async function getReceiverID(username, token) {
         console.log('getting receivers id')
         console.log(username)
-        console.log(typeof(username))
-        const result = await axios("http://localhost:3000/api/accounts/username/find/", {
-            method: 'GET',
+        console.log(typeof (username))
+        const result = await axios('http://localhost:3000/api/accounts/username/find/', {
+            method: 'POST',
             headers: { 'Authorization': `Bearer ${token.token}` },
-            'username': username
+            data: { 'username': username },
         }).then((response) => response).catch((error) => error)
 
         // const result = await axios.get("http://localhost:3000/api/accounts/username/find/", {
         //     'Authorization': `Bearer ${token}`,
         //     'username': username
         // }).then((response) =>response).catch((error) => error)
-        
+
         console.log(result)
         return result
     }

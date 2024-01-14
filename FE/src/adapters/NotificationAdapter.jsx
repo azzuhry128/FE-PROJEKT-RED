@@ -9,7 +9,7 @@ function NotificationAdapter() {
         const result = JSON.parse(localStorage.getItem('notifications'))
 
         if (result === undefined) {
-            console.log('notifications not exist')
+            return undefined
         } else {
             return result
         }
@@ -45,7 +45,7 @@ function NotificationAdapter() {
     }
 
     const notification = getNotification()
-    console.log(notification)
+    // console.log(notification)
 
     if (notification === undefined) {
         console.log('user dont have notification')

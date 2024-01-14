@@ -63,6 +63,17 @@ function Login() {
     return result
   }
 
+  async function getMyNotification(token) {
+    console.log('getting notification data')
+    const result = axios.get('http://localhost:3000/api/notification/', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }).then((response) => response).catch((error) => error)
+
+    return result
+  }
+
   //TODO get profile image using firebase
   async function getProfileImage() {
     console.log('getting profile image...')
@@ -110,6 +121,13 @@ function Login() {
     console.log("bundling contacts finished")
   }
 
+  async function myNotificationsBundler(data) {
+    console.log('bundling notifications...')
+
+    localStorage.setItem('notifications', JSON.stringify(data))
+    console.log("bundling notifications finished")
+  }
+
   async function myMessagesBundler(data) {
     console.log('bundling messages...')
     // console.log(data)
@@ -138,6 +156,7 @@ function Login() {
     const myData = await getMyAccountData(token.token)
     const myContacts = await getMyContacts(token.token)
     const myMessages = await getMyMessages(token.token, myContacts.data.data)
+    const myNotifications = await getMyNotification(token.token)
 
     if(token != null || undefined ) {
       myPassportBundler(token)
@@ -153,6 +172,10 @@ function Login() {
 
     if(myMessages != undefined) {
       myMessagesBundler(myMessages)
+    }
+
+    if(myNotifications != undefined) {
+      myNotificationsBundler(myNotifications.data.data)
     }
 
     setTimeout(() => {

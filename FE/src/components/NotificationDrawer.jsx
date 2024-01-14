@@ -18,7 +18,7 @@ import React from 'react'
 import NotificationAdapter from '../adapters/NotificationAdapter'
 
 function NotificationDrawer({isOpen, onClose}) {
-    console.log('rendering notification...')
+    
     return (
     <>
         <Drawer
@@ -32,17 +32,7 @@ function NotificationDrawer({isOpen, onClose}) {
             <DrawerHeader>Friend request</DrawerHeader>
 
             <DrawerBody>
-                {<NotificationAdapter/>}
-                {/* <Flex justifyContent='space-between' shadow='lg' margin='0.5rem' borderRadius='md'>
-                    <Flex gap={4} p={2}>
-                        <Avatar/>
-                        <Flex direction='column' justifyContent='space-between'>
-                            <Text fontSize='sm' fontWeight='medium'>azzuhry128</Text>
-                            <Text fontSize='sm' fontWeight='medium'>#177013</Text>
-                        </Flex>
-                    </Flex>
-                    <Button variant='ghost' colorScheme='blue' height='' borderLeftRadius='0'>accept</Button>
-                </Flex> */}
+                <NotificationAdapter/>
             </DrawerBody>
             </DrawerContent>
         </Drawer>

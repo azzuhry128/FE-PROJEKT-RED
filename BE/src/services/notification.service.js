@@ -7,6 +7,7 @@ async function getAllNotification(query = 'receiver', value = '') {
         [query]: value,
       },
       include: [
+        'notification_chat_room',
         {
           association: 'notification_sender',
           include: ['user'],

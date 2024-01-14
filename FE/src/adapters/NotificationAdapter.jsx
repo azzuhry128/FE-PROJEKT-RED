@@ -5,22 +5,27 @@ function NotificationAdapter() {
 
     function getNotification() {
         console.log('getting notification')
-
-        const result = JSON.parse(localStorage.getItem('notifications'))
-
-        if (result === undefined) {
-            return undefined
+        const result = localStorage.getItem('notifications')
+        console.log(result)
+        
+        if (result === 'undefined') {
+            return 'undefined'
         } else {
-            return result
+            return JSON.parse(result)
         }
 
     }
 
     function getToken() {
         console.log('getting token...')
-        const token = JSON.parse(localStorage.getItem('passport'))
-        
-        return token
+        const token = localStorage.getItem('passport')
+        const parsed = JSON.parse(token)
+
+        if (token === undefined) {
+            return undefined
+        } else {
+            return parsed
+        } 
     }
 
     async function createSingleChat(token, accountID) {
@@ -36,7 +41,7 @@ function NotificationAdapter() {
         return result
 
     }
-    
+
     async function acceptRequest(accountID) {
         const token = await getToken()
         const singleChat = await createSingleChat(token, accountID)
@@ -45,9 +50,9 @@ function NotificationAdapter() {
     }
 
     const notification = getNotification()
-    // console.log(notification)
+    console.log(notification)
 
-    if (notification === undefined) {
+    if (notification === 'undefined') {
         console.log('user dont have notification')
     } else {
         const result = notification.map((notif) => {

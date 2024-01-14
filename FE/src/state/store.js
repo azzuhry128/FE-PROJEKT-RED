@@ -38,8 +38,8 @@ const useSelectedContactStore = create((set) => ({
     setID: () => set ((state) => ({id: state.id})),
     setName: () => set ((state) => ({name: state.name})),
     setImage: () => set ((state) => ({image: state.image}))
-
 }))
+
 
 export { 
     useSelectedContactStore, 

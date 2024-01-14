@@ -1,7 +1,19 @@
 import { Avatar, Flex, Text, Button } from "@chakra-ui/react"
 import axios from "axios"
+import Contact from "../components/Contact"
+import { useEffect, useState } from "react"
 
 function NotificationAdapter() {
+    const [renderContact, setRenderContact] = useState(false)
+
+    useEffect(() => {
+        if (renderContact === true) {
+            console.log('re-rendering contact')
+            Contact()
+        } else {
+            console.log('no re-render order')
+        }
+    },[renderContact])
 
     function getNotification() {
         console.log('getting notification')
@@ -28,25 +40,24 @@ function NotificationAdapter() {
         } 
     }
 
-    async function createSingleChat(token, accountID) {
-        console.log(token.token)
+    // async function createSingleChat(token, accountID) {
+    //     console.log(token.token)
 
-        const result = await axios('http://localhost:3000/api/chat/single', {
-            method: 'POST',
-            headers: {'Authorization' : `Bearer ${token.token}`},
-            "isGroupChat": false,
-            "requestUser" : accountID,
-        }).then((response) => response).catch((error) => error)
+    //     const result = await axios(`http://localhost:3000/api/chat/single/${accountID}/accept`, {
+    //         method: 'POST',
+    //         headers: {'Authorization' : `Bearer ${token.token}`},
+    //     }).then((response) => response).catch((error) => error)
     
-        return result
-
-    }
+    //     return result
+    // }
+    
 
     async function acceptRequest(accountID) {
         const token = await getToken()
         const singleChat = await createSingleChat(token, accountID)
 
         console.log(singleChat)
+        setRenderContact(true)
     }
 
     const notification = getNotification()

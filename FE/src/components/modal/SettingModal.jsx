@@ -17,27 +17,34 @@ function SettingModal({ isOpen, onClose }) {
             data: { 'username': username },
         }).then((response) => response).catch((error) => error)
 
-        // const result = await axios.get("http://localhost:3000/api/accounts/username/find/", {
-        //     'Authorization': `Bearer ${token}`,
-        //     'username': username
-        // }).then((response) =>response).catch((error) => error)
+        console.log(result)
+        return result
+    }
+
+    async function createSingleChat(token, accountID) {
+        // console.log(accountID.data.data.account_id)
+
+        const result = await axios(`http://localhost:3000/api/chat/single`, {
+            method: 'POST',
+            headers: {'Authorization' : `Bearer ${token.token}`},
+            data: {'isGroupChat': false, 'requestUser':accountID}
+        }).then((response) => response).catch((error) => error)
 
         console.log(result)
         return result
     }
 
-    async function sendNotification(receiverID, message, token) {
+    async function sendNotification(chatroomID,receiverID, message, token) {
         console.log('sending notification')
 
-        // console.log(receiverID)
+        console.log(chatroomID,receiverID)
         const result = await axios(`http://localhost:3000/api/notification/`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token.token}` },
-            data: { 'receiver': receiverID, 'message': message }
-        })
+            data: { 'chat_room_id': chatroomID,'receiver': receiverID, 'message': message }
+        }).then((response) => response).error((error) => error)
 
         console.log(result)
-
         return result
     }
 
@@ -46,11 +53,10 @@ function SettingModal({ isOpen, onClose }) {
         const message = 'hello there !'
         const token = JSON.parse(localStorage.getItem('passport'))
 
-        // console.log(username)
-
         const receiverID = await getReceiverID(username, token)
-        // console.log(receiverID)
-        sendNotification(receiverID.data.data.account_id, message, token)
+        const singleChat = await createSingleChat(token, receiverID.data.data.account_id)
+        sendNotification(singleChat.data.data.chatRoomId,receiverID.data.data.account_id, message, token)
+
         addFriendToast
     }
 

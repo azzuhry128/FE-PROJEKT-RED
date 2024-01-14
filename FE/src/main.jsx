@@ -21,49 +21,39 @@ const mainTheme = extendTheme({
   }
 })
 
+// const passport = {
+//   token: '529440',
+//   expiredAt: false
+// }
 
-const passport = {
-  token: '529440',
-  expiredAt: false
-}
 
+// function immigration() {
+//   console.log('checking for authorization')
 
-function immigration() {
-  console.log('checking for authorization')
+//   console.log(passport.expiredAt)
 
-  console.log(passport.expiredAt)
+//   if(passport.expiredAt === true) {
+//     console.log('unauthorized : passport is expired')
+//     return false
+//   }
 
-  if(passport.expiredAt === true) {
-    console.log('unauthorized : passport is expired')
-    return false
-  }
+//   if(passport.expiredAt === null) {
+//     console.log('unauthorized : passport is null')
+//     return false
+//   }
 
-  if(passport.expiredAt === null) {
-    console.log('unauthorized : passport is null')
-    return false
-  }
-
-  console.log('authorized')
-  return true
-}
+//   console.log('authorized')
+//   return true
+// }
 
 const MainLayout = () => {
   const navigate = useNavigate()
   const passport = JSON.parse(localStorage.getItem('passport'))
 
-  // console.log(passport)
+  console.log(passport)
 
-  // const passport = localStorage.getItem('passport')
-
-  if(passport === null || undefined) {
+  if(passport === null) {
     console.log('unauthorized : passport is null')
-    useEffect(() => {
-      navigate('/login')
-    }, [navigate])
-  }
-
-  if(passport.expiredAt === undefined) {
-    console.log('unauthorized : passport is expired')
     useEffect(() => {
       navigate('/login')
     }, [navigate])

@@ -3,10 +3,11 @@ import { useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 
 function LogoutModal({isOpen, onClose}){
+    const navigate = useNavigate()
 
     function exit() {
-        const navigate = useNavigate()
         navigate('/login')
+        localStorage.clear()
     }
 
     return(

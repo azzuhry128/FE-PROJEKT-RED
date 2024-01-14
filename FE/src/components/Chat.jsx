@@ -8,7 +8,7 @@ import MessageAdapter from "../adapters/messageAdapter"
 function Chat() {
   console.log('rendering chat...')
 
-  const {image, name} = useSelectedContactStore()
+  const {image, name, id} = useSelectedContactStore()
   let [visibility] = useState('')
 
 
@@ -42,25 +42,24 @@ function Chat() {
     }
   }
 
-  //TODO adapt messages
-  async function messageAdapter() {
-    
-  }
-
   //TODO send messages via socket io
-  async function sendMessasge() {
+  async function sendMessage() {
     console.log('from Chat: sending message')
     let element = document.getElementById('messageInput')
     const content = element.value
+    const token = JSON.parse(localStorage.getItem('passport'))
 
     console.log(`checking content in CHAT:${content}`)
+    console.log(token.token)
 
     const response = await axios({
       method:'POST',
-      url: `http://localhost:3000/api/message/${receiverRoomID}`,
-      headers : {'Authorization': `Bearer ${loggedInUserToken}`},
-      data: {content: content},
+      url: `http://localhost:3000/api/message/${id}`,
+      headers : {'Authorization': `Bearer ${token.token}`},
+      data: {'content': content},
     }).then((response) => response)
+
+    console.log(response)
 
     element.value = ''
   }
@@ -81,7 +80,7 @@ function Chat() {
         </Box>
       <Box bg="#1E293B" display="flex" flexDirection="row" padding="1rem" gap="4" visibility={visibility ? 'visible' : 'hidden'}>
         <Input id="messageInput" onKeyDown={handleEnterKey} placeholder="Write a Message...."  _placeholder={{color : "#93C5FD"}} h="42px" bg="#0F172A" borderRadius="10px" border="none" textColor="white" required></Input>
-          <Button id="sendMessage" w="42px" h="42px" bg="#93C5FD" color="#93C5FD" borderRadius="12px" p={0}>  
+          <Button onClick={() => sendMessage()} id="sendMessage" w="42px" h="42px" bg="#93C5FD" color="#93C5FD" borderRadius="12px" p={0}>  
           <box-icon type='solid' name='send' size='sm'></box-icon>
         </Button>
       </Box>

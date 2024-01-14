@@ -163,6 +163,8 @@ exports.addFriendChat = async (req, res) => {
       );
 
       return userChat;
+    }).catch((error) => {
+      throw error;
     }));
 
     userChatData.map(async (userChat) => {

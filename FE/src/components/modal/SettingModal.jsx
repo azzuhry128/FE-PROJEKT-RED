@@ -30,19 +30,17 @@ function SettingModal({ isOpen, onClose }) {
             data: {'isGroupChat': false, 'requestUser':accountID}
         }).then((response) => response).catch((error) => error)
 
-        console.log(result)
         return result
     }
 
     async function sendNotification(chatroomID,receiverID, message, token) {
         console.log('sending notification')
 
-        console.log(chatroomID,receiverID)
         const result = await axios(`http://localhost:3000/api/notification/`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token.token}` },
             data: { 'chat_room_id': chatroomID,'receiver': receiverID, 'message': message }
-        }).then((response) => response).error((error) => error)
+        }).then((response) => response).catch((error) => error)
 
         console.log(result)
         return result
@@ -55,7 +53,8 @@ function SettingModal({ isOpen, onClose }) {
 
         const receiverID = await getReceiverID(username, token)
         const singleChat = await createSingleChat(token, receiverID.data.data.account_id)
-        sendNotification(singleChat.data.data.chatRoomId,receiverID.data.data.account_id, message, token)
+        console.log(singleChat, receiverID)
+        sendNotification(singleChat.data.chatRoomId,receiverID.data.data.account_id, message, token)
 
         addFriendToast
     }

@@ -17,7 +17,7 @@ function SettingModal({ isOpen, onClose }) {
             data: { 'username': username },
         }).then((response) => response).catch((error) => error)
 
-        console.log(result)
+        // console.log(result)
         return result
     }
 

@@ -18,7 +18,7 @@ function NotificationAdapter() {
     function getNotification() {
         console.log('getting notification')
         const result = localStorage.getItem('notifications')
-        console.log(result)
+        // console.log(result)
         
         if (result === 'undefined') {
             return 'undefined'
@@ -40,21 +40,21 @@ function NotificationAdapter() {
         } 
     }
 
-    // async function createSingleChat(token, accountID) {
-    //     console.log(token.token)
+    async function accept(token, chatroom) {
+        console.log(token.token)
 
-    //     const result = await axios(`http://localhost:3000/api/chat/single/${accountID}/accept`, {
-    //         method: 'POST',
-    //         headers: {'Authorization' : `Bearer ${token.token}`},
-    //     }).then((response) => response).catch((error) => error)
+        const result = await axios(`http://localhost:3000/api/chat/single/${chatroom}/accept`, {
+            method: 'POST',
+            headers: {'Authorization' : `Bearer ${token.token}`},
+        }).then((response) => response).catch((error) => error)
     
-    //     return result
-    // }
+        return result
+    }
     
 
-    async function acceptRequest(accountID) {
+    async function acceptRequest(chatroom) {
         const token = await getToken()
-        const singleChat = await createSingleChat(token, accountID)
+        const singleChat = await accept(token, chatroom)
 
         console.log(singleChat)
         setRenderContact(true)
@@ -76,7 +76,7 @@ function NotificationAdapter() {
                             <Text fontSize='sm' fontWeight='medium'>#{notif.notification_sender.username.split("#")[1]}</Text>
                         </Flex>
                     </Flex>
-                    <Button onClick={() => acceptRequest(notif.sender)} variant='ghost' colorScheme='blue' height='' borderLeftRadius='0'>accept</Button>
+                    <Button onClick={() => acceptRequest(notif.notification_chat_room.chat_room_id)} variant='ghost' colorScheme='blue' height='' borderLeftRadius='0'>accept</Button>
                 </Flex> 
             )
         })

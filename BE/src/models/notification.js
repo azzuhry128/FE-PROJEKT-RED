@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Notification.belongsTo(models.ChatRoom, {
+        foreignKey: 'chat_room_id',
+        targetKey: 'chat_room_id',
+        as: 'notification_chat_room',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+
       Notification.belongsTo(models.Account, {
         foreignKey: 'sender',
         targetKey: 'account_id',
@@ -34,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
+    chat_room_id: DataTypes.UUID,
     sender: DataTypes.UUID,
     receiver: DataTypes.UUID,
     message: DataTypes.TEXT,

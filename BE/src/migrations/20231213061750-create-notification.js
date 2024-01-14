@@ -7,6 +7,16 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
       },
+      chat_room_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'chat_rooms',
+          key: 'chat_room_id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
       sender: {
         type: Sequelize.UUID,
         allowNull: false,

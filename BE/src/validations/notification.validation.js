@@ -57,6 +57,7 @@ async function validateCreateNotification(accountId, input) {
   try {
     const data = {
       notification_id: uuidv4(),
+      chat_room_id: input.chat_room_id,
       sender: accountId,
       receiver: input.receiver,
       message: input.message,
@@ -78,6 +79,7 @@ async function validateUpdateNotification(notificationData, newNotificationData)
   try {
     const data = {
       notification_id: notificationData.notification_id,
+      chat_room_id: newNotificationData.chat_room_id || notificationData.chat_room_id,
       sender: notificationData.sender,
       receiver: notificationData.receiver,
       message: newNotificationData.message || notificationData.message,

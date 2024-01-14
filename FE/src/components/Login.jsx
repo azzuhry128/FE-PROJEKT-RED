@@ -65,11 +65,13 @@ function Login() {
 
   async function getMyNotification(token) {
     console.log('getting notification data')
-    const result = axios.get('http://localhost:3000/api/notification/', {
+    const result = await axios.get('http://localhost:3000/api/notification/', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     }).then((response) => response).catch((error) => error)
+
+    console.log(result)
 
     return result
   }

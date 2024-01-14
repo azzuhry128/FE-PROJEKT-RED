@@ -9,21 +9,34 @@ function SettingModal({ isOpen, onClose }) {
 
     async function getReceiverID(username, token) {
         console.log('getting receivers id')
-        const result = async () => await axios(`http://localhost:3000/api/accounts/username/${username}`, {
+        console.log(username)
+        console.log(typeof(username))
+        const result = await axios("http://localhost:3000/api/accounts/username/find/", {
             method: 'GET',
-            headers: { 'Authorization': `Bearer ${token}` },
-        })
+            headers: { 'Authorization': `Bearer ${token.token}` },
+            'username': username
+        }).then((response) => response).catch((error) => error)
 
+        // const result = await axios.get("http://localhost:3000/api/accounts/username/find/", {
+        //     'Authorization': `Bearer ${token}`,
+        //     'username': username
+        // }).then((response) =>response).catch((error) => error)
+        
+        console.log(result)
         return result
     }
 
-    async function sendNotification(receiverID, message) {
+    async function sendNotification(receiverID, message, token) {
         console.log('sending notification')
-        const result = async () => await axios(`http://localhost:3000/api/notification/`, {
+
+        // console.log(receiverID)
+        const result = await axios(`http://localhost:3000/api/notification/`, {
             method: 'POST',
-            headers: { 'Authorization': `Bearer ${token}` },
+            headers: { 'Authorization': `Bearer ${token.token}` },
             data: { 'receiver': receiverID, 'message': message }
         })
+
+        // console.log(result)
 
         return result
     }
@@ -31,10 +44,12 @@ function SettingModal({ isOpen, onClose }) {
     async function sendFriend() {
         const username = document.getElementById('receiverName').value
         const message = 'hello there !'
-        const token = localStorage.getItem('loggedInToken')
+        const token = JSON.parse(localStorage.getItem('passport'))
+
+        // console.log(username)
 
         const receiverID = await getReceiverID(username, token)
-        sendNotification(receiverID, message)
+        sendNotification(receiverID, message, token)
         addFriendToast
     }
 

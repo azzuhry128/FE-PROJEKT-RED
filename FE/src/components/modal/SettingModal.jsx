@@ -49,7 +49,8 @@ function SettingModal({ isOpen, onClose }) {
         // console.log(username)
 
         const receiverID = await getReceiverID(username, token)
-        sendNotification(receiverID, message, token)
+        // console.log(receiverID)
+        sendNotification(receiverID.data.data.account_id, message, token)
         addFriendToast
     }
 

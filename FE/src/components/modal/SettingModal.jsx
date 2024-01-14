@@ -9,8 +9,8 @@ function SettingModal({ isOpen, onClose }) {
 
     async function getReceiverID(username, token) {
         console.log('getting receivers id')
-        console.log(username)
-        console.log(typeof (username))
+        // console.log(username)
+        // console.log(typeof (username))
         const result = await axios('http://localhost:3000/api/accounts/username/find/', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token.token}` },
@@ -36,7 +36,7 @@ function SettingModal({ isOpen, onClose }) {
             data: { 'receiver': receiverID, 'message': message }
         })
 
-        // console.log(result)
+        console.log(result)
 
         return result
     }

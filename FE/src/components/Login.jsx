@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AbsoluteCenter, Box, Button, Center, Flex, Image, Input, Text } from "@chakra-ui/react";
 import "@fontsource-variable/montserrat"
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingProgress from "./miscellaneous/LoadingProgress";
+import NotificationToast from "./NotificationToast";
 
 function Login() {
   const [showLoadingProgress, setShowLoadingProgress] = useState(false);
+  const [showNotificationToast, setNotificationToast] = useState({
+    on: false,
+    variant: '',
+    position: '',
+    title: '',
+    description: '',
+    status: '',
+  });
 
   const navigate = useNavigate()
 
@@ -37,13 +46,13 @@ function Login() {
     if (contacts === undefined) {
       console.log('user have no contacts')
     } else {
-      const message = contacts.map(async(contact) => {
+      const message = contacts.map(async (contact) => {
         console.log(contact.chat_room_id)
         const result = await axios(`http://localhost:3000/api/message/${contact.chat_room_id}`, {
           method: 'GET',
-          headers: {'Authorization' : `Bearer ${token}`},
+          headers: { 'Authorization': `Bearer ${token}` },
         }).then((response) => response).catch((error) => error)
-  
+
         return result.data.data
       })
       const messages = await Promise.all(message)
@@ -87,11 +96,11 @@ function Login() {
   }
 
   async function getToken(emailInput, passwordInput) {
-    console.log('getting token')
+    // console.log('getting token')
     const result = axios('http://localhost:3000/api/auth/login/', {
-      method:'POST',
-      data: {'email': emailInput, 'password': passwordInput}
-    }).then((response) => response).catch((error) => console.log(error)) 
+      method: 'POST',
+      data: { 'email': emailInput, 'password': passwordInput }
+    }).then((response) => response).catch((error) => console.log(error))
 
     return result
   }
@@ -110,10 +119,10 @@ function Login() {
 
   async function myContactsBundler(data) {
     console.log('bundling contacts...')
-    
+
     data.map((item) => {
       // console.log(item.is_group_chat)
-      if(item.is_group_chat) {
+      if (item.is_group_chat) {
         console.log('item not eligible for push')
       } else {
         localStorage.setItem('contacts', JSON.stringify(item))
@@ -144,39 +153,74 @@ function Login() {
     console.log('bundling messages finished')
   }
 
-  async function login() {
-    console.log('FROM login : logging in...')
+  function handleNotificationToast(toast) {
+    return (
+      <NotificationToast
+        variant={toast.variant}
+        position={toast.position}
+        title={toast.title}
+        description={toast.description}
+        status={toast.status}
+      />
+    )
+  }
 
+  async function getMyInfo(token) {
+    const myData = await getMyAccountData(token.token)
+    const myContacts = await getMyContacts(token.token)
+    const myMessages = await getMyMessages(token.token, myContacts.data.data)
+    const myNotifications = await getMyNotification(token.token)
+
+    return { myData, myContacts, myMessages, myNotifications }
+  }
+
+  async function login() {
+    // console.log('FROM login : logging in...')
+    setNotificationToast({ on: false })
     setShowLoadingProgress((prev) => !prev);
     const emailInput = document.getElementById("email").value
     const passwordInput = document.getElementById("password").value
 
     const myToken = await getToken(emailInput, passwordInput)
 
-    const token = myToken.data.data
-    console.log(token)
-    const myData = await getMyAccountData(token.token)
-    const myContacts = await getMyContacts(token.token)
-    const myMessages = await getMyMessages(token.token, myContacts.data.data)
-    const myNotifications = await getMyNotification(token.token)
+    if (myToken.data.success === false) {
+      setShowLoadingProgress((prev) => !prev)
+      setNotificationToast({
+        on: true,
+        variant: 'top-accent',
+        position: 'top',
+        title: 'Login Failed',
+        description: 'Please check your email and password',
+        status: 'error',
+      })
+      return setTimeout(() => {
+        setNotificationToast({ on: false })
+      }, 2)
+    }
 
-    if(token != null || undefined ) {
+    const token = myToken.data.data
+
+    if (token != null || undefined) {
       myPassportBundler(token)
     }
 
-    if(myData.data.data != null || undefined ) {
+    const { myData, myContacts, myMessages, myNotifications } = await getMyInfo(token)
+
+    if (myData.data.data != null || undefined) {
       myDataBundler(myData.data.data)
+    } else {
+
     }
 
-    if(myContacts.data.data != undefined) {
+    if (myContacts.data.data != undefined) {
       myContactsBundler(myContacts.data.data)
     }
 
-    if(myMessages != undefined) {
+    if (myMessages != undefined) {
       myMessagesBundler(myMessages)
     }
 
-    if(myNotifications != undefined) {
+    if (myNotifications != undefined) {
       myNotificationsBundler(myNotifications.data.data)
     }
 
@@ -204,6 +248,10 @@ function Login() {
           ) : (
             <></>
           )
+      }
+      {
+        showNotificationToast.on &&
+        handleNotificationToast(showNotificationToast)
       }
       <AbsoluteCenter>
         <Flex direction="column" gap={4}>

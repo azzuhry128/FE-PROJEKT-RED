@@ -31,7 +31,7 @@ async function validateUserInfo(req) {
 
 async function validateGetUser(data) {
   try {
-    if (!data || data.length < 1) {
+    if (!data || data.length < 1 || data === undefined) {
       const error = new Error('User Not Found');
       error.code = 404;
 

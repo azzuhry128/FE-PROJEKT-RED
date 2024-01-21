@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingProgress from "./miscellaneous/LoadingProgress";
 import NotificationToast from "./NotificationToast";
+import Aos from "aos";
+import 'aos/dist/aos';
 
 function Login() {
   const [showLoadingProgress, setShowLoadingProgress] = useState(false);
@@ -239,6 +241,12 @@ function Login() {
     handleLoadingRoute('/reset')
   }
 
+  useEffect(() => {
+    Aos.init({
+      duration: 2000,
+    });
+  }, []);
+
   return (
     <>
       {
@@ -254,25 +262,43 @@ function Login() {
         handleNotificationToast(showNotificationToast)
       }
       <AbsoluteCenter>
-        <Flex direction="column" gap={4}>
-          <Center>
-            <Box boxSize='13vh' marginBottom='30px' >
-              <Image src="trashtalk.png" bg='white' borderRadius='full'></Image>
-            </Box>
-          </Center>
-          <Text textColor="twitter.100">Please insert your username and password</Text>
-          <Input id="email" type="email" variant="outline" placeholder="Email" color="white" />
-          <Input id="password" type="password" variant="outline" placeholder="Password" color="white" />
-          <Flex alignItems="center" justifyContent='start'>
-            <Text textColor="white" fontSize='xs' fontWeight='medium'>forgot password ?</Text>
-            <Button onClick={reset} variant="link" color="#93C5FD" fontSize='xs' fontWeight='medium'>reset !</Button>
-          </Flex>
-          <Button onClick={login} bg="#93C5FD" width="full">Login</Button>
-          <Flex alignItems="center" justifyContent="center">
-            <Text textColor="white" >Dont have an account ?</Text>
-            <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Register !</Button>
-          </Flex>
-        </Flex>
+        <Box boxSize={{base: '0', md:'300px'}}>
+          <Image src="trashtalk.png" bg='white' borderRadius='full'></Image>
+        </Box>
+        <AbsoluteCenter backdropFilter='auto' backdropBlur='5px' data-aos="zoom-in">
+          <Box w={{ base: "40vh", sm: '40vh', md: "70vh", lg: '90vh', xl: '110vh', '2xl': '150vh', }} h='80vh' bg={{ base: 'transparent', md: '#040B1C', lg: '#040B1C' }} opacity='0.9' borderRadius='30'>
+            <AbsoluteCenter>
+              <Flex direction="column" gap={5} w='357px'>
+                <Center marginBottom={'95px'}>
+                  <Box boxSize='10vh'>
+                    <Image src="trashtalk.png" bg='white' borderRadius='full'></Image>
+                  </Box>
+                </Center>
+                <Text textColor="twitter.100" fontSize={'20px'} fontWeight='700' textAlign={'center'}>Please insert your email and <br/> password</Text>
+                <Input id="email" type="email" variant="outline" placeholder="Email" color="white" h={'54px'} _placeholder={{
+                  color: '#A5BDFF',
+                  opacity: '0.5'
+                }}
+                />
+                <Input id="password" type="password" variant="outline" placeholder="Password" color="white" h={'54px'} 
+                _placeholder={{
+                  color: '#A5BDFF',
+                  opacity: '0.5'
+                }}
+                />
+                <Flex alignItems="center" justifyContent='start'>
+                  <Text textColor="white" fontSize='sm' fontWeight='medium'>forgot password ?</Text>
+                  <Button onClick={reset} variant="link" color="#93C5FD" fontSize='sm' fontWeight='bold' paddingLeft={'5px'}>reset !</Button>
+                </Flex>
+                <Button onClick={login} bg="#93C5FD" width="full" h={'42px'}>Login</Button>
+                <Flex alignItems="center" justifyContent="center">
+                  <Text textColor="white" >Dont have an account ?</Text>
+                  <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Register !</Button>
+                </Flex>
+              </Flex>
+            </AbsoluteCenter>
+          </Box>
+        </AbsoluteCenter>
       </AbsoluteCenter>
     </>
   )

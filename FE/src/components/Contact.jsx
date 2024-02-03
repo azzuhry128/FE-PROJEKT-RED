@@ -12,7 +12,7 @@ function Contact(){
             <Flex padding='1rem' color='white' fontWeight='medium' fontSize='xl' borderBottom='1px' borderColor='black'>
                 <Text>Contacts</Text>
             </Flex>
-            <Flex>
+            <Flex direction='column'>
                 {<ContactsAdapter contacts={storedContacts}/>}
             </Flex>
         </Box>

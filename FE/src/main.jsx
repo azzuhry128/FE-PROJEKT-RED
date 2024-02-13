@@ -14,6 +14,7 @@ import Login from './components/Login'
 import Chat from './components/Chat'
 import Sidebar from './components/Sidebar'
 import Contact from './components/Contact'
+import Otp from './components/Otp'
 
 const mainTheme = extendTheme({
   fonts: {
@@ -78,6 +79,10 @@ const routes = [
   {
     path:'/register',
     element: <Register/>
+  },
+  {
+    path:'/otp',
+    element: <Otp/>
   },
   {
     path:'/login',

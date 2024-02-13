@@ -1,21 +1,15 @@
 import { useState, useRef } from "react";
 import {
-  AbsoluteCenter,
   Box,
-  Center,
+  useDisclosure,
   Flex,
   Image,
+  Center,
   Input,
-  Text,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
   Button,
+  Text,
+  VStack
+
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import LoadingProgress from "./miscellaneous/LoadingProgress";
@@ -56,7 +50,7 @@ function Register() {
   }
 
 
-  async function confirmUserData(){
+  async function confirmUserData() {
     console.log("confirming data...")
     // const data = []
     const usernameInput = document.getElementById('username').value
@@ -75,9 +69,9 @@ function Register() {
 
   async function imageRename() {
     console.log('renaming image...')
-    
+
     const newImageName = Date.now()
-    const renamedImage = new File([selectedImage[0]], newImageName, {type: selectedImage.type})
+    const renamedImage = new File([selectedImage[0]], newImageName, { type: selectedImage.type })
 
     return renamedImage
   }
@@ -94,9 +88,9 @@ function Register() {
     const image = await imageRename()
 
     const result = await axios('http://localhost:3000/api/auth/register/', {
-      method:'POST',
-      data: {'username': data.username,'email': data.email, 'password': data.password, 'image': image.name}
-    }).then((response) => response).catch((error) => console.log(error)) 
+      method: 'POST',
+      data: { 'username': data.username, 'email': data.email, 'password': data.password, 'image': image.name }
+    }).then((response) => response).catch((error) => console.log(error))
 
     console.log(result)
   }
@@ -115,11 +109,42 @@ function Register() {
         <></>
       )}
 
-      <AbsoluteCenter>
+      <Flex>
+        <Box id="boxkiri" backgroundColor="#93C5FD" width="50%" height="56.9rem">
+          <Center marginTop="15rem">
+            <Image src="registerImage.png" ></Image>
+          </Center>
+        </Box>
+
+        <Box id="boxkanan" width="50%" height="56.9rem">
+          <Center marginTop="15rem">
+            <VStack>
+            <Text as = "b" textColor="#93C5FD" fontSize="1.5rem" textAlign="center" margin="0.5rem"  >Create Account</Text>
+            <Input id="username" type="text" width="20rem" height="3rem" variant="outline" placeholder="Username" color="white" margin="0.5rem" />
+            <Input id="email" type="email" width="20rem"  height="3rem" variant="outline" placeholder="Email" color="white" margin="0.5rem"/>
+            <Image src="trashtalkBlur.png" zIndex={-1} position="absolute" marginTop="3rem" ></Image>
+            <Input id="password" type="password" variant="outline" width="20rem" height="3rem" placeholder="Password" color="white" margin="0.5rem" />
+            <Button onClick={onOpen} bg="#93C5FD"  width="20rem" height="3rem">Sign up</Button>
+            <Flex alignItems="center" justifyContent="center">
+              <Text textColor="white">Already Have Account ?</Text>
+              <Button onClick={navigator} variant="link" color="#93C5FD" ml={2}>Sign in !</Button>
+            </Flex>
+            </VStack>
+          </Center>
+        </Box>
+
+      </Flex>
+
+
+
+
+
+
+      {/* <AbsoluteCenter>
         <Flex direction="column" gap={4}>
           <Center>
             <Box boxSize='13vh' marginBottom='30px' >
-              <Image src="trashtalk.png" bg='white' borderRadius='full'></Image>
+              
             </Box>
           </Center>
           <Text textColor="twitter.100" textAlign="center">Create your new account</Text>
@@ -159,7 +184,7 @@ function Register() {
             </ModalFooter>
           </ModalContent>
         </Modal>
-      </AbsoluteCenter>
+      </AbsoluteCenter> */}
     </>
   );
 }

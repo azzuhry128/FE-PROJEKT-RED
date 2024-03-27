@@ -1,11 +1,8 @@
 import { Box, Button, Container, Flex, Grid, GridItem, Text } from "@chakra-ui/react"
-import axios from "axios"
-import ContactsAdapter from "../adapters/ContactsAdapter"
-import { useEffect, useState } from "react"
+import ContactsAdapter from "../adapters/ContactAdapter"
 
 function Contact(){
     console.log('rendering contact...')
-    const storedContacts = JSON.parse(localStorage.getItem('contacts'))
 
     return(
         <Box display="flex" bg="#1E293B" flexDirection="column" width='356px'  borderRight='1px' borderColor='black'>
@@ -13,7 +10,7 @@ function Contact(){
                 <Text>Contacts</Text>
             </Flex>
             <Flex direction='column'>
-                {<ContactsAdapter contacts={storedContacts}/>}
+
             </Flex>
         </Box>
     )

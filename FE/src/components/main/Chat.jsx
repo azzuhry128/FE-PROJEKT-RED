@@ -3,22 +3,17 @@ import "boxicons"
 import callStackLog from "../../log/callStackLog";
 import { useDispatch } from "react-redux";
 import Message from "../message";
+import add_message from "../../actions/ADD_MESSAGE";
+import MessageAdapter from "../../adapters/MessageAdapter";
 
 const Chat = () => {
   const dispatch = useDispatch()
 
   function sendMessage() {
-    callStackLog('sendMessage')
+    // callStackLog('sendMessage')
     const value = document.getElementById('messageInputField').value
-    const messageobj = actionCreator('ADD_MESSAGE', value)
+    const messageobj = add_message(value)
     dispatch(messageobj)
-  }
-
-  function actionCreator(type, payload) {
-    return {
-      type: type,
-      payload: payload
-    }
   }
 
   return (
@@ -33,9 +28,7 @@ const Chat = () => {
         </Box>
       </Box>
       <Box borderRadius='0.5rem' flex='9' boxShadow='lg' bg='#EE7850'>
-        <Message perspective="true" id_message="12345" message="hello there" />
-        <Message perspective="false" id_message="123456" message="yeah, need something ?" />
-
+      <MessageAdapter/>
       </Box>
       <Box display='flex' flexDirection='row' bg='#EE7850' justifyContent='center' alignItems='center' borderRadius='0.5rem' flex='0' gap={2} boxShadow='lg'>
         <Input id="messageInputField" border='none' focusBorderColor='transparent'/>

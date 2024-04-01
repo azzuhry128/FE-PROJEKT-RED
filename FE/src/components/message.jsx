@@ -5,7 +5,7 @@ import callStackLog from "../log/callStackLog";
 const Message = (props) => {
 
   const UtilityButton = () => {
-    callStackLog('Message.jsx')
+    // callStackLog('Message.jsx')
     return (
       <Menu>
         <MenuButton
@@ -58,7 +58,7 @@ const Message = (props) => {
       </Flex>
     )
   }
-  console.log(props.perspective)
+  
   return (
     <>
     {props.perspective === 'true' ? <Sender/> : <Receiver/>}

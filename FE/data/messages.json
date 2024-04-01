@@ -1,0 +1,47 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "Pesan dimuat",
+    "data": [
+        {
+            "message_id": "61c6205d-d8cf-4144-8ca3-c94464df3fe9",
+            "account_id": "a39981e7-ecbe-4039-a258-1e056afec692",
+            "chat_room_id": "b91edb32-bbd1-433e-b81b-eef1776f53c0",
+            "is_group_chat": "false",
+            "content": "good morning",
+            "image": null,
+            "createdAt": "2023-12-10T12:23:47.000Z",
+            "updatedAt": "2023-12-10T12:23:47.000Z"
+        },
+        {
+            "message_id": "61c6205d-d8cf-4144-8ca3-c94464df3fe8",
+            "account_id": "a39981e7-ecbe-4039-a258-1e056afec692",
+            "chat_room_id": "b91edb32-bbd1-433e-b81b-eef1776f53c0",
+            "is_group_chat": "false",
+            "content": "good afternoon",
+            "image": null,
+            "createdAt": "2023-12-10T12:23:47.000Z",
+            "updatedAt": "2023-12-10T12:23:47.000Z"
+        },
+        {
+            "message_id": "61c6205d-d8cf-4144-8ca3-c94464df3fe7",
+            "account_id": "a39981e7-ecbe-4039-a258-1e056afec691",
+            "chat_room_id": "b91edb32-bbd1-433e-b81b-eef1776f53c0",
+            "is_group_chat": "false",
+            "content": "goodnight",
+            "image": null,
+            "createdAt": "2023-12-10T12:23:47.000Z",
+            "updatedAt": "2023-12-10T12:23:47.000Z"
+        },
+        {
+            "message_id": "61c6205d-d8cf-4144-8ca3-c94464df3fe6",
+            "account_id": "a39981e7-ecbe-4039-a258-1e056afec691",
+            "chat_room_id": "b91edb32-bbd1-433e-b81b-eef1776f53c0",
+            "is_group_chat": "false",
+            "content": "good",
+            "image": null,
+            "createdAt": "2023-12-10T12:23:47.000Z",
+            "updatedAt": "2023-12-10T12:23:47.000Z"
+        }
+    ]
+}

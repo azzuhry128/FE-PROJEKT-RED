@@ -1,6 +1,3 @@
-// accountReducer.js
-
-// Initial state for account credentials
 const initialState = {
     username: null,
     email: null,

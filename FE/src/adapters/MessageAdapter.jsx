@@ -21,7 +21,7 @@ const MessageAdapter = () => {
         }
         fetchMessages()
     }, [])
-    console.log(contactState['contact'])
+    console.log(contactState['contact_id'])
 
     if (loading) {
         return null;
@@ -31,7 +31,7 @@ const MessageAdapter = () => {
         <>
             {
                 messages.map((message, index) => {
-                    if (message.account_id == contactState['contact']) {
+                    if (message.account_id == contactState['contact_id']) {
                         return <Message key={index} message={message.content}/>
                     }
                 })

@@ -30,7 +30,7 @@ const ContactAdapter = () => {
         <>
             {
                 contacts.map((contact, index) => {
-                    return <Contact key={index} username={contact.username} account_id={contact.account_id}/>
+                    return <Contact key={index} username={contact.username} id={contact.account_id} email={contact.email} />
                 })
             }
         </>

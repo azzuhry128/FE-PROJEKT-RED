@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import Message from "../message";
 import add_message from "../../actions/ADD_MESSAGE";
 import MessageAdapter from "../../adapters/MessageAdapter";
+import ContactInfoAdapter from "../../adapters/ContactInfoAdapter";
 
 const Chat = () => {
   const dispatch = useDispatch()
@@ -19,13 +20,7 @@ const Chat = () => {
   return (
     <Flex width="full" direction='column' justifyContent='space-evenly' flexDirection="column" gap={1}>
       <Box display='flex' flexDirection='row' width='full'bg='#EE7850' borderRadius='0.5rem' flex='1' height='auto' boxShadow='lg'>
-        <Box display='flex' flexDirection='row' padding={2} justifyContent='center' alignItems='center' gap={2}>
-          <Avatar/>
-          <Box display='flex' flexDirection='column'>
-            <Text fontWeight='medium' fontSize='lg'>Username</Text>
-            <Text fontWeight='medium'>#Tag</Text>
-          </Box>
-        </Box>
+        <ContactInfoAdapter/>
       </Box>
       <Box borderRadius='0.5rem' flex='9' boxShadow='lg' bg='#EE7850'>
       <MessageAdapter/>

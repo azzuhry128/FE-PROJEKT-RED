@@ -1,0 +1,11 @@
+{
+    "data": [
+        {
+        "account_id": "a39981e7-ecbe-4039-a258-1e056afec692",
+        "username": "new_user_1",
+        "email": "new_email_1",
+        "bio": "new_bio_1",
+        "image": "new_image_1.jpg"
+        }
+    ]
+}

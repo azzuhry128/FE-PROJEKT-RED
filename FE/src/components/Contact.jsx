@@ -1,15 +1,23 @@
 import { Avatar, Box, Button, Center, Container, Flex, Grid, GridItem, Text } from "@chakra-ui/react"
-import switch_contact from "../actions/switch_contact"
 import { useDispatch } from "react-redux"
-import callStackLog from "../log/callStackLog"
 
 const Contact = (props) => {
     const dispatch = useDispatch()
 
     function switchContact() {
-        // callStackLog('switchContact')
-        const value = props.account_id
-        const obj = switch_contact(value)
+        const id = props.id
+        const username = props.username
+        const email = props.email
+
+        const obj = {
+            type: 'SWITCH_CONTACT',
+            payload: {
+                id,
+                username,
+                email
+            }
+        }
+
         dispatch(obj)
     }
     return(

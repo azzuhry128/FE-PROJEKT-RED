@@ -1,7 +1,6 @@
 import { Box, Flex, IconButton, Input } from "@chakra-ui/react"
 import 'boxicons'
 import ContactAdapter from "../../adapters/ContactAdapter"
-import Contact from "../Contact"
 
 const Utility = () => {
     return (

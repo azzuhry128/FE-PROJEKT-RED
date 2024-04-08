@@ -1,12 +1,13 @@
-import { Avatar, Box, Button, Center, Collapse, Container, Divider, Fade, Flex, IconButton, Menu, MenuButton, MenuItem, MenuList, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverFooter, PopoverHeader, PopoverTrigger, Slide, Text, useDisclosure } from "@chakra-ui/react"
+import { Avatar, Container, Divider, Flex, IconButton, useDisclosure } from "@chakra-ui/react"
 import 'boxicons'
 import { useState } from "react"
+import SettingDrawer from "../drawer/SettingDrawer"
 const Sidebar = () => {
-    const { isOpen, onToggle, onClose} = useDisclosure()
+    const { isOpen, onOpen, onClose} = useDisclosure()
     return(
         <>
         <Flex direction='column' borderRadius='0.5rem' width='6rem' height={'full'} bg='#EE7850' overflow='auto' justifyContent={'space-between'}>
-            <Avatar size='sm' margin='1rem' alignSelf='center'/>
+            <Avatar size='sm' margin='1rem' alignSelf='center' visibility='hidden'/>
 
             <Container display='flex' flexDirection='column' justifyContent='center' alignItems='center' gap='8'>
                 <IconButton 
@@ -34,10 +35,24 @@ const Sidebar = () => {
                     _hover={{bg: '#669bbc'}}
                 />
             </Container>
-            <Box margin='1rem' display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-                <box-icon type='solid' name='cog' color="white" animation="tada-hover"></box-icon>
-            </Box>
+            
+            <Container display='flex' flexDirection='column' justifyContent='center' alignItems='center' gap='2'>
+                <IconButton 
+                        icon={<box-icon type='solid' name='cog' color="white" animation="tada-hover"/>}
+                        colorScheme=''
+                        _hover={{bg: 'none'}}
+                        onClick={onOpen}
+                    />
+
+                <IconButton 
+                        icon={<box-icon type='solid' name='door-open' color="white" animation="tada-hover"/>}
+                        colorScheme=''
+                        _hover={{bg: 'none'}}
+                    />
+            </Container>
         </Flex>
+
+        <SettingDrawer isOpen={isOpen} onClose={onClose}/>
         </>
     )
 }

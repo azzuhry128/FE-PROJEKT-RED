@@ -54,6 +54,10 @@ const SettingDrawer = (props) => {
         return null
     }
 
+    if(props.type != 'SettingDrawer') {
+        return null
+    }
+
     return(
         <>
         <Drawer

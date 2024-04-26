@@ -2,7 +2,6 @@ import { Avatar, Container, Divider, Flex, IconButton, useDisclosure } from "@ch
 import 'boxicons'
 import { useState } from "react"
 import SettingDrawer from "../drawer/SettingDrawer"
-<<<<<<< HEAD
 import LogoutModal from "../modal/LogoutModal"
 const Sidebar = () => {
     const { isOpen, onOpen, onClose} = useDisclosure()
@@ -16,10 +15,6 @@ const Sidebar = () => {
     const openLogoutModal = () => setLogoutModalOpen(true);
     const closeLogoutModal = () => setLogoutModalOpen(false);
 
-=======
-const Sidebar = () => {
-    const { isOpen, onOpen, onClose} = useDisclosure()
->>>>>>> c21fdb5f36f0b5827c641b7d4e8488f73f6f7218
     return(
         <>
         <Flex direction='column' borderRadius='0.5rem' width='6rem' height={'full'} bg='#EE7850' overflow='auto' justifyContent={'space-between'}>
@@ -57,31 +52,20 @@ const Sidebar = () => {
                         icon={<box-icon type='solid' name='cog' color="white" animation="tada-hover"/>}
                         colorScheme=''
                         _hover={{bg: 'none'}}
-<<<<<<< HEAD
                         onClick={openSettingDrawer}
-=======
-                        onClick={onOpen}
->>>>>>> c21fdb5f36f0b5827c641b7d4e8488f73f6f7218
                     />
 
                 <IconButton 
                         icon={<box-icon type='solid' name='door-open' color="white" animation="tada-hover"/>}
                         colorScheme=''
                         _hover={{bg: 'none'}}
-<<<<<<< HEAD
                         onClick={openLogoutModal}
-=======
->>>>>>> c21fdb5f36f0b5827c641b7d4e8488f73f6f7218
                     />
             </Container>
         </Flex>
 
-<<<<<<< HEAD
         <SettingDrawer isOpen={isSettingDrawerOpen} onClose={closeSettingDrawer} type={'SettingDrawer'}/>
         <LogoutModal isOpen={isLogoutModalOpen} onClose={closeLogoutModal} type={'LogoutModal'}/>
-=======
-        <SettingDrawer isOpen={isOpen} onClose={onClose}/>
->>>>>>> c21fdb5f36f0b5827c641b7d4e8488f73f6f7218
         </>
     )
 }

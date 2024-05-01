@@ -6,7 +6,7 @@ import Chat from "../components/main/Chat"
 const MainLayout = () => {
     return(
         <>
-            <Flex width='100%' direction="row" gap="1" height='100vh' padding='1' >
+            <Flex width='100%' height='100vh'>
                 <Sidebar />
                 <Utility/>
                 <Chat/>

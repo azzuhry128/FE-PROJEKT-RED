@@ -20,8 +20,28 @@ const Contact = (props) => {
 
         dispatch(obj)
     }
+
+    // const switchMessage = async() => {
+    //     const response = await fetch('/data/messages.json')
+    //     const result = await response.json()
+
+    //     console.log(result)
+
+    //     const obj = {
+    //         type: 'SWITCH_MESSAGE',
+    //         payload: result.data
+    //     }
+
+    //     dispatch(obj)
+    // }
+
+    const handleClick = () => {
+        switchContact()
+        // switchMessage()
+    }
+
     return(
-        <Box as={Button} onClick={() => switchContact()} display="flex" bg='#f4a261' flexDirection="row" width='100%' marginY={1} justifyContent='start' height='max-content' rounded='md'>
+        <Box as={Button} onClick={() => handleClick()} display="flex" bg='#f4a261' flexDirection="row" width='100%' marginY={1} justifyContent='start' height='max-content' rounded='md'>
             <Flex gap={2} padding={2}>
                 <Avatar />
                 <Center>

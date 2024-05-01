@@ -4,16 +4,23 @@ import Message from "../components/message"
 import { useDispatch, useSelector } from "react-redux"
 
 const MessageAdapter = () => {
-    const [messages, setMessages] = useState()
     const [loading, setLoading] = useState(true)
     const contactState = useSelector((state) => state.contact)
+    const messageState = useSelector((state) => state.message)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchMessages = async() => {
             try {
                 const response = await fetch('/data/messages.json')
                 const result = await response.json()
-                setMessages(result.data)
+
+                const obj = {
+                    type: 'SWITCH_MESSAGE',
+                    payload: result.data
+                }
+                dispatch(obj)
+
                 setLoading(false)
             } catch (error) {
                 console.log(error)
@@ -21,7 +28,8 @@ const MessageAdapter = () => {
         }
         fetchMessages()
     }, [])
-    console.log(contactState['contact_id'])
+
+    // console.log(messageState.messages)
 
     if (loading) {
         return null;
@@ -30,7 +38,7 @@ const MessageAdapter = () => {
     return (
         <>
             {
-                messages.map((message, index) => {
+                messageState.messages.map((message, index) => {
                     if (message.account_id == contactState['contact_id']) {
                         return <Message key={index} message={message.content}/>
                     }

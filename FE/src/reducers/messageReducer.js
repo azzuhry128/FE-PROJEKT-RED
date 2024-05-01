@@ -7,6 +7,7 @@ const initialState = {
 
 // Action types
 const ADD_MESSAGE = 'ADD_MESSAGE';
+const SWITCH_MESSAGE = 'SWITCH_MESSAGE';
 // const EDIT_MESSAGE = 'EDIT_MESSAGE'; // New action type for editing messages
 // const DELETE_MESSAGES = 'DELETE_MESSAGES';
 
@@ -15,6 +16,8 @@ const messageReducer = (state = initialState, action) => {
     switch (action.type) {
     case ADD_MESSAGE:
         return { ...state, messages: [...state.messages, action.payload] };
+    case SWITCH_MESSAGE:
+        return { ...state, messages: action.payload };
     default:
         return state;
     }

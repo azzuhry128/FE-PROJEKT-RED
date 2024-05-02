@@ -1,11 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { getStorage, ref } from 'firebase/storage';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+import axios from "axios"
 
-// Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCN1NUBr4gEhi9FcsXogIrmsH-q_ZF-SHY",
@@ -24,8 +21,10 @@ const app = initializeApp(firebaseConfig);
 //storage
 const storageRef = getStorage(app)
 
-const profilePictureStorageURL = 'gs://trashtalk-image-storage.appspot.com/images'
-const profilePictureRef = ref(storageRef, 'profile-picture')
-const profilePictureDownloadReference = ref(storageRef, profilePictureStorageURL)
+const firebaseImageFetcher = async(imageReference) => {
+    const result = await getDownloadURL(ref(storageRef, `profile-picture/${imageReference}`))
+    // const image = await axios.get(result).then((response) => response)
+    return result
+}
 
-export { profilePictureRef, profilePictureDownloadReference }
+export default firebaseImageFetcher

@@ -16,7 +16,7 @@ const MessageAdapter = () => {
                 const result = await response.json()
 
                 const obj = {
-                    type: 'SWITCH_MESSAGE',
+                    type: 'FETCH_MESSAGE',
                     payload: result.data
                 }
                 dispatch(obj)

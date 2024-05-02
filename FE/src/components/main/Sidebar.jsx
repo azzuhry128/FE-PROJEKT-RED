@@ -21,7 +21,7 @@ const Sidebar = () => {
     return(
         <>
         <Flex direction='column' width='6rem' height={'full'} bg='#EE7850' overflow='auto' justifyContent={'space-between'}>
-            <Avatar size='sm' margin='1rem' alignSelf='center' visibility='hidden'/>
+            <Avatar size='md' margin='1rem' alignSelf='center'/>
 
             <Container display='flex' flexDirection='column' justifyContent='center' alignItems='center' gap='8'>
                 <IconButton 

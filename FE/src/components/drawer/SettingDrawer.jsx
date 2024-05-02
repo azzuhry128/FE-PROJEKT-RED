@@ -19,36 +19,52 @@ import {
 import { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from "react-redux"
+import firebaseImageFetcher from '../../firebase/firebase'
 
 const SettingDrawer = (props) => {
     const accountState = useSelector((state) => state.account)
     const [loading, setLoading] = useState(true)
+    const [image, setImage] = useState('')
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const fetchAccount = async() => {
-            try {
-                const response = await fetch('/data/account.json')
-                const result = await response.json()
-
-                const obj = {
-                    type: 'SET_ACCOUNT',
-                    payload: {
-                        accountID: result.data[0].account_id,
-                        accountUsername: result.data[0].username,
-                        accountEmail: result.data[0].email,
-                        accountbio: result.data[0].bio
-                    }
-                }
-
-                dispatch(obj)
-                setLoading(false)
-            } catch (error) {
-                console.log(error)
-            }
+        const handler = async() => {
+            const data = await fetchAccount()
+            avatarImageRetriever(data)
         }
-        fetchAccount()
+
+        handler()
     }, [])
+
+    const fetchAccount = async() => {
+        try {
+            const response = await fetch('/data/account.json')
+            const result = await response.json()
+
+            const obj = {
+                type: 'FETCH_ACCOUNT',
+                payload: {
+                    accountID: result.data[0].account_id,
+                    accountUsername: result.data[0].username,
+                    accountEmail: result.data[0].email,
+                    accountImage: result.data[0].image,
+                    accountbio: result.data[0].bio
+                }
+            }
+
+            dispatch(obj)
+            setLoading(false)
+            return result
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const avatarImageRetriever = async(response) => {
+        const imageReferece = response.data[0].image
+        const result = await firebaseImageFetcher(imageReferece)
+        setImage(result)
+    }
 
     if(loading) {
         return null
@@ -71,7 +87,7 @@ const SettingDrawer = (props) => {
             <DrawerHeader>Settings</DrawerHeader>
 
             <Container display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-                <Avatar size={'xl'}/>
+                <Avatar size={'xl'} src={image} />
                 <Text align='center' fontWeight='medium' fontSize='xs' color='grey.300' margin='0.5rem'>
                 {accountState['accountID']}
                 </Text>
